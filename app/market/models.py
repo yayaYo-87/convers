@@ -49,7 +49,7 @@ class Category(models.Model):
 class GoodsAbstract(models.Model):
     name = models.CharField(verbose_name='Название', max_length=256)
     price = models.PositiveIntegerField(verbose_name='Цена', blank=False)
-    description = HTMLField(verbose_name='Описание оборудования', blank=True)
+    description = HTMLField(verbose_name='Описание', blank=True)
     available = models.BooleanField(verbose_name='Доcтупен сейчас', default=True)
     cover = models.ImageField(verbose_name='Выбрать фотографию обложки', blank=True, upload_to=upload_to)
     hover_cover = models.ImageField(verbose_name='Выбрать фотографию ховера обложки', blank=True, upload_to=upload_to)

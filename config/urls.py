@@ -16,13 +16,13 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.db import router
+from config.api import router
 
 from app.market.views import IndexView
 from config import settings
 
 urlpatterns = [
-    # url(r'^api/', include(router.urls, namespace='api')),
+    url(r'^api/', include(router.urls, namespace='api')),
     url(r'^admin/', admin.site.urls),
     url(r'^[a-z]*_?/?[a-z]*_?/?[0-9]*_?/?[0-9]*$', IndexView.as_view(), name='index'),
 
