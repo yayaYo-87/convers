@@ -27,3 +27,5 @@ htmls/
 pictures/
 static_root
 __pycache__/
+
+frontend/static/dist
