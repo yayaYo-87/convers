@@ -1,0 +1,161 @@
+@import "block/__Header.styl"
+@import "block/fonts.styl"
+@import "block/__Main.styl"
+@import "block/__MainBar.styl"
+@import "block/__MainProduct.styl"
+@import "block/__Footer.styl"
+@import "block/__Product.styl"
+@import "block/__Cart.styl"
+@import "block/__Basket.styl"
+@import "block/__Order.styl"
+
+.app{
+  margin: 0 auto
+  max-width: 960px
+  overflow: hidden
+  &__wrapper {
+    max-width: inherit
+
+  }
+}
+
+body, html {
+  margin:0
+  padding:0
+  height 100%
+  min-height: 100%;
+  min-width: 1240px
+  font-family: "PTSansRegular"
+  color: #303942;
+}
+//.button {
+//  display: block;
+//  color: #ffffff;
+//  height: 30px;
+//  width: 92px
+//  text-align: center;
+//  background-color #6582a0;
+//  border: 0;
+//  padding: 0;
+//  cursor: pointer;
+//  border-radius: 4px;
+//  &:hover {
+//    span {
+//      text-decoration: underline
+//    }
+//  }
+//}
+h1{
+  color: #303942;
+  font-weight normal
+  font-family LatoRegular
+  font-size: 26px
+  line-height: 33px
+}
+h3{
+  color: #303942;
+  font-size: 19px
+  line-height: 25px
+  font-weight normal
+  font-family LatoRegular
+}
+h2{
+  font-size: 22px
+  line-height: 28px
+  color: #303942;
+  font-weight normal
+  font-family LatoRegular
+}
+.dn{
+  display none !important
+}
+
+a{
+  text-decoration none
+  color: #969696;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+
+}
+.ruble{
+  font-family: 'PTSans', serif;
+}
+.error{
+  position: fixed
+  width: 100%
+  height:  100%
+  background-color rgba(0,0,0,.2)
+  display: flex
+  top: 0px
+  left: 0px
+  justify-content: center
+  align-items center
+  z-index: 999
+  &-wrapper{
+    width: 500px
+    background-color white
+    padding: 40px
+    text-align center
+  }
+}
+
+.noSupport{
+  width: 100%;
+  height: 100%;
+  display: table;
+  position: fixed;
+  z-index: 10000
+  top: 0;
+  left: 0;
+  background-color rgba(0, 0, 0, 0.5)
+  &_wrapper{
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+  }
+  &_block{
+    display: inline-block
+    background-color white
+    padding: 20px
+    width: 500px
+  }
+  &-title{
+    font-size 20px
+    padding-bottom: 10px
+  }
+}
+
+.router-enter-active {
+  transition: all .5s ease;
+}
+.router-leave-active {
+  transition: all .5s ease;
+}
+.router-enter, .router-leave-to{
+  opacity: 0;
+  transform scale(.9)
+}
+.popup-enter-active {
+  transition: all .3s ease;
+}
+.popup-leave-active {
+  transition: all .3s ease;
+}
+.popup-enter, .popup-leave-to{
+  opacity: 0;
+}
+
+.routerw-enter-active {
+  transition: all .5s ease;
+}
+.routerw-leave-active {
+  transition: all .5s ease;
+}
+.routerw-enter, .routerw-leave-to{
+  opacity: 0;
+}

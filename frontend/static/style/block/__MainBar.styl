@@ -1,0 +1,59 @@
+.main-bar{
+  display: flex
+  width: 225px
+  flex-direction: column;
+  padding-top 20px
+  margin-right: 20px
+  img{
+    width: 100%
+    display: flex
+  }
+  &_item{
+    border-bottom: 1px dashed #5e7d23;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    &-img {
+      width: 127px !important
+    }
+  }
+  h2{
+    font-size 22px
+    margin-top: 8px
+    margin-bottom: 15px
+    font-family LatoRegular
+    font-weight: normal
+  }
+  &_text{
+    font-family MerriweatherRegular
+    font-size 13px
+    margin-bottom: 0px
+  }
+  &_read{
+    color: #00acc1;
+    margin-bottom: 15px
+    display: block
+    font-style: italic;
+    span{
+      font-size 13px
+      line-height: 19px
+      &:hover{
+        border-bottom:1px solid #00acc1;
+      }
+    }
+  }
+
+  &_link{
+    color: #303942;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 14px
+  }
+  &_date{
+    color: #a3a3af;
+    font-style: italic;
+    font-size: 90%;
+    margin: 5px 0;
+    display: block;
+    font-family MerriweatherItalic
+  }
+}
