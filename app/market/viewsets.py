@@ -1,9 +1,7 @@
 from rest_framework import viewsets
 
-from app.market.models import Catalog, Category, Books, Clothes, Dvd, Souvenirs
-from app.market.serializers import CatalogSerializer, CategorySerializer, BooksSerializer, BooksDetailSerializer, \
-    ClothesSerializer, ClothesDetailSerializer, DvdSerializer, DvdDetailSerializer, SouvenirsSerializer, \
-    SouvenirsDetailSerializer
+from app.market.models import Catalog, Category, Goods
+from app.market.serializers import CatalogSerializer, CategorySerializer, GoodsSerializer, GoodsDetailSerializer
 
 
 class CatalogViewSet(viewsets.ModelViewSet):
@@ -17,41 +15,11 @@ class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = CategorySerializer
 
 
-class BooksViewSet(viewsets.ModelViewSet):
-    queryset = Books.objects.all()
-    serializer_class = BooksSerializer
+class GoodsViewSet(viewsets.ModelViewSet):
+    queryset = Goods.objects.all()
+    serializer_class = GoodsSerializer
 
     def get_serializer_class(self):
         if self.action == 'retrieve':
-            return BooksDetailSerializer
-        return super(BooksViewSet, self).get_serializer_class()
-
-
-class ClothesViewSet(viewsets.ModelViewSet):
-    queryset = Clothes.objects.all()
-    serializer_class = ClothesSerializer
-
-    def get_serializer_class(self):
-        if self.action == 'retrieve':
-            return ClothesDetailSerializer
-        return super(ClothesViewSet, self).get_serializer_class()
-
-
-class DvdViewSet(viewsets.ModelViewSet):
-    queryset = Dvd.objects.all()
-    serializer_class = DvdSerializer
-
-    def get_serializer_class(self):
-        if self.action == 'retrieve':
-            return DvdDetailSerializer
-        return super(DvdViewSet, self).get_serializer_class()
-
-
-class SouvenirsViewSet(viewsets.ModelViewSet):
-    queryset = Souvenirs.objects.all()
-    serializer_class = SouvenirsSerializer
-
-    def get_serializer_class(self):
-        if self.action == 'retrieve':
-            return SouvenirsDetailSerializer
-        return super(SouvenirsViewSet, self).get_serializer_class()
+            return GoodsDetailSerializer
+        return super(GoodsViewSet, self).get_serializer_class()

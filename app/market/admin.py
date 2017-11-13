@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from app.market.models import Catalog, Category, Books, Clothes, Dvd, Souvenirs
+from app.market.models import Catalog, Category, Goods, Type, Size
 
 
 @admin.register(Catalog)
@@ -10,15 +10,27 @@ class CatalogAdmin(admin.ModelAdmin):
     fields = ['name', 'slug']
 
 
+@admin.register(Type)
+class TypeAdmin(admin.ModelAdmin):
+    model = Type
+    fields = ['name']
+
+
+@admin.register(Size)
+class TypeAdmin(admin.ModelAdmin):
+    model = Size
+    fields = ['name']
+
+
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     model = Category
     fields = ['name', 'catalog', 'sort_index']
 
 
-@admin.register(Books)
-class BooksAdmin(admin.ModelAdmin):
-    model = Books
+@admin.register(Goods)
+class GoodsAdmin(admin.ModelAdmin):
+    model = Goods
     fieldsets = [
         (
             'Основные характеристики',
@@ -26,6 +38,7 @@ class BooksAdmin(admin.ModelAdmin):
                 'classes': ('suit-tab', 'suit-tab-general',),
                 'fields': (
                     'name',
+                    'type',
                     'category',
                     'price',
                     'description',
@@ -52,7 +65,7 @@ class BooksAdmin(admin.ModelAdmin):
             }
         ),
         (
-            'Дополнительно',
+            'Необходимо заполнять только для товара категории "Книги"',
             {
                 'classes': ('suit-tab', 'suit-tab-extra',),
                 'fields': (
@@ -62,69 +75,22 @@ class BooksAdmin(admin.ModelAdmin):
                     'easy_to_use',
                     'author',
                     'count_pages',
+                    'format',
                     'date_publication',
                 )
             }
-        )
-    ]
-    readonly_fields = ['image_img', 'image_hover_img']
-
-    def image_img(self, obj):
-        if obj.cover:
-            return mark_safe('<a href="{0}" target="_blank"><img src="{0}" width="200"/></a>'.format(obj.cover.url))
-        else:
-            return '(Нет изображения)'
-
-    image_img.short_description = 'Фотография обложки'
-    image_img.allow_tags = True
-
-    def image_hover_img(self, obj):
-        if obj.hover_cover:
-            return mark_safe('<a href="{0}" target="_blank"><img src="{0}" width="200"/></a>'.format(obj.hover_cover.url))
-        else:
-            return '(Нет изображения)'
-
-    image_hover_img.short_description = 'Фотография ховера обложки'
-    image_hover_img.allow_tags = True
-    suit_form_tabs = (('general', 'Основные'), ('size', 'Габариты'), ('extra', 'Дополнительно'))
-
-
-@admin.register(Clothes)
-class ClothesAdmin(admin.ModelAdmin):
-    model = Clothes
-    fieldsets = [
-        (
-            'Основные характеристики',
-            {
-                'classes': ('suit-tab', 'suit-tab-general',),
-                'fields': (
-                    'name',
-                    'category',
-                    'price',
-                    'description',
-                    'available',
-                    'cover',
-                    'image_img',
-                    'hover_cover',
-                    'image_hover_img',
-                    'sort_index',
-                    'is_active',
-                )
-            }
         ),
         (
-            'Габариты',
+            'Необходимо заполнять только для товара категории "Одежда"',
             {
-                'classes': ('suit-tab', 'suit-tab-size',),
+                'classes': ('suit-tab', 'suit-tab-clothes',),
                 'fields': (
-                    'width',
-                    'height',
-                    'length',
-                    'weight',
+                    'size',
                 )
             }
         )
     ]
+    filter_horizontal = ['size',]
     readonly_fields = ['image_img', 'image_hover_img']
 
     def image_img(self, obj):
@@ -144,120 +110,6 @@ class ClothesAdmin(admin.ModelAdmin):
 
     image_hover_img.short_description = 'Фотография ховера обложки'
     image_hover_img.allow_tags = True
-    suit_form_tabs = (('general', 'Основные'), ('size', 'Габариты'))
-
-
-@admin.register(Dvd)
-class DvdAdmin(admin.ModelAdmin):
-    model = Dvd
-    fieldsets = [
-        (
-            'Основные характеристики',
-            {
-                'classes': ('suit-tab', 'suit-tab-general',),
-                'fields': (
-                    'name',
-                    'category',
-                    'price',
-                    'description',
-                    'available',
-                    'cover',
-                    'image_img',
-                    'hover_cover',
-                    'image_hover_img',
-                    'sort_index',
-                    'is_active',
-                )
-            }
-        ),
-        (
-            'Габариты',
-            {
-                'classes': ('suit-tab', 'suit-tab-size',),
-                'fields': (
-                    'width',
-                    'height',
-                    'length',
-                    'weight',
-                )
-            }
-        )
-    ]
-    readonly_fields = ['image_img', 'image_hover_img']
-
-    def image_img(self, obj):
-        if obj.cover:
-            return mark_safe('<a href="{0}" target="_blank"><img src="{0}" width="200"/></a>'.format(obj.cover.url))
-        else:
-            return '(Нет изображения)'
-
-    image_img.short_description = 'Фотография обложки'
-    image_img.allow_tags = True
-
-    def image_hover_img(self, obj):
-        if obj.hover_cover:
-            return mark_safe('<a href="{0}" target="_blank"><img src="{0}" width="200"/></a>'.format(obj.hover_cover.url))
-        else:
-            return '(Нет изображения)'
-
-    image_hover_img.short_description = 'Фотография ховера обложки'
-    image_hover_img.allow_tags = True
-    suit_form_tabs = (('general', 'Основные'), ('size', 'Габариты'))
-
-
-@admin.register(Souvenirs)
-class SouvenirsAdmin(admin.ModelAdmin):
-    model = Souvenirs
-    fieldsets = [
-        (
-            'Основные характеристики',
-            {
-                'classes': ('suit-tab', 'suit-tab-general',),
-                'fields': (
-                    'name',
-                    'category',
-                    'price',
-                    'description',
-                    'available',
-                    'cover',
-                    'image_img',
-                    'hover_cover',
-                    'image_hover_img',
-                    'sort_index',
-                    'is_active',
-                )
-            }
-        ),
-        (
-            'Габариты',
-            {
-                'classes': ('suit-tab', 'suit-tab-size',),
-                'fields': (
-                    'width',
-                    'height',
-                    'length',
-                    'weight',
-                )
-            }
-        )
-    ]
-    readonly_fields = ['image_img', 'image_hover_img']
-
-    def image_img(self, obj):
-        if obj.cover:
-            return mark_safe('<a href="{0}" target="_blank"><img src="{0}" width="200"/></a>'.format(obj.cover.url))
-        else:
-            return '(Нет изображения)'
-
-    image_img.short_description = 'Фотография обложки'
-    image_img.allow_tags = True
-
-    def image_hover_img(self, obj):
-        if obj.hover_cover:
-            return mark_safe('<a href="{0}" target="_blank"><img src="{0}" width="200"/></a>'.format(obj.hover_cover.url))
-        else:
-            return '(Нет изображения)'
-
-    image_hover_img.short_description = 'Фотография ховера обложки'
-    image_hover_img.allow_tags = True
-    suit_form_tabs = (('general', 'Основные'), ('size', 'Габариты'))
+    suit_form_tabs = (('general', 'Основные'), ('size', 'Габариты'), ('extra', 'Для книг'), ('clothes', 'Размеры для одежды'))
+    list_filter = ['category', 'type', 'is_active', 'available', 'size']
+    search_fields = ['name', 'title', 'date_publication']
