@@ -1,24 +1,24 @@
 <template>
   <div class="header" v-if="!display">
     <div class="header__wrapper">
-      <div class="header__logo">
+      <router-link :to="{name: 'main'}" tag="div" class="header__logo">
         <img src="../../img/logo.png" alt="">
-      </div>
+      </router-link>
       <div class="header__right">
         <!--<div class="header__right_soc">-->
-          <!--<div class="header__right_soc-items">-->
-            <!--<div class="header__right_soc-item"></div>-->
-            <!--<div class="header__right_soc-item"></div>-->
-            <!--<div class="header__right_soc-item"></div>-->
-            <!--<div class="header__right_soc-item"></div>-->
-            <!--<div class="header__right_soc-item"></div>-->
-            <!--<div class="header__right_soc-item"></div>-->
-            <!--<div class="header__right_soc-item"></div>-->
-          <!--</div>-->
-          <!--<div class="header__right_soc-log">-->
-            <!--<div class="header__right_soc-log_text"><span>Вход</span>  |</div>-->
-            <!--<div class="header__right_soc-log_reg">&nbsp;<span>Регистрация</span></div>-->
-          <!--</div>-->
+        <!--<div class="header__right_soc-items">-->
+        <!--<div class="header__right_soc-item"></div>-->
+        <!--<div class="header__right_soc-item"></div>-->
+        <!--<div class="header__right_soc-item"></div>-->
+        <!--<div class="header__right_soc-item"></div>-->
+        <!--<div class="header__right_soc-item"></div>-->
+        <!--<div class="header__right_soc-item"></div>-->
+        <!--<div class="header__right_soc-item"></div>-->
+        <!--</div>-->
+        <!--<div class="header__right_soc-log">-->
+        <!--<div class="header__right_soc-log_text"><span>Вход</span>  |</div>-->
+        <!--<div class="header__right_soc-log_reg">&nbsp;<span>Регистрация</span></div>-->
+        <!--</div>-->
         <!--</div>-->
         <div class="header__right-search">
           <div class="header__right-search_left">
@@ -32,19 +32,14 @@
     </div>
     <div class="header__menu">
       <div class="header__menu_item"><router-link :to="{ name: 'main' }">Главная</router-link></div>
-      <div class="header__menu_item header__menu_item-popup">
+      <div class="header__menu_item header__menu_item-popup"
+           v-for="(item, index) in result "
+           :key="index"
+      >
         <header-menu-item
-          :title='"Магазин по программе"'
-        ></header-menu-item>
-      </div>
-      <div class="header__menu_item header__menu_item-popup">
-        <header-menu-item
-          :title='"Сувениры"'
-        ></header-menu-item>
-      </div>
-      <div class="header__menu_item header__menu_item-popup">
-        <header-menu-item
-          :title='"Магазин по программе"'
+                :cart="item"
+                :title="item.name"
+                :slug="item.slug"
         ></header-menu-item>
       </div>
       <div class="header__menu_item"><a href="#">FAQ</a></div>
@@ -57,11 +52,13 @@
 
 <script>
   import headerMenuItem from './HeaderMenuItem.vue'
+  import axios from 'axios'
+
   export default {
-    name: 'HelloWorld',
+    name: 'header',
     data () {
       return {
-        msg: 'Welcome to Your Vue.js App'
+        result: []
       }
     },
     components: {
@@ -71,6 +68,23 @@
       display() {
         return this.$route.name === 'order'
       }
+    },
+    methods: {
+      get() {
+        const self = this
+        axios.get('/api/catalog/')
+          .then(
+            function (response) {
+              self.result = response.data
+            },
+            function (error) {
+              console.log(erorr)
+            }
+          )
+      }
+    },
+    created() {
+      this.get()
     }
   }
 </script>

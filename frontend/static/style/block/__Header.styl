@@ -6,6 +6,10 @@
   &__logo {
     width: 300px
     padding 20px 0px
+    cursor: pointer
+    .router-link-active{
+      cursor: default
+    }
     img {
       width: 100%
     }
@@ -154,7 +158,10 @@
             line-height: 20px;
             width: 200px
             padding: 5px 10px
+            text-decoration none
+            border-bottom none
             &:hover{
+              border-bottom none !important
               background: #efefef;
               text-decoration underline
               cursor: pointer

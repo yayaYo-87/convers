@@ -8,6 +8,7 @@ import order from '../views/Order.vue'
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -15,12 +16,12 @@ export default new Router({
       component: main
     },
     {
-      path: '/catalog',
+      path: '/catalog/:id',
       name: 'catalog',
       component: catalog
     },
     {
-      path: '/cart',
+      path: '/catalog/:id/:item',
       name: 'cart',
       component: cart
     },
