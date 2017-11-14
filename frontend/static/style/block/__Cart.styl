@@ -43,7 +43,7 @@
       display: flex
       font-size 14px
       width: 300px
-
+      align-items center
       justify-content: space-between
       &-text{
         border-top: 1px dashed #5e7d23;
@@ -55,8 +55,13 @@
       &-name{
         padding-right: 10px
       }
+      select {
+        min-width: 150px;
+        padding: 3px;
+        -webkit-appearance: menulist-button;
+        background-color: buttonface;
+      }
       &-size{
-        justify-content: inherit
       }
       &-button{
         margin: 20px 0px

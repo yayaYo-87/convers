@@ -4,7 +4,7 @@
     <span>&#187;</span>
     <transition name="popup">
       <div class="header__menu_item-popup_list"  v-show="popup">
-        <router-link :to="{ name: 'catalog', params: {id: header.id} }" class="header__menu_item-popup_list-item"
+        <router-link :to="{ name: 'catalogItem', params: {id: header.id} }" class="header__menu_item-popup_list-item"
              :key="index"
              v-for="(header, index ) in cart.catalogs"
         >{{ header.name }}</router-link>

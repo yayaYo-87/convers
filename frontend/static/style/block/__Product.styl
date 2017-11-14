@@ -3,6 +3,12 @@
     font-family: 'MerriweatherRegular',Arial, sans-serif;
     font-size: 12px;
     margin-top: 10px;
+    span{
+      cursor: pointer
+      &:hover{
+        border-bottom: 1px solid
+      }
+    }
   }
   &__title{
     margin: 20px 0px 0px 0px ;
@@ -12,6 +18,7 @@
     display: flex
     flex-wrap: wrap;
     margin-bottom: 12px;
+
   }
   &_item{
     margin-top: 24px
@@ -33,12 +40,14 @@
       &_wrapper{
         position: relative
       }
-      &:hover{
-        .product_item-img_one{
-          opacity: 0
-        }
-        .product_item-img_two{
-          opacity: 1
+      &-hover{
+        &:hover{
+          .product_item-img_one{
+            opacity: 0
+          }
+          .product_item-img_two{
+            opacity: 1
+          }
         }
       }
       &_one{

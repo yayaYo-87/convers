@@ -1,34 +1,21 @@
 <template>
   <div class="cart">
     <div class="cart__header">
-      Home » "May The Force Be With You" Adult T-Shirt
+      <router-link tag="span" :to="{ name: 'main' }" >Главная</router-link> »
+      <span >  {{result.name }}</span>
     </div>
     <div class="cart__title">
-      "May The Force Be With You" Adult T-Shirt
+      {{result.name}}
     </div>
     <div class="cart__wrapper">
       <div class="cart__left">
-        <img class="cart__left-img" src="../../img/cart1.gif" alt="">
+        <img class="cart__left-img" :src="result.cover" alt="cover">
       </div>
       <div class="cart__right">
         <div class="cart__right_item">
-          <div class="cart__right_item-name">Взрослый / Молодежь</div>
-          <select >
-            <option disabled>Выберите героя</option>
-            <option value="Чебурашка">Чебурашка</option>
-            <option selected value="Крокодил Гена">Крокодил Гена</option>
-            <option value="Шапокляк">Шапокляк</option>
-            <option value="Крыса Лариса">Крыса Лариса</option>
-          </select>
-        </div>
-        <div class="cart__right_item">
           <div class="cart__right_item-name">Размер</div>
           <select >
-            <option disabled>Выберите героя</option>
-            <option value="Чебурашка">Чебурашка</option>
-            <option selected value="Крокодил Гена">Крокодил Гена</option>
-            <option value="Шапокляк">Шапокляк</option>
-            <option value="Крыса Лариса">Крыса Лариса</option>
+            <option  v-for=" item in result.size"> {{ item }}</option>
           </select>
         </div>
         <div class="cart__right_price">
@@ -40,13 +27,15 @@
             <option selected>1</option>
             <option>2</option>
             <option>3</option>
+            <option>4</option>
+            <option>5</option>
           </select>
         </div>
         <button class="cart__right_item-button" >
           <span>Купить</span>
         </button>
         <div class="cart__right_item-text">
-          Adult, "May The Force Be With You" T-Shirt
+          {{ result.description }}
         </div>
       </div>
     </div>
@@ -141,11 +130,31 @@
 </template>
 
 <script>
+  import axios from 'axios'
+
   export default {
     data() {
       return {
-
+        result: []
       }
+    },
+    methods: {
+      get() {
+        const self = this
+        const id = this.$route.params.item
+        axios.get('/api/goods/' + id + '/')
+          .then(
+            function (response) {
+              self.result = response.data
+            },
+            function (error) {
+
+            }
+          )
+      }
+    },
+    created() {
+      this.get()
     }
   }
 </script>
