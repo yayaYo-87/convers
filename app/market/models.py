@@ -69,12 +69,6 @@ class Size(models.Model):
 
 
 class Goods(models.Model):
-    SIZES = (
-        ('s', 'S'),
-        ('m', 'M'),
-        ('l', 'L'),
-        ('xl', 'XL'),
-    )
     type = models.ForeignKey('Type', verbose_name='Тип', related_name='goods_types')
     category = models.ForeignKey('Category', verbose_name='Категория товаров', related_name='goods_categories', null=True)
 
@@ -106,7 +100,8 @@ class Goods(models.Model):
                                                        MaxValueValidator(datetime.now().year)],
                                                    help_text="Введите год публикации книги <YYYY>", null=True, blank=True)
 
-    size = models.ManyToManyField('Size', verbose_name='Доступные размеры', blank=True)
+    size = models.ManyToManyField('market.Size', verbose_name='Доступные размеры', blank=True)
+    related_goods = models.ManyToManyField('market.Goods', verbose_name='Похожие товары', related_name='+', blank=True)
 
     def __str__(self):
         return self.name
