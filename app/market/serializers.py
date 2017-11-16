@@ -3,13 +3,13 @@ from rest_framework import serializers
 from app.market.models import Catalog, Category, Goods, Type, Size
 
 
-class TypesSerializer(serializers.Serializer):
+class TypesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Type
         fields = ['id', 'name']
 
 
-class SizesSerializer(serializers.Serializer):
+class SizesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Size
         fields = ['id', 'name']
@@ -42,6 +42,7 @@ class GoodsDetailSerializer(serializers.ModelSerializer):
             'available',
             'cover',
             'hover_cover',
+            'category',
             'is_active',
             'width',
             'height',
@@ -55,6 +56,7 @@ class GoodsDetailSerializer(serializers.ModelSerializer):
             'count_pages',
             'date_publication',
             'size',
+            'related_goods',
         ]
 
 

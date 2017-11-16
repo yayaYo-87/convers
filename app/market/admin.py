@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
+from app.market.forms import GoodsForm
 from app.market.models import Catalog, Category, Goods, Type, Size
 
 
@@ -31,6 +32,7 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Goods)
 class GoodsAdmin(admin.ModelAdmin):
     model = Goods
+    form = GoodsForm
     fieldsets = [
         (
             'Основные характеристики',
@@ -53,7 +55,7 @@ class GoodsAdmin(admin.ModelAdmin):
             }
         ),
         (
-            'Габариты',
+            'Габариты и рекомендованные товары',
             {
                 'classes': ('suit-tab', 'suit-tab-size',),
                 'fields': (
@@ -61,6 +63,7 @@ class GoodsAdmin(admin.ModelAdmin):
                     'height',
                     'length',
                     'weight',
+                    'related_goods'
                 )
             }
         ),
@@ -90,7 +93,7 @@ class GoodsAdmin(admin.ModelAdmin):
             }
         )
     ]
-    filter_horizontal = ['size',]
+    filter_horizontal = ['size', 'related_goods',]
     readonly_fields = ['image_img', 'image_hover_img']
 
     def image_img(self, obj):
