@@ -5,7 +5,7 @@ ALLOWED_HOSTS = ['*']
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'blackout',
+        'NAME': 'convers',
         'PASSWORD': '1111',
         'HOST': 'localhost',
         'USER': 'postgres',
