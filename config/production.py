@@ -1,6 +1,6 @@
 from config.settings import *
 DEBUG = False
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['144.76.163.52']
 
 DATABASES = {
     'default': {
