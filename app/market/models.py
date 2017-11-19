@@ -83,7 +83,7 @@ class Goods(models.Model):
     hover_cover = models.ImageField(verbose_name='Выбрать фотографию ховера обложки', blank=True, upload_to=upload_to)
     sort_index = models.PositiveIntegerField(verbose_name='Индекс сортировки', default=0)
     is_active = models.BooleanField(verbose_name='Активный', default=True)
-    is_main = models.BooleanField(verbose_name='Выводить на главной', default=True)
+    is_main = models.BooleanField(verbose_name='Выводить на главной', default=False)
 
     width = models.PositiveIntegerField(verbose_name='Ширина', default=0, null=False)
     height = models.PositiveIntegerField(verbose_name='Высота', default=0, null=False)
