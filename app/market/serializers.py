@@ -44,6 +44,7 @@ class GoodsDetailSerializer(serializers.ModelSerializer):
             'hover_cover',
             'category',
             'is_active',
+            'is_main',
             'width',
             'height',
             'length',
@@ -53,6 +54,7 @@ class GoodsDetailSerializer(serializers.ModelSerializer):
             'accessibility',
             'easy_to_use',
             'author',
+            'format',
             'count_pages',
             'date_publication',
             'size',
@@ -65,7 +67,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = ['id', 'name', 'goods_categories']
+        fields = ['id', 'name', 'goods_categories', 'description']
 
 
 class CatalogSerializer(serializers.ModelSerializer):
