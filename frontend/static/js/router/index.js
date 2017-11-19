@@ -62,7 +62,7 @@ export default new Router({
       component: order
     },
     {
-      path: '/catalogItem/:id',
+      path: '/category/:id',
       name: 'catalogItem',
       component: catalogItem
     }

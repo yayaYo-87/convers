@@ -7,6 +7,9 @@
         <h1 class="product__title">
             {{ result.name }}
         </h1>
+        <div class="product__desc" v-html="result.description" >
+
+        </div>
         <div class="product__items">
             <div class="product_item"
                  v-for="item in result.goods_categories"

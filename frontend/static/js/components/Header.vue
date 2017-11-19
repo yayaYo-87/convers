@@ -74,7 +74,7 @@
         axios.get('/api/catalog/')
           .then(
             function (response) {
-              self.result = response.data
+              self.result = response.data.results
             },
             function (error) {
               console.log(erorr)

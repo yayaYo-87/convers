@@ -58,15 +58,15 @@
             <div class="cart__right_item-text_item-left">Количество страниц</div>
             <div class="cart__right_item-text_item-right">{{ result.count_pages }}</div>
           </div>
-          <div class="cart__right_item-text_item" v-if="result.count_pages && result.count_pages.length !== 0">
+          <div class="cart__right_item-text_item" v-if="result.format && result.format.length !== 0">
             <div class="cart__right_item-text_item-left">Формат</div>
-            <div class="cart__right_item-text_item-right">{{ result.count_pages }}</div>
+            <div class="cart__right_item-text_item-right">{{ result.format }}</div>
           </div>
           <div class="cart__right_item-text_item" v-if="result.date_publication && result.date_publication.length !== 0">
             <div class="cart__right_item-text_item-left">Дата публикации</div>
             <div class="cart__right_item-text_item-right">{{ result.date_publication }}</div>
           </div>
-          <div class="cart__right_item-text_all" v-if="result.date_publication && result.date_publication.length !== 0">Общее описание</div>
+          <h3 class="cart__right_item-text_all" v-if="result.date_publication && result.date_publication.length !== 0">Общее описание</h3>
           <div class="cart__right_item-text_desc" v-html="result.description"></div>
         </div>
 
@@ -184,7 +184,25 @@
 
             }
           )
-      }
+      },
+      postProduct(){
+        let self = this
+        self.buttonLoader = true
+        axios.post('/api/order_crocs/', {
+          "count": 1,
+          "crocs": this.item.id,
+          "color": this.valueColor,
+          "size": this.sizeProduct
+        }).then(
+          function (response) {
+            self.$store.dispatch('results')
+            self.buttonLoader = false
+            self.animatePopup()
+          },
+          function (error) {
+          }
+        )
+      },
     },
     created() {
       this.get()
