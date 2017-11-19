@@ -1,57 +1,27 @@
-//js
+// The Vue build version to load with the `import` command
+// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './views/App.vue'
-import '../styl/global.styl'
-import VueRouter from 'vue-router';
-import '../styl/scrollbar.css'
-import store from './store'
+import router from './router/index'
 
-//Страницы
+import '../style/global.styl'
 
+Vue.config.productionTip = false
 //Плагины
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+import { swiper, swiperSlide } from 'vue-awesome-swiper'
+require('swiper/dist/css/swiper.css')
+Vue.use(VueAwesomeSwiper);
 
 
-Vue.use(VueRouter);
 
-
-//При переходе скролит до верха
-const scrollBehavior = (to, from, savedPosition) => {
-  if (to.hash) {
-    console.log(to.hash)
-    return {
-      selector: to.hash,
-    }
-  } else {
-    return { x: 0, y: 0 }
-  }
-};
-
-// const router = new VueRouter({
-//   mode: 'history',
-//   scrollBehavior,
-//   routes:[
-//     { path: '/', name: 'index' , component: index},
-//     { path: '/service', name: 'services' , component: services},
-//     { path: '/service/:id', name: 'servicesItem' , component: servicesItem},
-//     { path: '/catalog', name: 'catalog' , component: catalog},
-//     { path: '/catalog/:id', name: 'catalogCategory' , component: catalogCategory},
-//     { path: '/catalog/:id/:item', name: 'catalogItem' , component: catalogItem},
-//     { path: '/project', name: 'project' , component: project},
-//     { path: '/project/:id', name: 'projectCategory' , component: projectCategory},
-//     { path: '/project/:id/:item', name: 'projectItem' , component: projectItem},
-//     { path: '/partners', name: 'partners' , component: partners},
-//     { path: '/about', name: 'about' , component: about},
-//     { path: '/contacts', name: 'contacts' , component: contacts},
-//   ]
-// });
-
-
+/* eslint-disable no-new */
 new Vue({
   el: '#app',
-  components: {
-  },
-  // router: router,
-  store,
-  render: h => h(App),
+  router: router,
+  swiper,
+  swiperSlide,
+  template: '<App/>',
+  components: { App }
+})
 
-}).$mount('#app');

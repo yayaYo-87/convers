@@ -23,3 +23,16 @@ class GoodsViewSet(viewsets.ModelViewSet):
         if self.action == 'retrieve':
             return GoodsDetailSerializer
         return super(GoodsViewSet, self).get_serializer_class()
+
+
+class MainGoodsViewSet(viewsets.ModelViewSet):
+    queryset = Goods.objects.all()
+    serializer_class = GoodsSerializer
+
+    def get_serializer_class(self):
+        if self.action == 'retrieve':
+            return GoodsDetailSerializer
+        return super(MainGoodsViewSet, self).get_serializer_class()
+
+    def get_queryset(self):
+        return Goods.objects.filter(is_main=True)

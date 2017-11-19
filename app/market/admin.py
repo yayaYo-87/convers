@@ -1,8 +1,17 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
+import nested_admin
 
 from app.market.forms import GoodsForm
-from app.market.models import Catalog, Category, Goods, Type, Size
+from app.market.models import Catalog, Category, Goods, Type, Size, GoodsImage
+
+
+class GoodsImageInline(nested_admin.NestedTabularInline):
+    model = GoodsImage
+    fields = ['image', 'image_img', 'sorting']
+    readonly_fields = ['image_img', ]
+    extra = 1
+    suit_classes = 'suit-tab suit-tab-general'
 
 
 @admin.register(Catalog)
@@ -26,7 +35,7 @@ class TypeAdmin(admin.ModelAdmin):
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     model = Category
-    fields = ['name', 'catalog', 'sort_index']
+    fields = ['name', 'catalog', 'sort_index', 'description']
 
 
 @admin.register(Goods)
@@ -51,6 +60,7 @@ class GoodsAdmin(admin.ModelAdmin):
                     'image_hover_img',
                     'sort_index',
                     'is_active',
+                    'is_main',
                 )
             }
         ),
@@ -94,6 +104,7 @@ class GoodsAdmin(admin.ModelAdmin):
         )
     ]
     filter_horizontal = ['size', 'related_goods',]
+    inlines = [GoodsImageInline, ]
     readonly_fields = ['image_img', 'image_hover_img']
 
     def image_img(self, obj):

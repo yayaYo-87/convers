@@ -2,6 +2,7 @@ import os
 import uuid
 from datetime import datetime
 
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.utils.safestring import mark_safe
@@ -35,6 +36,7 @@ class Catalog(models.Model):
 class Category(models.Model):
     catalog = models.ForeignKey('Catalog', verbose_name='Каталог', related_name='catalogs')
     name = models.CharField(verbose_name='Название категории', max_length=256)
+    description = RichTextUploadingField(verbose_name='Описание категории', blank=True)
     sort_index = models.PositiveIntegerField(verbose_name='Индекс сортировки', default=0)
 
     def __str__(self):
@@ -74,13 +76,14 @@ class Goods(models.Model):
 
     name = models.CharField(verbose_name='Название', max_length=256)
     price = models.PositiveIntegerField(verbose_name='Цена', blank=False)
-    description = HTMLField(verbose_name='Описание', blank=True)
+    description = RichTextUploadingField(verbose_name='Описание', blank=True)
     available = models.BooleanField(verbose_name='Доcтупен сейчас', default=True)
 
     cover = models.ImageField(verbose_name='Выбрать фотографию обложки', blank=True, upload_to=upload_to)
     hover_cover = models.ImageField(verbose_name='Выбрать фотографию ховера обложки', blank=True, upload_to=upload_to)
     sort_index = models.PositiveIntegerField(verbose_name='Индекс сортировки', default=0)
     is_active = models.BooleanField(verbose_name='Активный', default=True)
+    is_main = models.BooleanField(verbose_name='Выводить на главной', default=False)
 
     width = models.PositiveIntegerField(verbose_name='Ширина', default=0, null=False)
     height = models.PositiveIntegerField(verbose_name='Высота', default=0, null=False)

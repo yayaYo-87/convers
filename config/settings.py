@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     'suit',
     'nested_admin',
     'tinymce',
+    'ckeditor',
+    'ckeditor_uploader',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -45,6 +47,7 @@ INSTALLED_APPS = [
 
     'app.market',
     'app.orders',
+    'app.mainpage',
 ]
 
 MIDDLEWARE = [
@@ -58,6 +61,14 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'config.urls'
+
+REST_FRAMEWORK = {
+    # 'DEFAULT_FILTER_BACKENDS': (
+    #     'django_filters.rest_framework.DjangoFilterBackend',
+    # ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 10
+}
 
 TEMPLATES = [
     {
@@ -131,3 +142,50 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, '..', 'static_root')
 MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media_root')
 MEDIA_URL = '/media/'
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+
+CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        # 'customConfig': '/static/js/admin/ckeditor_config.js',
+        'skin': 'moono',
+        'toolbar_Basic': [
+            ['Source', '-', 'Bold', 'Italic']
+        ],
+        'toolbar_YourCustomToolbarConfig': [
+            {'name': 'document', 'items': ['Templates']},
+            {'name': 'insert',
+             'items': ['Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak']},
+            {'name': 'clipboard', 'items': ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
+            # {'name': 'editing', 'items': ['Find', 'Replace', '-', 'SelectAll']},
+            {'name': 'forms',
+             'items': ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton',
+                       'HiddenField']},
+            '/',
+            {'name': 'basicstyles',
+             'items': ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat']},
+            {'name': 'paragraph',
+             'items': ['NumberedList', 'BulletedList', '-', 'Blockquote', 'CreateDiv', '-',
+                       'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock']},
+            {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor']},
+            # '/',
+            {'name': 'styles', 'items': [ 'Format']},
+            {'name': 'colors', 'items': ['TextColor', 'BGColor']},
+            # '/',  # put this to force next toolbar on new line
+            # {'name': 'tools', 'items': ['Maximize', 'ShowBlocks']},
+            # {'name': 'about', 'items': ['About']},
+            {'name': 'yourcustomtools', 'items': [
+                # put the name of your editor.ui.addButton here
+                'Preview',
+                'Maximize',
+
+            ]},
+        ],
+        'toolbar': 'YourCustomToolbarConfig',
+        'toolbarCanCollapse': False,
+        'tabSpaces': 4,
+        'templates_replaceContent': False
+
+    },
+}

@@ -1,0 +1,111 @@
+.main_product{
+  width: 716px
+  &__items{
+    display: flex
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+    padding-bottom: 36px;
+    border-bottom: 1px solid #5e7d23;
+  }
+
+  &_item{
+    margin-top: 24px
+    width:33.2%
+    margin-right: 20px
+    max-width: 223px
+    cursor: pointer
+    display: flex
+    flex-direction column
+    justify-content space-between
+    &:nth-child(3n + 3) {
+      margin-right: 0px
+    }
+    &-img{
+      overflow: hidden
+      height: 100%
+      display: flex;
+      align-items: center;
+      &_wrapper{
+        position: relative
+      }
+      &:hover{
+        .main_product_item-img_one{
+          opacity: 0
+        }
+        .main_product_item-img_two{
+          opacity: 1
+        }
+      }
+      &_one{
+        opacity: 1
+        width: 100%
+      }
+      &_two{
+        opacity: 0
+        position: absolute
+        top: 0px
+        right: 0px
+        transition .5s
+        width: 100%
+      }
+      img{
+        width: 100%
+      }
+    }
+    &-title{
+      margin-top: 10px;
+      margin-bottom: 6px;
+      span{
+        color: #303942;
+        text-decoration: none;
+        cursor: pointer;
+        display: inline-block
+        font-size: 14px;
+        font-family: MerriweatherRegular;
+        &:hover{
+          text-decoration: underline;
+        }
+      }
+    }
+    &-bottom{
+      display: flex
+      justify-content: space-between
+      margin-top: 10px
+      &_price{
+        display: flex
+        flex-direction column
+        justify-content: flex-end
+        font-size: 100%;
+        color: #a3a3af;
+        span{
+          color: #c4c4d4;
+          text-decoration: line-through;
+          font-size: 70%;
+          line-height: 10px;
+        }
+      }
+      &_button{
+        display: block;
+        color: #ffffff;
+        height: 30px;
+        width: 92px
+        text-align: center;
+        background-color #6582a0;
+        border: 0;
+        padding: 0;
+        cursor: pointer;
+        border-radius: 4px;
+        &:hover{
+          span{
+            text-decoration: underline
+          }
+        }
+        span{
+          font-size 12px
+          line-height: 30px
+          font-family: MerriweatherRegular
+        }
+      }
+    }
+  }
+}

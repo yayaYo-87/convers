@@ -1,0 +1,52 @@
+.main{
+  &__banner{
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #5e7d23;
+    display: flex
+    &_left{
+      width: 65.7%
+      padding-right: 1.2%
+      position: relative
+      img{
+        width: 100%
+      }
+    }
+    &-prev{
+      position: absolute
+      width: 23px
+      height: 42px
+      z-index: 2
+      background url("/static/img/arow.svg") no-repeat
+      background-size 100%
+      top: 130px
+      left: 20px
+      cursor: pointer
+    }
+    &-next{
+      z-index: 2
+      position: absolute
+      width: 23px
+      height: 42px
+      transform rotate(180deg)
+      background: url("/static/img/arow.svg") no-repeat
+      background-size 100%
+      top: 130px
+      right: 20px
+      cursor: pointer
+    }
+    &_right{
+      border-left: 1px solid #5e7d23
+      width: 31.8%
+      padding-left: 1.2%
+    }
+  }
+  &__page{
+    display: flex
+    h3{
+      font-family LatoRegular
+      font-size: 120%
+      font-weight: normal
+    }
+  }
+}
