@@ -3,10 +3,16 @@
     font-family: 'MerriweatherRegular',Arial, sans-serif;
     font-size: 12px;
     margin-top: 10px;
-    span{
+    &-active{
       cursor: pointer
       &:hover{
         border-bottom: 1px solid
+      }
+    }
+    &-disabled{
+      cursor: default
+      &:hover{
+        border-bottom: none
       }
     }
   }

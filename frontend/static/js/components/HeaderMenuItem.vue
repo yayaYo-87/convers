@@ -1,6 +1,6 @@
 <template>
   <div class="" @mouseover="hoverTrue()" @mouseleave="hoverFalse()">
-    <router-link  :to="{ name:'catalog', params: { id: slug } }">{{title}}</router-link>
+    <router-link  :to="{ name:'catalog', params: { id: slug } }">{{cart.name}}</router-link>
     <span>&#187;</span>
     <transition name="popup">
       <div class="header__menu_item-popup_list"  v-show="popup">

@@ -38,12 +38,11 @@
       >
         <header-menu-item
                 :cart="item"
-                :title="item.name"
                 :slug="item.slug"
         ></header-menu-item>
       </div>
-      <div class="header__menu_item"><a href="#">FAQ</a></div>
-      <div class="header__menu_item"><a href="#">О компании</a></div>
+      <div class="header__menu_item"><router-link :to="{ name: 'faq' }">FAQ</router-link></div>
+      <div class="header__menu_item"><router-link :to="{ name: 'about' }">О компании</router-link></div>
       <div class="header__menu_item"><a href="#">Свяжитесь с нами</a></div>
       <div class="header__menu_item"><a href="#">Политика доставки</a></div>
     </div>

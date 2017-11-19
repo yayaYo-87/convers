@@ -3,7 +3,7 @@
     <div class="main-bar_item">
       <h2>О нас</h2>
       <p class="main-bar_text">Добро пожаловать в наш онлайн-книжный магазин! Здесь вы найдете учебную программу для школьников, которая поддерживает ...</p>
-      <a href="#" class="main-bar_read"><span>Читать дальше →</span></a>
+      <router-link :to="{ name: 'about' }"  class="main-bar_read"><span>Читать дальше →</span></router-link>
     </div>
     <div class="main-bar_item">
       <img src="../../img/bar1.png" alt="">

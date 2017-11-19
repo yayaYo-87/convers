@@ -6,19 +6,36 @@ import cart from '../views/ProductCart.vue'
 import basket from '../views/Basket.vue'
 import order from '../views/Order.vue'
 import catalogItem from '../views/ProductItem.vue'
+import about from '../views/About.vue'
+import faq  from '../views/Faq.vue'
 Vue.use(Router)
 
 //При переходе скролит до верха
 const scrollBehavior = (to, from, savedPosition) => {
-  if (to.name === 'item') {
-    return { x: 0, y: 0 }
+  if (to.hash) {
+    console.log(to.hash)
+    return {
+      selector: to.hash,
+    }
+  } else {
+    return {x: 0, y: 0}
   }
-};
+}
 
 export default new Router({
   mode: 'history',
   scrollBehavior,
   routes: [
+    {
+      path: '/faq',
+      name: 'faq',
+      component: faq
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: about
+    },
     {
       path: '/',
       name: 'main',

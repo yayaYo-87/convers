@@ -1,8 +1,8 @@
 <template>
     <div class="product">
         <div class="product__header">
-            <router-link tag="span" :to="{ name: 'main' }" >Главная</router-link> »
-            <router-link tag="span" :to="{ name: 'main' }" >  {{result.name }}</router-link>
+            <router-link class="product__header-active"   tag="span" :to="{ name: 'main' }" >Главная</router-link> »
+            <span class="product__header-disabled" >  {{result.name }}</span>
         </div>
         <h1 class="product__title">
             {{ result.name }}

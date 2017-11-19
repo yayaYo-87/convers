@@ -1,16 +1,15 @@
 <template>
   <div class="product">
     <div class="product__header">
-      <router-link tag="span" :to="{ name: 'main' }" >Главная</router-link> »
-      <router-link tag="span" :to="{ name: 'main' }" >  {{result.name }}</router-link>
+      <router-link class='product__header-active' tag="span" :to="{ name: 'main' }" >Главная</router-link> »
+      <span class="product__header-disabled">  {{result.name }}</span>
     </div>
     <h1 class="product__title">
       {{result.name}}
     </h1>
     <div class="product__items"
-         v-if=" result.catalogs && result.catalogs.length !== 0"
          v-for="items in result.catalogs"
-
+         v-show="items.goods_categories.length !== 0"
     >
       <div class="product_item"
            v-for="item in items.goods_categories"
@@ -64,16 +63,12 @@
     methods: {
       get() {
         const self = this
-        axios.get('/api/catalog/')
+        const id = this.$route.params.id
+        axios.get('/api/catalog/' + id + '/')
           .then(
             function (response) {
               const catalog = response.data
-              catalog.forEach( function (item, i, arr) {
-                const id = self.$route.params.id
-                if(id === item.slug) {
-                  self.result = item
-                }
-              })
+              self.result = catalog
 
             },
             function (error) {
