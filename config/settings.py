@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 
     'app.market',
     'app.orders',
+    'app.mainpage',
 ]
 
 MIDDLEWARE = [
