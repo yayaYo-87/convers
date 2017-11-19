@@ -14,7 +14,7 @@
       <div class="cart__right">
         <div class="cart__right_item">
           <div class="cart__right_item-name">Размер</div>
-          <select >
+          <select>
             <option  v-for=" item in result.size"> {{ item }}</option>
           </select>
         </div>
