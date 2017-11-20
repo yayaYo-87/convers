@@ -41,12 +41,12 @@
       <div class="cart__right">
         <div class="cart__right_item" v-if="result.size && result.size.length !== 0 ">
           <div class="cart__right_item-name">Размер</div>
-          <select>
-            <option  v-for=" item in result.size"> {{ item.name }}</option>
+          <select v-model="size">
+            <option :value="item.id"  v-for=" item in result.size"> {{ item.name }}</option>
           </select>
         </div>
         <div class="cart__right_price">
-          {{ result.price }} <span class="rubl" >&#8399;</span>
+          {{ result.price }} <span class="rubl" > &#8399;</span>
         </div>
         <div class="cart__right_item cart__right_item-size">
           <div class="cart__right_item-name">Количество</div>
@@ -101,102 +101,27 @@
     </div>
     <div class="cart__text">Вам также может понравиться</div>
     <div class="cart__rew">
-      <div class="cart__item">
-        <div class="cart__item-img">
-          <div class="cart__item-img_wrapper">
-            <img class="cart__item-img_one" src="../../img/5.png" alt="">
-            <img class="cart__item-img_two" src="../../img/6.jpg" alt="">
-          </div>
-        </div>
-        <div class="cart__item-flex">
-          <div class="cart__product_item-title">
-            <span>Classical Conversations 20th Anniversary Poster</span>
-          </div>
-          <div class="cart__item-bottom">
-            <div class="cart__item-bottom_price">
-              $10.00
-            </div>
-            <button class="cart__item-bottom_button">
-              <span>Купить</span>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="cart__item">
-        <div class="cart__item-img">
-          <div class="cart__item-img_wrapper">
-            <img class="cart__item-img_one" src="../../img/5.png" alt="">
-            <img class="cart__item-img_two" src="../../img/6.jpg" alt="">
-          </div>
-        </div>
-        <div class="cart__item-flex">
-          <div class="cart__product_item-title">
-            <span>Classical Conversations 20th Anniversary Poster</span>
-          </div>
-          <div class="cart__item-bottom">
-            <div class="cart__item-bottom_price">
-              $10.00
-            </div>
-            <button class="cart__item-bottom_button">
-              <span>Купить</span>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="cart__item">
-        <div class="cart__item-img">
-          <div class="cart__item-img_wrapper">
-            <img class="cart__item-img_one" src="../../img/5.png" alt="">
-            <img class="cart__item-img_two" src="../../img/6.jpg" alt="">
-          </div>
-        </div>
-        <div class="cart__item-flex">
-          <div class="cart__product_item-title">
-            <span>Classical Conversations 20th Anniversary Poster</span>
-          </div>
-          <div class="cart__item-bottom">
-            <div class="cart__item-bottom_price">
-              $10.00
-            </div>
-            <button class="cart__item-bottom_button">
-              <span>Купить</span>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="cart__item">
-        <div class="cart__item-img">
-          <div class="cart__item-img_wrapper">
-            <img class="cart__item-img_one" src="../../img/5.png" alt="">
-            <img class="cart__item-img_two" src="../../img/6.jpg" alt="">
-          </div>
-        </div>
-        <div class="cart__item-flex">
-          <div class="cart__product_item-title">
-            <span>Classical Conversations 20th Anniversary Poster</span>
-          </div>
-          <div class="cart__item-bottom">
-            <div class="cart__item-bottom_price">
-              $10.00
-            </div>
-            <button class="cart__item-bottom_button">
-              <span>Купить</span>
-            </button>
-          </div>
-        </div>
-      </div>
+
+      <cart
+        v-for="(item, index) in result.related_goods"
+        :id="item"
+        :key="index"
+      ></cart>
+
     </div>
   </div>
 </template>
 
 <script>
   import axios from 'axios'
+  import cart from '../components/CartItem.vue'
 
   export default {
     data() {
       return {
         result: [],
         count: 1,
+        size: 1,
         swiperOptionTop: {
           notNextTick: true,
           nextButton: '.swiper-button-next',
@@ -212,6 +137,9 @@
           slideToClickedSlide: true
         }
       }
+    },
+    components: {
+      cart
     },
     methods: {
       get() {
@@ -232,6 +160,7 @@
         axios.post('/api/order_goods/', {
           "goods": this.result.id,
           "count": self.count,
+          "size" : self.size
 
         }).then(
           function (response) {
