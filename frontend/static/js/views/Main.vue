@@ -3,17 +3,17 @@
     <div class="main__banner">
       <div class="main__banner_left">
         <swiper :options="swiperOption">
-          <swiper-slide><img src="../../img/slide_1_image.jpg" alt=""></swiper-slide>
-          <swiper-slide><img src="../../img/slide_2_image.jpg" alt=""></swiper-slide>
-          <swiper-slide><img src="../../img/slide_3_image.jpg" alt=""></swiper-slide>
-          <swiper-slide><img src="../../img/slide_4_image.jpg" alt=""></swiper-slide>
-          <swiper-slide><img src="../../img/slide_5_image.jpg" alt=""></swiper-slide>
+          <swiper-slide
+                  v-for="(item, index) in resultSlider.top_sliders"
+                  :key="index">
+            <a  :href="item.link"><img :src="item.cover" alt="cover"></a>
+          </swiper-slide>
         </swiper>
         <div class="main__banner-prev" slot="button-prev"></div>
         <div class="main__banner-next" slot="button-next"></div>
       </div>
       <div class="main__banner_right">
-        <img src="../../img/banner_right_image.png" alt="">
+        <img :src="resultBanner.cover" alt="cover">
       </div>
     </div>
     <div class="main__page">
@@ -26,15 +26,19 @@
 <script>
   import mainBar from '../components/MainBar.vue'
   import mainProduct from '../components/MainProduct.vue'
+  import axios from 'axios'
 
   export default {
     name: 'main',
     components: {
       mainBar,
-      mainProduct
+      mainProduct,
+
     },
     data() {
       return {
+        resultSlider: [],
+        resultBanner: [],
         swiperOption: {
           paginationClickable: true,
           nextButton: '.main__banner-next',
@@ -52,5 +56,40 @@
         }
       }
     },
+    computed: {
+
+    },
+    methods: {
+      getSlider() {
+        const self = this
+        axios.get('/api/top_slider/')
+          .then(
+            function (response) {
+              self.resultSlider = response.data.results[0]
+
+            },
+            function (error) {
+
+            }
+          )
+      },
+      getBanner() {
+        const self = this
+        axios.get('/api/top_banner/')
+          .then(
+            function (response) {
+              self.resultBanner = response.data.results[0]
+
+            },
+            function (error) {
+
+            }
+          )
+      },
+    },
+    created() {
+      this.getSlider()
+      this.getBanner()
+    }
   }
 </script>

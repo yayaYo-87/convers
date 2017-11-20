@@ -2,143 +2,59 @@
   <div class="main_product">
     <h3>Рекомендуемые товары</h3>
     <div class="main_product__items">
-      <div class="main_product_item">
+
+      <div class="main_product_item" v-for="item in result">
         <div class="main_product_item-img">
-          <div class="main_product_item-img_wrapper">
-            <img class="main_product_item-img_one" src="../../img/1.jpg" alt="">
-            <img class="main_product_item-img_two" src="../../img/2.png" alt="">
-          </div>
+          <router-link :to="{ name: 'cart', params: { item: item.id } }"
+                       class="main_product_item-img_wrapper">
+            <img class="main_product_item-img_one" :src="item.cover" alt="cover">
+            <img class="main_product_item-img_two" :src="item.hover_cover" alt="cover">
+          </router-link>
         </div>
         <div class="main_product_item-flex">
           <div class="main_product_item-title">
-            <span>Classical Conversations 20th Anniversary Poster</span>
+            <span>{{ item.name }}</span>
           </div>
           <div class="main_product_item-bottom">
             <div class="main_product_item-bottom_price">
-              $10.00
+              {{ item.price }} <span class="rubl"> &#8399;</span>
             </div>
-            <button class="main_product_item-bottom_button">
+            <router-link tag="button" :to="{ name: 'cart', params: { item: item.id } }" class="main_product_item-bottom_button">
               <span>Купить</span>
-            </button>
+            </router-link>
           </div>
         </div>
       </div>
-      <div class="main_product_item">
-        <div class="main_product_item-img">
-          <div class="main_product_item-img_wrapper">
-            <img class="main_product_item-img_one" src="../../img/3.jpg" alt="">
-            <img class="main_product_item-img_two" src="../../img/4.jpg" alt="">
-          </div>
-        </div>
-        <div class="main_product_item-flex">
-          <div class="main_product_item-title">
-            <span>Classical Conversations 20th Anniversary Poster</span>
-          </div>
-          <div class="main_product_item-bottom">
-            <div class="main_product_item-bottom_price">
-              $10.00
-            </div>
-            <button class="main_product_item-bottom_button">
-              <span>Купить</span>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="main_product_item">
-        <div class="main_product_item-img">
-          <div class="main_product_item-img_wrapper">
-            <img class="main_product_item-img_one" src="../../img/5.png" alt="">
-            <img class="main_product_item-img_two" src="../../img/6.jpg" alt="">
-          </div>
-        </div>
-        <div class="main_product_item-flex">
-          <div class="main_product_item-title">
-            <span>Classical Conversations 20th Anniversary Poster</span>
-          </div>
-          <div class="main_product_item-bottom">
-            <div class="main_product_item-bottom_price">
-              $10.00
-            </div>
-            <button class="main_product_item-bottom_button">
-              <span>Купить</span>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="main_product_item">
-        <div class="main_product_item-img">
-          <div class="main_product_item-img_wrapper">
-            <img class="main_product_item-img_one" src="../../img/5.png" alt="">
-            <img class="main_product_item-img_two" src="../../img/6.jpg" alt="">
-          </div>
-        </div>
-        <div class="main_product_item-flex">
-          <div class="main_product_item-title">
-            <span>Classical Conversations 20th Anniversary Poster</span>
-          </div>
-          <div class="main_product_item-bottom">
-            <div class="main_product_item-bottom_price">
-              $10.00
-            </div>
-            <button class="main_product_item-bottom_button">
-              <span>Купить</span>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="main_product_item">
-        <div class="main_product_item-img">
-          <div class="main_product_item-img_wrapper">
-            <img class="main_product_item-img_one" src="../../img/5.png" alt="">
-            <img class="main_product_item-img_two" src="../../img/6.jpg" alt="">
-          </div>
-        </div>
-        <div class="main_product_item-flex">
-          <div class="main_product_item-title">
-            <span>Classical Conversations 20th Anniversary Poster</span>
-          </div>
-          <div class="main_product_item-bottom">
-            <div class="main_product_item-bottom_price">
-              $10.00
-            </div>
-            <button class="main_product_item-bottom_button">
-              <span>Купить</span>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="main_product_item">
-        <div class="main_product_item-img">
-          <div class="main_product_item-img_wrapper">
-            <img class="main_product_item-img_one" src="../../img/5.png" alt="">
-            <img class="main_product_item-img_two" src="../../img/6.jpg" alt="">
-          </div>
-        </div>
-        <div class="main_product_item-flex">
-          <div class="main_product_item-title">
-            <span>Classical Conversations 20th Anniversary Poster</span>
-          </div>
-          <div class="main_product_item-bottom">
-            <div class="main_product_item-bottom_price">
-              $10.00
-            </div>
-            <button class="main_product_item-bottom_button">
-              <span>Купить</span>
-            </button>
-          </div>
-        </div>
-      </div>
+
     </div>
   </div>
 </template>
 
 <script>
+  import axios from 'axios'
   export default {
     name: 'mainProduct',
     data() {
       return {
-
+        result: []
       }
-    }
+    },
+    methods: {
+      get() {
+        const self = this;
+        axios.get('/api/main_goods/')
+          .then(
+            function (response) {
+              self.result = response.data.results
+            },
+            function (error) {
+
+            }
+          )
+      },
+    },
+    created() {
+      this.get()
+    },
   }
 </script>
