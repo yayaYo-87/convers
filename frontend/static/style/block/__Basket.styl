@@ -16,10 +16,12 @@
     &_item{
       font-family MerriweatherRegular
       color #303942
-      font-size 18px
+      font-size 15px
       line-height: 18px
       flex 11%
       width: 11%
+      position: relative
+
       &-desc{
         flex: 56%
         width: 56%
@@ -31,6 +33,17 @@
       display: flex
       padding: 20px 0px
       border-bottom: 1px solid #5e7d23;
+      position: relative
+      &-close{
+        position: absolute
+        background url("/static/img/close.svg") no-repeat
+        background-size 100%
+        right: 20px
+        top: 20px
+        height: 15px
+        width: 15px
+        cursor: pointer
+      }
       &-img{
         width: 15%
         flex 15%

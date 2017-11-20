@@ -28,7 +28,7 @@
                     </div>
                     <div class="product_item-bottom">
                         <div class="product_item-bottom_price">
-                            {{ item.price }} <span class="rubl" >&#8399;</span>
+                            {{ item.price }} <span class="rubl" > &#8399;</span>
                         </div>
                         <button class="product_item-bottom_button">
                             <router-link
