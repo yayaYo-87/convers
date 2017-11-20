@@ -143,6 +143,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, '..', 'static_root')
 MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media_root')
 MEDIA_URL = '/media/'
 CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_IMAGE_BACKEND = 'pillow'
 
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
 
@@ -189,3 +190,6 @@ CKEDITOR_CONFIGS = {
 
     },
 }
+CKEDITOR_UPLOAD_SLUGIFY_FILENAME = False
+CKEDITOR_RESTRICT_BY_USER = True
+CKEDITOR_BROWSE_SHOW_DIRS = True
