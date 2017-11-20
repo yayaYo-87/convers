@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './views/App.vue'
 import router from './router/index'
+import store from './store'
 
 import '../style/global.styl'
 
@@ -21,6 +22,7 @@ new Vue({
   router: router,
   swiper,
   swiperSlide,
+  store,
   template: '<App/>',
   components: { App }
 })

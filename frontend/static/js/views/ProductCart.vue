@@ -103,9 +103,9 @@
     <div class="cart__rew">
 
       <cart
-        v-for="(item, index) in result.related_goods"
-        :id="item"
-        :key="index"
+              v-for="(item, index) in result.related_goods"
+              :id="item"
+              :key="index"
       ></cart>
 
     </div>
@@ -141,6 +141,9 @@
     components: {
       cart
     },
+    watch: {
+      '$route.params': 'get'
+    },
     methods: {
       get() {
         const self = this
@@ -164,11 +167,23 @@
 
         }).then(
           function (response) {
-            alert('вау')
+            self.$store.dispatch('results')
+            self.animatePopup()
           },
           function (error) {
           }
         )
+      },
+      animatePopup(){
+        const newDiv = document.createElement('div')
+        newDiv.classList.add('popup')
+        newDiv.innerHTML = 'Товар добавлен в корзину'
+
+        document.body.appendChild(newDiv)
+
+        setTimeout(function () {
+          document.body.removeChild(newDiv)
+        }, 3000)
       },
     },
     created() {

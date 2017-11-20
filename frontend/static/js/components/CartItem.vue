@@ -17,9 +17,12 @@
                 <div class="cart__item-bottom_price">
                     {{ result.price }}<span class="rubl" > &#8399;</span>
                 </div>
-                <button class="cart__item-bottom_button">
-                    <span>Купить</span>
-                </button>
+                <router-link
+                        tag="button"
+                        :to="{ name: 'cart', params: {  item: id } }"
+                        class="cart__item-bottom_button">
+                    <span>Подробнее</span>
+                </router-link>
             </div>
         </div>
     </div>
