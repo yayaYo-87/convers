@@ -2,6 +2,7 @@ import os
 import uuid
 from datetime import datetime
 
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.utils.safestring import mark_safe
@@ -35,7 +36,8 @@ class Catalog(models.Model):
 class Category(models.Model):
     catalog = models.ForeignKey('Catalog', verbose_name='Каталог', related_name='catalogs')
     name = models.CharField(verbose_name='Название категории', max_length=256)
-    description = HTMLField(verbose_name='Описание категории', blank=True)
+    description = RichTextUploadingField(verbose_name='Описание категории', blank=True)
+    # description = HTMLField(verbose_name='Описание категории', blank=True)
     sort_index = models.PositiveIntegerField(verbose_name='Индекс сортировки', default=0)
 
     def __str__(self):
@@ -75,8 +77,8 @@ class Goods(models.Model):
 
     name = models.CharField(verbose_name='Название', max_length=256)
     price = models.PositiveIntegerField(verbose_name='Цена', blank=False)
-    # description = RichTextUploadingField(verbose_name='Описание', blank=True)
-    description = HTMLField(verbose_name='Описание', blank=True)
+    description = RichTextUploadingField(verbose_name='Описание', blank=True)
+    # description = HTMLField(verbose_name='Описание', blank=True)
     available = models.BooleanField(verbose_name='Доcтупен сейчас', default=True)
 
     cover = models.ImageField(verbose_name='Выбрать фотографию обложки', blank=True, upload_to=upload_to)
