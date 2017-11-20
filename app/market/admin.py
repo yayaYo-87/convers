@@ -10,7 +10,7 @@ class GoodsImageInline(nested_admin.NestedTabularInline):
     model = GoodsImage
     fields = ['image', 'image_img', 'sorting']
     readonly_fields = ['image_img', ]
-    extra = 1
+    # extra = 1
     suit_classes = 'suit-tab suit-tab-general'
 
 
