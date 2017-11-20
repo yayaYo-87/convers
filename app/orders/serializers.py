@@ -1,15 +1,15 @@
 from rest_framework import serializers
 
 from app.market.models import Goods, Size
-from app.market.serializers import CategorySerializer
+from app.market.serializers import TypesSerializer
 from app.orders.models import OrderGoods, Cart, Order
 
 
 class GoodsSerializer(serializers.ModelSerializer):
-    type = CategorySerializer()
+    type = TypesSerializer()
     class Meta:
         model = Goods
-        fields = ['id', 'name', 'price', 'category',]
+        fields = ['id', 'name', 'price', 'category', 'type']
 
 
 class SizeSerializer(serializers.ModelSerializer):
@@ -21,7 +21,7 @@ class SizeSerializer(serializers.ModelSerializer):
 class OrderGoodsSerializer(serializers.ModelSerializer):
     price = serializers.FloatField(read_only=True)
     goods = GoodsSerializer()
-    size = SizeSerializer()
+    size = SizeSerializer(required=False)
 
     class Meta:
         model = OrderGoods

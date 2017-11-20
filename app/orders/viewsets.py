@@ -43,7 +43,7 @@ class CartViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericViewS
         return Cart.objects.filter(cookie=self.request.session.session_key)
 
 
-class OrderJibbitzViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins.CreateModelMixin, mixins.DestroyModelMixin, GenericViewSet):
+class OrderGoodsViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins.CreateModelMixin, mixins.DestroyModelMixin, GenericViewSet):
     queryset = OrderGoods.objects.all()
     serializer_class = OrderGoodsSerializer
     authentication_classes = ()
