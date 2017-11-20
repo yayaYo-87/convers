@@ -28,7 +28,7 @@ class OrderGoodsSerializer(serializers.ModelSerializer):
         fields = ['id', 'goods', 'size', 'count', 'price', 'created_at', 'active']
 
     def to_internal_value(self, data):
-        self.fields['crocs'] = serializers.PrimaryKeyRelatedField(queryset=Goods.objects.all())
+        self.fields['goods'] = serializers.PrimaryKeyRelatedField(queryset=Goods.objects.all())
         self.fields['size'] = serializers.PrimaryKeyRelatedField(queryset=Size.objects.all())
         return super(OrderGoodsSerializer, self).to_internal_value(data)
 
