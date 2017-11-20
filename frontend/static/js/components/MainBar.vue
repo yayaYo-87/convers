@@ -8,7 +8,7 @@
     <div class="main-bar_item" v-for="item in resultBanner.left_sliders">
       <img :src='item.cover' alt="cover">
     </div>
-    <h2>From the Blog</h2>
+    <h2>Из блога</h2>
     <div class="main-bar_item" v-for="item in resultBlog">
       <img class="main-bar_item-img" :src="item.cover" alt="cover">
       <a href="#" class="main-bar_link">{{ item.name }}</a>

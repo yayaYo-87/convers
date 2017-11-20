@@ -18,32 +18,37 @@
         Итого
       </div>
     </div>
-    <div class="basket__cart">
-      <div class="basket__cart_item">
-        <div class="basket__cart_item-close"></div>
+    <div class="basket__cart" v-for="item in basket">
+      <div class="basket__cart_item" v-for="cart in item.cart_goods ">
+        <div class="basket__cart_item-close" @click="switchItem(cart.id, 'deactivate')"></div>
+        <div class="basket__cart_item-active" v-if="!cart.active">
+          <button class="button button-green" @click="switchItem(cart.id, 'activate')">
+            <span>Вернуть обратно</span>
+          </button>
+        </div>
         <div class="basket__cart_item-img">
-          <img src="../../img/cart1.jpg" alt="">
+          <img :src="cart.goods.cover" alt="cover">
         </div>
         <div class="basket__cart_item-desc">
-          <div class="basket__cart_item-desc_title">IEW Student Resource Packet</div>
-          <div class="basket__cart_item-desc_text">Pairs perfectly with your IEW theme-based writing books Audience Grades 4-6; recommended as a reference for Cl...</div>
+          <div class="basket__cart_item-desc_title">{{ cart.goods.name }}</div>
+          <div class="basket__cart_item-desc_text">{{ cart.goods.description }}</div>
         </div>
         <div class="basket__cart_item-price">
-          21.00
+          {{ cart.goods.price }}
           <span class="rubl" > &#8399;</span>
         </div>
         <div class="basket__cart_item-col">
-          <input type="number" value="1">
+          <input type="number" :value="cart.count">
         </div>
         <div class="basket__cart_item-total">
-          21.00
+          {{ cart.price }}
           <span class="rubl" > &#8399;</span>
         </div>
       </div>
     </div>
     <div class="basket__total">
       <div class="basket__total_end">
-        <div class="basket__total_end-total">Итого <span>51.99 <span class="rubl" > &#8399;</span></span></div>
+        <div class="basket__total_end-total">Итого <span v-for="item in basket">{{ item.price }}<span class="rubl" > &#8399;</span></span></div>
         <div class="basket__total_end-nal">Исключая налог и доставку</div>
       </div>
     </div>
@@ -62,14 +67,34 @@
 </template>
 
 <script>
+  import axios from 'axios'
   export default {
     data() {
       return{
-
+        result: []
       }
     },
     methods: {
-
+      get() {
+        this.$store.dispatch('results')
+      },
+      switchItem(id, inc){
+        axios.post('/api/order_goods/' + id + '/'+ inc +'/')
+          .then((response) => {
+            if (response.status === 200) {
+              let self = this
+              self.$store.dispatch('results')
+            }
+          })
+      },
+    },
+    computed: {
+      basket() {
+        return this.$store.state.basket.results.results
+      }
+    },
+    created(){
+      this.get()
     }
   }
 </script>
