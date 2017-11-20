@@ -18,8 +18,8 @@
                         class="product_item-img"
                         :class="{'product_item-img-hover' : item.hover_cover }">
                     <div class="product_item-img_wrapper">
-                        <img  class="product_item-img_one" :src=" item.cover " alt="">
-                        <img class="product_item-img_two" :src=" item.hover_cover " alt="">
+                        <img  class="product_item-img_one" :src=" item.cover " alt="cover">
+                        <img class="product_item-img_two" :src=" item.hover_cover " alt="cover">
                     </div>
                 </router-link>
                 <div class="product_item-flex">
@@ -28,7 +28,7 @@
                     </div>
                     <div class="product_item-bottom">
                         <div class="product_item-bottom_price">
-                            ${{ item.price }}
+                            {{ item.price }} <span class="rubl" >&#8399;</span>
                         </div>
                         <button class="product_item-bottom_button">
                             <router-link

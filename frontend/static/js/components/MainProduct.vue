@@ -19,9 +19,9 @@
             <div class="main_product_item-bottom_price">
               {{ item.price }} <span class="rubl"> &#8399;</span>
             </div>
-            <button class="main_product_item-bottom_button">
+            <router-link tag="button" :to="{ name: 'cart', params: { item: item.id } }" class="main_product_item-bottom_button">
               <span>Купить</span>
-            </button>
+            </router-link>
           </div>
         </div>
       </div>

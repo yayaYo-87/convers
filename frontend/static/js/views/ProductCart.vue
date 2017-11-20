@@ -227,7 +227,7 @@
           )
       },
       postProduct(){
-        axios.post('/api/order/', {
+        axios.post('/api/order_goods/', {
           "count": 1,
         }).then(
           function (response) {
