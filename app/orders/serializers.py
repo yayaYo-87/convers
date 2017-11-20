@@ -29,7 +29,7 @@ class OrderGoodsSerializer(serializers.ModelSerializer):
 
     def to_internal_value(self, data):
         self.fields['goods'] = serializers.PrimaryKeyRelatedField(queryset=Goods.objects.all())
-        self.fields['size'] = serializers.PrimaryKeyRelatedField(queryset=Size.objects.all())
+        self.fields['size'] = serializers.PrimaryKeyRelatedField(queryset=Size.objects.all(), required=False)
         return super(OrderGoodsSerializer, self).to_internal_value(data)
 
     def create(self, validated_data):
