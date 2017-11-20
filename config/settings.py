@@ -35,8 +35,8 @@ INSTALLED_APPS = [
     'suit',
     'nested_admin',
     'tinymce',
-    'ckeditor',
-    'ckeditor_uploader',
+    # 'ckeditor',
+    # 'ckeditor_uploader',
 
     'django.contrib.admin',
     'django.contrib.auth',
