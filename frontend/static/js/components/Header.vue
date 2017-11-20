@@ -25,7 +25,7 @@
             <input type="text" placeholder="Поиск">
           </div>
           <div class="header__right-search_right">
-            <router-link tag="button" :to="{name: 'basket'}" class="button">Корзина <span>(2)</span></router-link>
+            <router-link tag="button" :to="{name: 'basket'}" class="button">Корзина <span v-for='item in basket'>({{ item.total_count }})</span></router-link>
           </div>
         </div>
       </div>
@@ -66,6 +66,9 @@
     computed: {
       display() {
         return this.$route.name === 'order'
+      },
+      basket() {
+        return this.$store.state.basket.results.results
       }
     },
     methods: {
@@ -75,15 +78,20 @@
           .then(
             function (response) {
               self.result = response.data.results
+
             },
             function (error) {
               console.log(erorr)
             }
           )
+      },
+      getBasket() {
+        this.$store.dispatch('results')
       }
     },
     created() {
       this.get()
+      this.getBasket()
     }
   }
 </script>
