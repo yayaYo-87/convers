@@ -9,7 +9,34 @@
     </div>
     <div class="cart__wrapper">
       <div class="cart__left">
-        <img class="cart__left-img" :src="result.cover" alt="cover">
+        <!--<img class="cart__left-img" :src="result.cover" alt="cover">-->
+
+        <swiper :options="swiperOptionTop" class="gallery-top" ref="swiperTop">
+          <swiper-slide>
+            <img :src="result.cover" alt="cover">
+          </swiper-slide>
+          <swiper-slide>
+            <img :src="result.cover" alt="cover">
+          </swiper-slide>
+          <swiper-slide>
+            <img :src="result.cover" alt="cover">
+          </swiper-slide>
+          <div class="swiper-button-next swiper-button-white" slot="button-next"></div>
+          <div class="swiper-button-prev swiper-button-white" slot="button-prev"></div>
+        </swiper>
+        <!-- swiper2 Thumbs -->
+        <swiper :options="swiperOptionThumbs" class="gallery-thumbs" ref="swiperThumbs">
+          <swiper-slide>
+            <img :src="result.cover" alt="cover">
+          </swiper-slide>
+          <swiper-slide>
+            <img :src="result.cover" alt="cover">
+          </swiper-slide>
+          <swiper-slide>
+            <img :src="result.cover" alt="cover">
+          </swiper-slide>
+        </swiper>
+
       </div>
       <div class="cart__right">
         <div class="cart__right_item" v-if="result.size && result.size.length !== 0 ">
@@ -31,7 +58,7 @@
             <option>5</option>
           </select>
         </div>
-        <button class="cart__right_item-button" >
+        <button @click="postProduct()" class="cart__right_item-button" >
           <span>Купить</span>
         </button>
         <div class="cart__right_item-text">
@@ -168,7 +195,21 @@
   export default {
     data() {
       return {
-        result: []
+        result: [],
+        swiperOptionTop: {
+          notNextTick: true,
+          nextButton: '.swiper-button-next',
+          prevButton: '.swiper-button-prev',
+          spaceBetween: 10
+        },
+        swiperOptionThumbs: {
+          notNextTick: true,
+          spaceBetween: 10,
+          centeredSlides: true,
+          slidesPerView: 'auto',
+          touchRatio: 0.2,
+          slideToClickedSlide: true
+        }
       }
     },
     methods: {
@@ -186,18 +227,11 @@
           )
       },
       postProduct(){
-        let self = this
-        self.buttonLoader = true
-        axios.post('/api/order_crocs/', {
+        axios.post('/api/order/', {
           "count": 1,
-          "crocs": this.item.id,
-          "color": this.valueColor,
-          "size": this.sizeProduct
         }).then(
           function (response) {
-            self.$store.dispatch('results')
-            self.buttonLoader = false
-            self.animatePopup()
+            alert('вау')
           },
           function (error) {
           }
@@ -206,6 +240,12 @@
     },
     created() {
       this.get()
+    },
+    mounted() {
+      const swiperTop = this.$refs.swiperTop.swiper
+      const swiperThumbs = this.$refs.swiperThumbs.swiper
+      swiperTop.params.control = swiperThumbs
+      swiperThumbs.params.control = swiperTop
     }
   }
 </script>

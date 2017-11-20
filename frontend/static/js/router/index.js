@@ -47,7 +47,7 @@ export default new Router({
       component: catalog
     },
     {
-      path: '/catalog/:id/:item',
+      path: '/item/:item',
       name: 'cart',
       component: cart
     },

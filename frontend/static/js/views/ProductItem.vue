@@ -7,19 +7,16 @@
         <h1 class="product__title">
             {{ result.name }}
         </h1>
-        <div class="product__desc" v-html="result.description" >
-
-        </div>
+        <div class="product__desc" v-html="result.description" ></div>
         <div class="product__items">
             <div class="product_item"
                  v-for="item in result.goods_categories"
             >
                 <router-link
                         tag="div"
-                        :to="{ name: 'cart', params: { id: $route.params.id, item: item.id } }"
+                        :to="{ name: 'cart', params: {  item: item.id } }"
                         class="product_item-img"
-                        :class="{'product_item-img-hover' : item.hover_cover }"
-                >
+                        :class="{'product_item-img-hover' : item.hover_cover }">
                     <div class="product_item-img_wrapper">
                         <img  class="product_item-img_one" :src=" item.cover " alt="">
                         <img class="product_item-img_two" :src=" item.hover_cover " alt="">
@@ -36,7 +33,7 @@
                         <button class="product_item-bottom_button">
                             <router-link
                                     tag="span"
-                                    :to="{ name: 'cart', params: { id: $route.params.id, item: item.id } }"
+                                    :to="{ name: 'cart', params: { item: item.id } }"
                             >
                                 Подробнее
                             </router-link>
