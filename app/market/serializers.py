@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from app.market.models import Catalog, Category, Goods, Type, Size
+from app.market.models import Catalog, Category, Goods, Type, Size, GoodsImage
 
 
 class TypesSerializer(serializers.ModelSerializer):
@@ -13,6 +13,12 @@ class SizesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Size
         fields = ['id', 'name']
+
+
+class GoodsImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GoodsImage
+        fields = ['id', 'image']
 
 
 class GoodsSerializer(serializers.ModelSerializer):
@@ -30,6 +36,7 @@ class GoodsSerializer(serializers.ModelSerializer):
 class GoodsDetailSerializer(serializers.ModelSerializer):
     type = TypesSerializer()
     size = SizesSerializer(many=True, required=False)
+    photos = GoodsImageSerializer(source='images', many=True, read_only=True)
 
     class Meta:
         model = Goods
@@ -59,6 +66,7 @@ class GoodsDetailSerializer(serializers.ModelSerializer):
             'date_publication',
             'size',
             'related_goods',
+            'photos'
         ]
 
 

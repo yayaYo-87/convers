@@ -50,7 +50,7 @@
         </div>
         <div class="cart__right_item cart__right_item-size">
           <div class="cart__right_item-name">Количество</div>
-          <select >
+          <select v-model="count" >
             <option selected>1</option>
             <option>2</option>
             <option>3</option>
@@ -196,6 +196,7 @@
     data() {
       return {
         result: [],
+        count: 1,
         swiperOptionTop: {
           notNextTick: true,
           nextButton: '.swiper-button-next',
@@ -227,8 +228,11 @@
           )
       },
       postProduct(){
+        const self = this
         axios.post('/api/order_goods/', {
-          "count": 1,
+          "goods": this.result.id,
+          "count": self.count,
+
         }).then(
           function (response) {
             alert('вау')
