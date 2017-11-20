@@ -232,6 +232,7 @@
         axios.post('/api/order_goods/', {
           "goods": this.result.id,
           "count": self.count,
+
         }).then(
           function (response) {
             alert('вау')
