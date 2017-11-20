@@ -124,6 +124,6 @@ class GoodsAdmin(admin.ModelAdmin):
 
     image_hover_img.short_description = 'Фотография ховера обложки'
     image_hover_img.allow_tags = True
-    suit_form_tabs = (('general', 'Основные'), ('size', 'Габариты'), ('extra', 'Для книг'), ('clothes', 'Размеры для одежды'))
+    suit_form_tabs = (('general', 'Основные'), ('size', 'Габариты и рекомендованные товары'), ('extra', 'Для книг'), ('clothes', 'Размеры для одежды'))
     list_filter = ['category', 'type', 'is_active', 'available', 'size']
     search_fields = ['name', 'title', 'date_publication']
