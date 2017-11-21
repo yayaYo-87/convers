@@ -12,9 +12,9 @@
     <div class="main-bar_item" v-for="item in resultBlog">
       <img class="main-bar_item-img" :src="item.cover" alt="cover">
       <a href="#" class="main-bar_link">{{ item.name }}</a>
-      <p class="main-bar_date">April 25, 2017</p>
-      <p class="main-bar_text">Time flies when you are having fun or when you have two children under 2-and-half-years-old. I’m just starting my homeschool...</p>
-      <a href="#" class="main-bar_read"><span>Read more →</span></a>
+      <p class="main-bar_date">{{ item.date }}</p>
+      <p class="main-bar_text">{{ item.description }}</p>
+      <a href="#" class="main-bar_read"><span>Подробнее →</span></a>
     </div>
 
   </div>

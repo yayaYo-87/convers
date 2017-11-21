@@ -31,7 +31,7 @@
         </div>
         <div class="basket__cart_item-desc">
           <div class="basket__cart_item-desc_title">{{ cart.goods.name }}</div>
-          <div class="basket__cart_item-desc_text">{{ cart.goods.description }}</div>
+          <div class="basket__cart_item-desc_text" v-html="cart.goods.description"></div>
         </div>
         <div class="basket__cart_item-price">
           {{ cart.goods.price }}

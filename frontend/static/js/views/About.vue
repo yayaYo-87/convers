@@ -28,6 +28,7 @@
     },
     components: {
       bar
-    }
+    },
+
   }
 </script>

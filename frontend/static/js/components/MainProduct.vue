@@ -12,9 +12,11 @@
           </router-link>
         </div>
         <div class="main_product_item-flex">
-          <div class="main_product_item-title">
+          <router-link :to="{ name: 'cart', params: { item: item.id } }"
+                       tag="div"
+                       class="main_product_item-title">
             <span>{{ item.name }}</span>
-          </div>
+          </router-link>
           <div class="main_product_item-bottom">
             <div class="main_product_item-bottom_price">
               {{ item.price }} <span class="rubl"> &#8399;</span>
