@@ -44,6 +44,29 @@
         width: 15px
         cursor: pointer
       }
+      &-active{
+        background-color rgba(255,255,255,0.8)
+        display: flex
+        justify-content: center
+        align-items center
+        width: 100%
+        height: 100%
+        position: absolute
+        top: 0px
+        left: 0px
+        .button{
+          background-color white
+          border: 1px solid #303942
+          padding: 10px
+          cursor: pointer
+          transition  .3s
+          font-family LatoRegular
+          &:hover{
+            background-color #343434
+            color white
+          }
+        }
+      }
       &-img{
         width: 15%
         flex 15%
