@@ -11,6 +11,7 @@
                 <p>Вопросы о вашем заказе? Свяжитесь с нами по электронной почте по адресу customerservice@classicalconversations.com.</p>
                 <h4>Вам нужно разместить свой заказ по телефону?</h4>
                 <p>Звоните 910.684.5665</p>
+                <h3>Рекомендуемые товары</h3>
                 <div class="cart__rew">
                     <div class="cart__item cart__item-width" v-for="item in limitBy(result, 3)">
                         <router-link

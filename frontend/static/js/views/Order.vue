@@ -120,10 +120,10 @@
           <label for="ch1">Сохраните эту информацию в следующий раз</label>
         </div>
         <div class="order__info_button">
-          <div class="order__info_button-return">
+          <router-link :to="{name: 'basket'}"  class="order__info_button-return">
             <svg class="order__info_button-svg" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><path d="M2 1l1-1 4 4 1 1-1 1-4 4-1-1 4-4"></path></svg>
             Вернуться в корзину
-          </div>
+          </router-link>
           <div class="order__info_button-bt">
             <button>Перейти к методу доставки</button>
           </div>
