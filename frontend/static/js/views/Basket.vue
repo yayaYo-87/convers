@@ -55,7 +55,7 @@
         <div class="basket__cart_item" v-if="basket && basket[0].cart_goods.length > 0" v-for="cart in basket[0].cart_goods ">
           <div class="basket__cart_item-close" @click="switchItem(cart.id, 'deactivate')"></div>
           <div class="basket__cart_item-active" v-if="!cart.active">
-            <button class="button button-green" @click="switchItem(cart.id, 'activate')">
+            <button class=" button-basket" @click="switchItem(cart.id, 'activate')">
               <span>Вернуть обратно</span>
             </button>
           </div>
