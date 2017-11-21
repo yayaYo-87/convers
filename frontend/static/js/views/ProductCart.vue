@@ -121,7 +121,7 @@
       return {
         result: [],
         count: 1,
-        size: 1,
+        size: undefined,
         swiperOptionTop: {
           notNextTick: true,
           nextButton: '.swiper-button-next',
