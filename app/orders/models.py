@@ -69,7 +69,7 @@ class OrderGoods(models.Model):
         ordering = ['id']
 
     def get_price(self):
-        return self.price * self.count
+        return self.goods.price * self.count
 
 
 class Cart(models.Model):
