@@ -9,7 +9,7 @@ class GoodsSerializer(serializers.ModelSerializer):
     type = TypesSerializer()
     class Meta:
         model = Goods
-        fields = ['id', 'name', 'price', 'category', 'type']
+        fields = ['id', 'name', 'price', 'category', 'type', 'cover', 'description']
 
 
 class SizeSerializer(serializers.ModelSerializer):
