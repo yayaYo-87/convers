@@ -36,7 +36,7 @@ class GoodsSerializer(serializers.ModelSerializer):
 class GoodsDetailSerializer(serializers.ModelSerializer):
     type = TypesSerializer()
     size = SizesSerializer(many=True, required=False)
-    photos = GoodsImageSerializer(source='images', many=True, read_only=True)
+    photos = GoodsImageSerializer(source='images', many=True)
 
     class Meta:
         model = Goods

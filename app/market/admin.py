@@ -6,7 +6,7 @@ from app.market.forms import GoodsForm
 from app.market.models import Catalog, Category, Goods, Type, Size, GoodsImage
 
 
-class GoodsImageInline(nested_admin.NestedTabularInline):
+class GoodsImageInline(admin.TabularInline):
     model = GoodsImage
     fields = ['image', 'image_img', 'sorting']
     readonly_fields = ['image_img', ]
