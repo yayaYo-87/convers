@@ -4,7 +4,7 @@ import Vue from 'vue'
 import App from './views/App.vue'
 import router from './router/index'
 import store from './store'
-
+import Vue2Filters from 'vue2-filters'
 import '../style/global.styl'
 
 Vue.config.productionTip = false
@@ -14,7 +14,7 @@ import { swiper, swiperSlide } from 'vue-awesome-swiper'
 require('swiper/dist/css/swiper.css')
 Vue.use(VueAwesomeSwiper);
 
-
+Vue.use(Vue2Filters)
 
 /* eslint-disable no-new */
 new Vue({

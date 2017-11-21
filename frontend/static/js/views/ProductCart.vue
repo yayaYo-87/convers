@@ -96,7 +96,7 @@
     >Вам также может понравиться</div>
     <div class="cart__rew">
       <cart
-              v-for="(item, index) in result.related_goods"
+              v-for="(item, index) in  result.related_goods"
               :id="item"
               :key="index"
       ></cart>

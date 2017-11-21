@@ -8,6 +8,7 @@ import order from '../views/Order.vue'
 import catalogItem from '../views/ProductItem.vue'
 import about from '../views/About.vue'
 import faq  from '../views/Faq.vue'
+import contacts from '../views/Contacts.vue'
 Vue.use(Router)
 
 //При переходе скролит до верха
@@ -35,6 +36,11 @@ export default new Router({
       path: '/about',
       name: 'about',
       component: about
+    },
+    {
+      path: '/contacts',
+      name: 'contacts',
+      component: contacts
     },
     {
       path: '/',
