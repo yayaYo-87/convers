@@ -5,12 +5,7 @@
             <span class="product__header-disabled" > FAQ</span>
         </div>
         <div class="faq__wrapper">
-            <div class="faq__wrapper-left">
-                <h1 class="faq__title">FAQ</h1>
-            </div>
-            <div class="faq__wrapper-right">
-
-            </div>
+            <h1 class="faq__title">Центр помощи</h1>
         </div>
     </div>
 </template>
