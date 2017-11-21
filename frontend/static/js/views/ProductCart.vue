@@ -12,28 +12,20 @@
         <!--<img class="cart__left-img" :src="result.cover" alt="cover">-->
 
         <swiper :options="swiperOptionTop" class="gallery-top" ref="swiperTop">
-          <swiper-slide>
-            <img :src="result.cover" alt="cover">
-          </swiper-slide>
-          <swiper-slide>
-            <img :src="result.cover" alt="cover">
-          </swiper-slide>
-          <swiper-slide>
-            <img :src="result.cover" alt="cover">
+          <swiper-slide
+                  :key="index"
+                  v-for=" (item, index) in result.photos">
+            <img :src="item.image" alt="cover">
           </swiper-slide>
           <div class="swiper-button-next swiper-button-white" slot="button-next"></div>
           <div class="swiper-button-prev swiper-button-white" slot="button-prev"></div>
         </swiper>
         <!-- swiper2 Thumbs -->
         <swiper :options="swiperOptionThumbs" class="gallery-thumbs" ref="swiperThumbs">
-          <swiper-slide>
-            <img :src="result.cover" alt="cover">
-          </swiper-slide>
-          <swiper-slide>
-            <img :src="result.cover" alt="cover">
-          </swiper-slide>
-          <swiper-slide>
-            <img :src="result.cover" alt="cover">
+          <swiper-slide
+                  :key="index"
+                  v-for=" (item, index) in result.photos">
+            <img :src="item.image" alt="cover">
           </swiper-slide>
         </swiper>
 
@@ -99,9 +91,10 @@
 
       </div>
     </div>
-    <div class="cart__text">Вам также может понравиться</div>
+    <div class="cart__text"
+        v-if="result.related_goods && result.related_goods.length > 0"
+    >Вам также может понравиться</div>
     <div class="cart__rew">
-
       <cart
               v-for="(item, index) in result.related_goods"
               :id="item"
