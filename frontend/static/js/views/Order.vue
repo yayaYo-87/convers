@@ -10,7 +10,7 @@
 
         <div class="order__header_list ">
           <div class="order__header_list-item order__header_list-complited">
-            <router-link :to="{name: 'cart'}" class="order__header_list-link" href="https://classicalconversationsbooks.com/cart">Корзина</router-link>
+            <router-link :to="{name: 'basket'}" class="order__header_list-link" href="https://classicalconversationsbooks.com/cart">Корзина</router-link>
             <svg class="order__svg order__svg-active" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><path d="M2 1l1-1 4 4 1 1-1 1-4 4-1-1 4-4"></path></svg>
           </div>
           <div class="order__header_list-item ">
@@ -143,35 +143,21 @@
     </div>
     <div class="order__right">
       <div class="order__right_items">
-        <div class="order__right_item">
+        <div class="order__right_item"
+             v-if="basket && basket.length > 0"
+             v-for="item in basket[0].cart_goods "
+             >
           <div class="order__right_item-img">
             <div class="order__right_item-img_wrapper">
-              <img src="../../img/My_CC_ABCs_large.jpg" alt="cover">
+              <img :src="item.goods.cover" alt="cover">
             </div>
-            <div class="order__right_item-count">2</div>
+            <div class="order__right_item-count">{{item.count}}</div>
           </div>
-          <div class="order__right_item-name">My CC ABCs - Cycle 3</div>
-          <div class="order__right_item-price">$10.99</div>
-        </div>
-        <div class="order__right_item">
-          <div class="order__right_item-img">
-            <div class="order__right_item-img_wrapper">
-              <img src="../../img/cart1.gif" alt="cover">
-            </div>
-            <div class="order__right_item-count">2</div>
+          <div class="order__right_item-name">{{ item.goods.name }}</div>
+          <div class="order__right_item-price">
+            {{ item.goods.price }}
+            <span class="rubl" > &#8399;</span>
           </div>
-          <div class="order__right_item-name">My CC ABCs - Cycle 3</div>
-          <div class="order__right_item-price">$10.99</div>
-        </div>
-        <div class="order__right_item">
-          <div class="order__right_item-img">
-            <div class="order__right_item-img_wrapper">
-              <img src="../../img/slide_1_image.jpg" alt="cover">
-            </div>
-            <div class="order__right_item-count">2</div>
-          </div>
-          <div class="order__right_item-name">My CC ABCs - Cycle 3</div>
-          <div class="order__right_item-price">$10.99</div>
         </div>
       </div>
       <div class="order__right_code">
@@ -192,17 +178,17 @@
       <div class="order__right_subtotal">
         <div class="order__right_subtotal-items">
           <div class="order__right_subtotal-text">Промежуточный итог</div>
-          <div class="order__right_subtotal-price">$36.97</div>
+          <div class="order__right_subtotal-price" v-for="item in basket">{{ item.price }}<span class="rubl" > &#8399;</span></div>
         </div>
         <div class="order__right_subtotal-items">
           <div class="order__right_subtotal-text">Доставка</div>
           <div class="order__right_subtotal-price">—</div>
         </div>
       </div>
-        <div class="order__right_total">
+      <div class="order__right_total">
         <div class="order__right_total_items">
           <div class="order__right_total-text">Итого</div>
-          <div class="order__right_total-price">$36.97</div>
+          <div class="order__right_total-price" v-for="item in basket">{{ item.price }}<span class="rubl" > &#8399;</span></div>
         </div>
       </div>
     </div>
@@ -211,7 +197,7 @@
 
 <script>
   import { focus } from 'vue-focus';
-
+  import axios from 'axios'
   export default {
     data() {
       return {
@@ -241,6 +227,11 @@
       }
     },
     directives: { focus: focus },
+    computed: {
+      basket() {
+        return this.$store.state.basket.results.results
+      }
+    },
     methods: {
       fcCode(){
         if(this.code.length !== 0) {
@@ -297,7 +288,13 @@
         } else {
           this.focusedIndex = false
         }
-      }
+      },
+      get() {
+        this.$store.dispatch('results')
+      },
+    },
+    created() {
+      this.get()
     }
   }
 </script>

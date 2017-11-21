@@ -7,7 +7,7 @@
     <div class="basket__recommend" v-if="basket && basket[0].cart_goods.length === 0">
       <p>Ваша корзина покупок пуста. Возможно, интересный элемент ниже представляет интерес ...</p>
       <div class="cart__rew">
-        <div class="cart__item" v-for="item in result">
+        <div class="cart__item" v-for="item in limitBy(result, 3)">
           <router-link
                   tag="div"
                   :to="{ name: 'cart', params: {  item: item.id } }"

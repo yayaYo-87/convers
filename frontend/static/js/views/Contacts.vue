@@ -2,14 +2,15 @@
     <div class="about">
         <div class="product__header">
             <router-link class='product__header-active' tag="span" :to="{ name: 'main' }" >Главная</router-link> »
-            <span class="product__header-disabled" > О нас</span>
+            <span class="product__header-disabled" > Контакты</span>
         </div>
         <div class="about__wrapper">
             <div class="about__wrapper-left">
-                <h1 class="about__title">О нас</h1>
-                <h2>Добро пожаловать в наш интернет-магазин!</h2>
-                Здесь вы найдете учебную программу для школьников, которая поддерживает сообщество классических бесед десятков тысяч опытных семейных домов, которые продвигают христианскую, классическую, общинную модель домашнего обучения, используя учебную программу классических бесед.
-                <h3>Рекомендуемые товары</h3>
+                <h1 class="about__title">Контакты</h1>
+                <h4>Часы работы с клиентами: понедельник-пятница 8:30. до 5:00 вечера. По восточному времени.</h4>
+                <p>Вопросы о вашем заказе? Свяжитесь с нами по электронной почте по адресу customerservice@classicalconversations.com.</p>
+                <h4>Вам нужно разместить свой заказ по телефону?</h4>
+                <p>Звоните 910.684.5665</p>
                 <div class="cart__rew">
                     <div class="cart__item cart__item-width" v-for="item in limitBy(result, 3)">
                         <router-link
