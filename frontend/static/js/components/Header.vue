@@ -27,6 +27,7 @@
           <div class="header__right-search_right">
             <router-link tag="button" :to="{name: 'basket'}" class="button">Корзина <span v-for='item in basket'>({{ item.total_count }})</span></router-link>
           </div>
+
         </div>
       </div>
     </div>
