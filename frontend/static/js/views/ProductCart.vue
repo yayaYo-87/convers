@@ -12,13 +12,7 @@
         <!--<img class="cart__left-img" :src="result.cover" alt="cover">-->
 
         <swiper :options="swiperOptionTop" class="gallery-top" ref="swiperTop">
-          <swiper-slide>
-            <img :src="result.cover" alt="cover">
-          </swiper-slide>
-          <swiper-slide>
-            <img :src="result.cover" alt="cover">
-          </swiper-slide>
-          <swiper-slide>
+          <swiper-slide >
             <img :src="result.cover" alt="cover">
           </swiper-slide>
           <div class="swiper-button-next swiper-button-white" slot="button-next"></div>
@@ -26,12 +20,6 @@
         </swiper>
         <!-- swiper2 Thumbs -->
         <swiper :options="swiperOptionThumbs" class="gallery-thumbs" ref="swiperThumbs">
-          <swiper-slide>
-            <img :src="result.cover" alt="cover">
-          </swiper-slide>
-          <swiper-slide>
-            <img :src="result.cover" alt="cover">
-          </swiper-slide>
           <swiper-slide>
             <img :src="result.cover" alt="cover">
           </swiper-slide>
