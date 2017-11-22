@@ -64,13 +64,13 @@ def resend_pay(request):
 
 @require_http_methods(["POST"])
 @csrf_exempt
-def shiptorg(request, **kwargs):
+def shiptorg(request, *args):
     headers = {
         'content-type': 'application/json',
         'x-authorization-token': '4b8015c64d6c260d377374edecda8b54027c78ca'
     }
     path = 'https://api.shiptor.ru/public/v1'
-    f = requests.post(path, headers=headers, json=kwargs.get('json'))
+    f = requests.post(path, headers=headers, json=json)
     print(f.json())
 
     return HttpResponse(f.content)
