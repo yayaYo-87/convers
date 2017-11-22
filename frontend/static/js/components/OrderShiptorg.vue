@@ -12,7 +12,7 @@
     data() {
       return {
         result: [],
-        kek: [{
+        kek: {
           "id": "JsonRpcClient.js",
           "jsonrpc": "2.0",
           "method": "calculateShipping",
@@ -26,7 +26,7 @@
             "kladr_id": "01000001000",
             "courier": "dpd"
           }
-        }]
+        }
       }
     },
     computed: {
@@ -55,7 +55,7 @@
     methods: {
       postShiptorg() {
         const self = this
-        axios.get('/shitorg/?json='+ kek +'/').then(
+        axios.get('/shitorg?json=' + JSON.stringify(self.kek)).then(
           function (response) {
             console.log(response)
             self.result = response.date
