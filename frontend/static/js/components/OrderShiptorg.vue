@@ -40,7 +40,7 @@
     methods: {
       postShiptorg() {
         const self = this
-        axios.post('/shiptorg(a=25)/', {
+        axios.post('/shiptorg/', {
           "id": "JsonRpcClient.js",
           "jsonrpc": "2.0",
           "method": "calculateShipping",

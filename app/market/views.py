@@ -76,3 +76,10 @@ def shiptorg(request):
     print(f.json())
 
     return HttpResponse(f.content)
+
+
+@csrf_exempt
+def method_print(request):
+    a = request.GET.get('a', '')
+    print(a)
+    return a
