@@ -144,7 +144,39 @@
         focusedIndex: false
       }
     },
-
+    watch: {
+      phone(now){
+        if( this.validation.phone ) {
+          this.$store.dispatch('validation', {typeValid: 'phone', value: now })
+        }
+      },
+      city(now) {
+        if (this.validation.city) {
+          this.$store.dispatch('validation', {typeValid: 'city', value: now})
+        }
+      },
+      email(now){
+        if (this.validation.email) {
+          this.$store.dispatch('validation', {typeValid: 'email', value: now})
+        }
+      },
+      FirstName(now){
+        if (this.validation.email) {
+          this.$store.dispatch('validation', {typeValid: 'FirstName', value: now})
+        }
+      },
+      LastName(now){
+        if (this.validation.email) {
+          this.$store.dispatch('validation', {typeValid: 'LastName', value: now})
+        }
+      },
+      address(now){
+        this.$store.dispatch('validation', {typeValid: 'address', value: now })
+      },
+      index(now){
+        this.$store.dispatch('validation', {typeValid: 'index', value: now })
+      },
+    },
     computed: {
       validation: function () {
         return {
@@ -183,7 +215,7 @@
           this.focusedCity = true
         } else {
           this.focusedCity = false
-        },
+        }
         if ( this.validation.city === true) {
           this.cityV = false
         }else {

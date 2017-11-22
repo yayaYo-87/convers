@@ -1,7 +1,14 @@
 import axios from 'axios'
 
 const state = {
-  results: []
+  results: [],
+  phone: '',
+  city: '',
+  email: '',
+  FirstName:'',
+  LastName: '',
+  address: '',
+  index: '',
 };
 
 // actions
@@ -18,6 +25,10 @@ const actions = {
         }
       );
   },
+  validation(store, {value, typeValid}){
+    store.commit('results', { type: typeValid, value: value})
+  }
+
 };
 // getters
 const getters = {
@@ -28,6 +39,7 @@ const mutations = {
   results(state, {type, items}) {
     state[type] = items
   },
+
 };
 
 export default {
