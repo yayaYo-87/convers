@@ -81,9 +81,9 @@
           <div class="basket__cart_item-col">
             <div class="basket__cart_item-col_minus"
                  :class="{ 'basket__cart_item-col_hidd': cart.count === 1 }"
-                 @click="switchProductBasket(cart.goods.id,'dec')">-</div>
+                 @click="switchProductBasket(cart.id,'dec')">-</div>
             <div class="basket__cart_item-col_count">{{ cart.count }}</div>
-            <div class="basket__cart_item-col_plus" @click="switchProductBasket(cart.goods.id,'inc')">+</div>
+            <div class="basket__cart_item-col_plus" @click="switchProductBasket(cart.id,'inc')">+</div>
           </div>
           <div class="basket__cart_item-total">
             {{ cart.price }}

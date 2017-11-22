@@ -31,9 +31,13 @@
 
       <div class="order__info">
 
-        <basket-info
+        <order-info
 
-        ></basket-info>
+        ></order-info>
+
+        <order-shiptorg
+
+        ></order-shiptorg>
 
         <div class="order__info_cop">
           <div class="order__info_cop-item">
@@ -111,7 +115,8 @@
 <script>
   import { focus } from 'vue-focus';
   import axios from 'axios'
-  import basketInfo from '../components/BasketInfo.vue'
+  import orderInfo from '../components/OrderInfo.vue'
+  import orderShiptorg from '../components/OrderShiptorg.vue'
 
   export default {
     data() {
@@ -127,7 +132,8 @@
       }
     },
     components: {
-      basketInfo
+      orderInfo,
+      orderShiptorg
     },
     methods: {
       switchItem(id, inc){
