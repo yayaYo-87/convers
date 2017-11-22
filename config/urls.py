@@ -18,12 +18,17 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from config.api import router
 
-from app.market.views import IndexView
+from app.market.views import IndexView, init_pay, cancel_pay, get_state_pay, resend_pay, shiptorg
 from config import settings
 
 urlpatterns = [
     url(r'^api/', include(router.urls, namespace='api')),
     url(r'^admin/', admin.site.urls),
+    url(r'^init_pay/$', init_pay, name='init_pay'),
+    url(r'^cancel_pay/$', cancel_pay, name='cancel_pay'),
+    url(r'^get_state_pay/$', get_state_pay, name='get_state_pay'),
+    url(r'^resend_pay/$', resend_pay, name='resend_pay'),
+    url(r'^shiptorg/$', shiptorg, name='shiptorg'),
     url(r'^[a-z]*_?/?[a-z]*_?/?[0-9]*_?/?[0-9]*$', IndexView.as_view(), name='index'),
     # url(r'^ckeditor/', include('ckeditor_uploader.urls')),
 
