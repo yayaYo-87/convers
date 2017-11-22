@@ -30,7 +30,7 @@ class IndexView(generic.TemplateView):
 @csrf_exempt
 def init_pay(request):
     path = 'https://securepay.tinkoff.ru/v2/Init'
-    f = requests.get(path)
+    f = requests.post(path)
 
     return HttpResponse(f.content)
 
@@ -39,7 +39,7 @@ def init_pay(request):
 @csrf_exempt
 def cancel_pay(request):
     path = 'https://securepay.tinkoff.ru/v2/Cancel'
-    f = requests.get(path)
+    f = requests.post(path)
 
     return HttpResponse(f.content)
 
@@ -48,7 +48,7 @@ def cancel_pay(request):
 @csrf_exempt
 def get_state_pay(request):
     path = 'https://securepay.tinkoff.ru/v2/Cancel'
-    f = requests.get(path)
+    f = requests.post(path)
 
     return HttpResponse(f.content)
 
@@ -57,7 +57,7 @@ def get_state_pay(request):
 @csrf_exempt
 def resend_pay(request):
     path = 'https://securepay.tinkoff.ru/v2/Resend'
-    f = requests.get(path)
+    f = requests.post(path)
 
     return HttpResponse(f.content)
 
@@ -67,9 +67,9 @@ def resend_pay(request):
 def shiptorg(request):
     headers = {
         'content-type': 'application/json',
-        'x-authorization-token:': '4b8015c64d6c260d377374edecda8b54027c78ca',
+        'x-authorization-token': '4b8015c64d6c260d377374edecda8b54027c78ca'
     }
     path = 'https://api.shiptor.ru/public/v1'
-    f = requests.get(path, headers=headers)
+    f = requests.post(path, headers=headers)
 
     return HttpResponse(f.content)
