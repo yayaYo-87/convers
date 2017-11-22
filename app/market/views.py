@@ -67,9 +67,9 @@ def resend_pay(request):
 def shiptorg(request):
     headers = {
         'content-type': 'application/json',
-        'x-authorization-token:': '4b8015c64d6c260d377374edecda8b54027c78ca',
+        'x-authorization-token': '4b8015c64d6c260d377374edecda8b54027c78ca'
     }
     path = 'https://api.shiptor.ru/public/v1'
-    f = requests.get(path, headers=headers)
+    f = requests.post(path, headers=headers)
 
     return HttpResponse(f.content)
