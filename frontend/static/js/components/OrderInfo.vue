@@ -146,35 +146,39 @@
     },
     watch: {
       phone(now){
-        if( this.validation.phone ) {
+        if( this.validation.phone !== false ) {
           this.$store.dispatch('validation', {typeValid: 'phone', value: now })
         }
       },
       city(now) {
-        if (this.validation.city) {
+        if (this.validation.city !== false) {
           this.$store.dispatch('validation', {typeValid: 'city', value: now})
         }
       },
       email(now){
-        if (this.validation.email) {
+        if (this.validation.email !== false) {
           this.$store.dispatch('validation', {typeValid: 'email', value: now})
         }
       },
       FirstName(now){
-        if (this.validation.email) {
+        if (this.validation.email !== false) {
           this.$store.dispatch('validation', {typeValid: 'FirstName', value: now})
         }
       },
       LastName(now){
-        if (this.validation.email) {
+        if (this.validation.email !== false) {
           this.$store.dispatch('validation', {typeValid: 'LastName', value: now})
         }
       },
       address(now){
-        this.$store.dispatch('validation', {typeValid: 'address', value: now })
+        if (this.validation.address !== false) {
+          this.$store.dispatch('validation', {typeValid: 'address', value: now})
+        }
       },
       index(now){
-        this.$store.dispatch('validation', {typeValid: 'index', value: now })
+        if (this.validation.index !== false) {
+          this.$store.dispatch('validation', {typeValid: 'index', value: now})
+        }
       },
     },
     computed: {

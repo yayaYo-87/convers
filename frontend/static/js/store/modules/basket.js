@@ -26,7 +26,7 @@ const actions = {
       );
   },
   validation(store, {value, typeValid}){
-    store.commit('results', { type: typeValid, value: value})
+    store.commit('results', { type: typeValid, items: value})
   }
 
 };
