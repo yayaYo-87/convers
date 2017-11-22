@@ -2,6 +2,7 @@
     <div class="order__shiptorg">
         {{ phone }}
         <button @click="postShiptorg()">shiptorg</button>
+        {{ result }}
     </div>
 </template>
 
