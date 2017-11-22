@@ -64,15 +64,6 @@ def resend_pay(request):
 
 @require_http_methods(["POST"])
 @csrf_exempt
-def resend_pay(request):
-    path = 'https://securepay.tinkoff.ru/v2/Resend'
-    f = requests.get(path)
-
-    return HttpResponse(f.content)
-
-
-@require_http_methods(["POST"])
-@csrf_exempt
 def shiptorg(request):
     path = 'https://api.shiptor.ru/public/v1'
     f = requests.get(path)
