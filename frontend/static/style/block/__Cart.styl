@@ -45,6 +45,7 @@
   }
   &__wrapper{
     display: flex
+    margin-bottom: 20px
   }
   &__left{
     width: 388px
@@ -170,12 +171,14 @@
       &_wrapper{
         position: relative
       }
-      &:hover{
-        .cart__item-img_one{
-          opacity: 0
-        }
-        .cart__item-img_two{
-          opacity: 1
+      &-hover{
+        &:hover{
+          .cart__item-img_one{
+            opacity: 0
+          }
+          .cart__item-img_two{
+            opacity: 1
+          }
         }
       }
       &_one{

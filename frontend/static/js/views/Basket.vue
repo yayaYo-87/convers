@@ -11,7 +11,9 @@
           <router-link
                   tag="div"
                   :to="{ name: 'cart', params: {  item: item.id } }"
-                  class="cart__item-img">
+                  class="cart__item-img"
+                  :class="{'cart__item-img-hover' : item.hover_cover }"
+          >
             <div class="cart__item-img_wrapper">
               <img class="cart__item-img_one" :src="item.cover" alt="cover">
               <img class="cart__item-img_two" :src="item.hover_cover" alt="cover">
@@ -59,11 +61,17 @@
               <span>Вернуть обратно</span>
             </button>
           </div>
-          <div class="basket__cart_item-img">
+          <router-link
+                  tag="div"
+                  :to="{ name: 'cart', params: {  item: cart.goods.id } }"
+                  class="basket__cart_item-img">
             <img :src="cart.goods.cover" alt="cover">
-          </div>
+          </router-link>
           <div class="basket__cart_item-desc">
-            <div class="basket__cart_item-desc_title">{{ cart.goods.name }}</div>
+            <router-link  class="basket__cart_item-desc_title"
+                          tag="div"
+                          :to="{ name: 'cart', params: {  item: cart.goods.id } }"
+            >{{ cart.goods.name }}</router-link>
             <div class="basket__cart_item-desc_text" v-html="cart.goods.description"></div>
           </div>
           <div class="basket__cart_item-price">
@@ -71,7 +79,11 @@
             <span class="rubl" > &#8399;</span>
           </div>
           <div class="basket__cart_item-col">
-            <input type="number" :value="cart.count">
+            <div class="basket__cart_item-col_minus"
+                 :class="{ 'basket__cart_item-col_hidd': cart.count === 1 }"
+                 @click="switchProductBasket(cart.goods.id,'dec')">-</div>
+            <div class="basket__cart_item-col_count">{{ cart.count }}</div>
+            <div class="basket__cart_item-col_plus" @click="switchProductBasket(cart.goods.id,'inc')">+</div>
           </div>
           <div class="basket__cart_item-total">
             {{ cart.price }}
@@ -135,6 +147,16 @@
             }
           )
       },
+      switchProductBasket( id, inc) {
+        axios.post('/api/order_goods/' + id + '/'+ inc +'/', {
+        })
+          .then((response) => {
+            if (response.status === 200) {
+              let self = this
+              self.$store.dispatch('results')
+            }
+          })
+      }
     },
     computed: {
       basket() {

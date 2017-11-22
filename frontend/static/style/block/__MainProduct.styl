@@ -24,17 +24,20 @@
       height: 100%
       display: flex;
       align-items: center;
+      &-hover{
+        &:hover{
+          .main_product_item-img_one{
+            opacity: 0
+          }
+          .main_product_item-img_two{
+            opacity: 1
+          }
+        }
+      }
       &_wrapper{
         position: relative
       }
-      &:hover{
-        .main_product_item-img_one{
-          opacity: 0
-        }
-        .main_product_item-img_two{
-          opacity: 1
-        }
-      }
+
       &_one{
         opacity: 1
         width: 100%

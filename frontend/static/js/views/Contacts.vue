@@ -17,7 +17,9 @@
                         <router-link
                                 tag="div"
                                 :to="{ name: 'cart', params: {  item: item.id } }"
-                                class="cart__item-img">
+                                class="cart__item-img"
+                                :class="{'cart__item-img-hover' : item.hover_cover }"
+                        >
                             <div class="cart__item-img_wrapper">
                                 <img class="cart__item-img_one" :src="item.cover" alt="cover">
                                 <img class="cart__item-img_two" :src="item.hover_cover" alt="cover">
