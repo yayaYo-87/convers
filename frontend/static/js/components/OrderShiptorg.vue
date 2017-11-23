@@ -39,22 +39,24 @@
     },
     methods: {
       postShiptorg() {
-        const self = this
+        const self = this;
         axios.post('/shiptorg/', {
-          "id": "JsonRpcClient.js",
-          "jsonrpc": "2.0",
-          "method": "calculateShipping",
-          "params": {
-            "length": 10,
-            "width": 10,
-            "height": 10,
-            "weight": 10,
-            "cod": 10,
-            "declared_cost": 10,
-            "kladr_id": "01000001000",
-            "courier": "dpd"
-          }
-        }).then(
+            json: {
+                "id": "JsonRpcClient.js",
+                "jsonrpc": "2.0",
+                "method": "calculateShipping",
+                "params": {
+                    "length": 10,
+                    "width": 10,
+                    "height": 10,
+                    "weight": 10,
+                    "cod": 10,
+                    "declared_cost": 10,
+                    "kladr_id": "01000001000",
+                    "courier": "dpd"
+                }
+            }
+      }).then(
           function (response) {
             console.log(response)
             self.result = response.date
