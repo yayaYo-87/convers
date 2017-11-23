@@ -9,6 +9,8 @@ const state = {
   LastName: '',
   address: '',
   index: '',
+
+  validation: 1
 };
 
 // actions

@@ -1,5 +1,5 @@
 <template>
-    <div class="order__info-one">
+    <div class="order__info-one" v-show="next === 1">
         <div class="order__info_mail">
             <div class="order__info_mail-title">Информация для покупателей</div>
             <div class="order__info_input">
@@ -104,7 +104,7 @@
                 Вернуться в корзину
             </router-link>
             <div class="order__info_button-bt">
-                <button>Перейти к методу доставки</button>
+                <button :disabled="isValid === false" @click="nextMethods()">Перейти к методу доставки</button>
             </div>
         </div>
     </div>
@@ -182,6 +182,9 @@
       },
     },
     computed: {
+      next(){
+        return this.$store.state.basket.validation
+      },
       validation: function () {
         return {
           FirstName: !!this.FirstName.trim(),
@@ -202,6 +205,9 @@
     },
 
     methods: {
+      nextMethods(){
+        this.$store.dispatch('validation', {typeValid: 'validation', value: 2})
+      },
       fcPhone(){
         if(this.phone.length !== 0) {
           this.focusedPhone = true

@@ -79,8 +79,9 @@ def shiptorg(request):
     return HttpResponse(f.content)
 
 
+# @require_http_methods(["POST"])
 @csrf_exempt
 def method_print(request):
-    a = request.GET.get('a', '')
+    a = request.POST.get('a', '')
     print(a)
     return a
