@@ -6,7 +6,9 @@
       <div class="main_product_item" v-for="item in result">
         <div class="main_product_item-img">
           <router-link :to="{ name: 'cart', params: { item: item.id } }"
-                       class="main_product_item-img_wrapper">
+                       class="main_product_item-img_wrapper"
+                       :class="{'main_product_item-img-hover' : item.hover_cover && item.hover_cover.length !== 0}"
+          >
             <img class="main_product_item-img_one" :src="item.cover" alt="cover">
             <img class="main_product_item-img_two" :src="item.hover_cover" alt="cover">
           </router-link>

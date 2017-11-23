@@ -16,14 +16,16 @@
                   :key="index"
                   v-for=" (item, index) in result.photos">
             <img :src="item.image" alt="cover">
+
           </swiper-slide>
-          <div class="swiper-button-next swiper-button-white" slot="button-next"></div>
-          <div class="swiper-button-prev swiper-button-white" slot="button-prev"></div>
+          <div v-show=" result.photos && result.photos.length > 1" class="swiper-button-next swiper-button-white" slot="button-next"></div>
+          <div v-show="result.photos && result.photos.length > 1" class="swiper-button-prev swiper-button-white" slot="button-prev"></div>
         </swiper>
         <!-- swiper2 Thumbs -->
-        <swiper :options="swiperOptionThumbs" class="gallery-thumbs" ref="swiperThumbs">
+        <swiper  :options="swiperOptionThumbs" class="gallery-thumbs" ref="swiperThumbs">
           <swiper-slide
                   :key="index"
+                  v-show="result.photos.length > 1"
                   v-for=" (item, index) in result.photos">
             <img :src="item.image" alt="cover">
           </swiper-slide>
@@ -92,7 +94,7 @@
       </div>
     </div>
     <div class="cart__text"
-        v-if="result.related_goods && result.related_goods.length > 0"
+         v-if="result.related_goods && result.related_goods.length > 0"
     >Вам также может понравиться</div>
     <div class="cart__rew">
       <cart

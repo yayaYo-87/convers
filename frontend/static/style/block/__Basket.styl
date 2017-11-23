@@ -63,7 +63,8 @@
           font-family LatoRegular
           border-radius 4px
           &:hover{
-            background-color #343434
+            background-color #6582a0
+            border-color #6582a0
             color white
           }
         }
@@ -74,6 +75,7 @@
         padding-right: 30px;
         img {
           width: 100%
+          cursor: pointer
         }
       }
       &-desc{
@@ -84,6 +86,11 @@
           font-family MerriweatherRegular
           line-height: 18px
           margin: 10px 0px
+          transition .3s
+          cursor: pointer
+          &:hover{
+            text-decoration underline
+          }
         }
         &_text{
           font-family MerriweatherRegular
@@ -110,8 +117,36 @@
         width: 11%
         flex: 11%;
         padding-right 40px
-        input{
-          width: 100%
+        display: flex
+        align-items baseline
+        &_hidd{
+          opacity: 0
+        }
+        &_minus{
+          width: 20px
+          text-align center
+          border: 1px solid #a3a3af
+          margin-right: 5px
+          cursor: pointer
+          border-radius 50%
+          line-height: 19px
+          transition .4s
+          &:hover{
+            background-color rgba(101, 130, 160, 0.33)
+          }
+        }
+        &_plus{
+          width: 20px
+          border-radius 50%
+          border: 1px solid #a3a3af
+          text-align center
+          margin-left: 5px
+          cursor: pointer
+          line-height: 19px
+          transition .4s
+          &:hover{
+            background-color rgba(101, 130, 160, 0.33)
+          }
         }
       }
       &-remove{
