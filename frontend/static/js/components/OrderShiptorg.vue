@@ -1,8 +1,20 @@
 <template>
     <div class="order__shiptorg" v-show="next === 2">
         <div class="order__shiptorg_item">
-            <div class="order__shiptorg_item-name"></div>
-            <div class="order__shiptorg_item-title">{{ city }}, {{ address }}, {{ index }}</div>
+            <div class="order__shiptorg_item-name">Адрес доставки</div>
+            <div class="order__shiptorg_item-title">{{ city.administrative_area }}, {{ city.short_readable }}, {{ address }}, {{ index }}</div>
+            <div class="order__shiptorg_item-edit" @click="backMethods()">Изменить</div>
+        </div>
+        <div class="order__shiptorg_methods">
+            <h3 class="order__shiptorg_methods-title">Способ доставки</h3>
+            <div class="order__shiptorg_methods-item" v-for="item in result.methods">
+                <div class="order__shiptorg_methods-item-loader"></div>
+                <div class="order__shiptorg_methods-item-title">{{ item.method.description }}</div>
+                <div class="order__shiptorg_methods-item-total">
+                    {{ item.days }}, {{ item.cost.total.sum }}
+                    <span class="rubl" > &#8399;</span>
+                </div>
+            </div>
         </div>
         <div class="order__info_button">
             <div @click="backMethods()"  class="order__info_button-return">
@@ -25,9 +37,6 @@
       }
     },
     computed: {
-      backMethods(){
-        this.$store.dispatch('validation', {typeValid: 'validation', value: 1})
-      },
       next(){
         return this.$store.state.basket.validation
       },
@@ -53,7 +62,17 @@
         return this.$store.state.basket.index
       },
     },
+    watch: {
+      next(now) {
+        if( now === 2) {
+          this.calculateShipping()
+        }
+      }
+    },
     methods: {
+      backMethods(){
+        this.$store.dispatch('validation', {typeValid: 'validation', value: 1})
+      },
       calculateShipping() {
         const self = this;
         axios.post('/shiptorg/', {
@@ -66,16 +85,18 @@
                     "width": 10,
                     "height": 10,
                     "weight": 10,
-                    "cod": 10,
+                    "cod": 0,
+                    "country_code": "RU",
                     "declared_cost": 10,
-                    "kladr_id": "01000001000",
+                    "kladr_id_from": 77000000000,
+                    "kladr_id": self.city.kladr_id,
                     "courier": "dpd"
                 }
             }
       }).then(
           function (response) {
-            console.log(response)
-            self.result = response.date
+            console.log(response.data)
+            self.result = response.data.result
           }
         )
 
