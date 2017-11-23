@@ -36,7 +36,7 @@
         <div class="cart__right_item" v-if="result.size && result.size.length !== 0 ">
           <div class="cart__right_item-name">Размер</div>
           <select v-model="size">
-            <option :value="item.id"  v-for=" item in result.size"> {{ item.name }}</option>
+            <option :value="item.id"  v-model="size"  v-for=" item in result.size"> {{ item.name }}</option>
           </select>
         </div>
         <div class="cart__right_price">
@@ -44,13 +44,13 @@
         </div>
         <div class="cart__right_item cart__right_item-size">
           <div class="cart__right_item-name">Количество</div>
-          <select v-model="count" >
-            <option selected>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
+          <div class="basket__cart_item-col">
+            <div class="basket__cart_item-col_minus"
+                 :class="{ 'basket__cart_item-col_hidd': count === 1 }"
+                 @click="countMinus()">-</div>
+            <div class="basket__cart_item-col_count">{{ count }}</div>
+            <div class="basket__cart_item-col_plus" @click="countPlus()">+</div>
+          </div>
         </div>
         <button @click="postProduct()" class="cart__right_item-button" >
           <span>Купить</span>
@@ -140,6 +140,12 @@
       '$route.params': 'get'
     },
     methods: {
+      countMinus(){
+        this.count = this.count - 1
+      },
+      countPlus(){
+        this.count = this.count + 1
+      },
       get() {
         const self = this
         const id = this.$route.params.item
