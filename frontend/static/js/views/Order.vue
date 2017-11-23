@@ -14,7 +14,7 @@
             <svg class="order__svg order__svg-active" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><path d="M2 1l1-1 4 4 1 1-1 1-4 4-1-1 4-4"></path></svg>
           </div>
           <div class="order__header_list-item " :class="{ 'order__header_list-complited': next === 2 }">
-            <a class="order__header_list-link" href="https://classicalconversationsbooks.com/cart">Информация о покупателе</a>
+            <span class="order__header_list-link" @click="backMethods(1)">Информация о покупателе</span>
             <svg class="order__svg order__svg-active" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><path d="M2 1l1-1 4 4 1 1-1 1-4 4-1-1 4-4"></path></svg>
           </div>
           <div class="order__header_list-item" :class="{'order__header_list-default': next === 1}">
@@ -139,6 +139,9 @@
       orderShiptorg
     },
     methods: {
+      backMethods(id){
+        this.$store.dispatch('validation', {typeValid: 'validation', value: id})
+      },
       switchItem(id, inc){
         axios.post('/api/order_goods/' + id + '/'+ inc +'/')
           .then((response) => {

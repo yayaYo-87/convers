@@ -45,15 +45,22 @@
             <div class="order__info_address-index">
 
                 <div class="order__info_input">
-                    <label for="city" class="order__info_input-label"
-                           :class="{'order__info_input-label_active': focusedCity}"
-                    >Город</label>
-                    <input  @focus="focusedCity = true"
+                    <div  class="order__info_input-label"
+                          :class="{'order__info_input-label_active': focusedCity}"
+                    >Город</div>
+                    <input  @focus="fcCity(), focusedCity = true"
                             @blur="fcCity()"
                             v-model="city" id="city"
                             type="text"
                             class="order__info_input-email">
                     <div class="valid" v-show="cityV">*Введите город</div>
+                    <div class="order__info_input-popup" v-if="resultCity.length > 0" v-show="popupCity">
+                        <div class="order__info_input-popup_item"
+                             @click="checkedCitypopup(item)"
+                             v-for="item in resultCity">
+                            {{ item.administrative_area }}, {{ item.short_readable }}
+                        </div>
+                    </div>
                 </div>
 
                 <div class="order__info_input">
@@ -114,12 +121,15 @@
 
 <script>
   import MaskedInput from 'vue-masked-input'
-
+  import axios from 'axios'
+  import vSelect  from 'vue-select'
   export default {
     data() {
       return {
-        phone: '',
         city: '',
+        resultCity: [],
+
+        phone: '',
         email: '',
         FirstName:'',
         LastName: '',
@@ -143,8 +153,13 @@
         focusedFirstName: false,
         focusedLastName: false,
         focusedAddress: false,
-        focusedIndex: false
+        focusedIndex: false,
+
+        popupCity: false
       }
+    },
+    components:{
+      vSelect
     },
     watch: {
       phone(now){
@@ -153,9 +168,7 @@
         }
       },
       city(now) {
-        if (this.validation.city !== false) {
-          this.$store.dispatch('validation', {typeValid: 'city', value: now})
-        }
+        this.suggestSettlement()
       },
       email(now){
         if (this.validation.email !== false) {
@@ -207,6 +220,58 @@
     },
 
     methods: {
+      checkedCitypopup(item){
+        this.city = item.administrative_area + item.short_readable
+        this.$store.dispatch('validation', {typeValid: 'city', value: item})
+
+      },
+      getSettlements(){
+        const self = this;
+        const query = this.city
+        axios.post('/shiptorg/', {
+          json: {
+            "id": "JsonRpcClient.js",
+            "jsonrpc": "2.0",
+            "method": "getSettlements",
+            "params": {
+              "per_page": 90,
+              "page": 1,
+              "types": [
+                "Город"
+              ],
+              "level": 3,
+              "parent": "02000000000",
+              "country_code": "RU"
+            }
+          }
+        }).then(
+          function (response) {
+            self.resultCity = response.data
+          }
+        )
+
+      },
+      suggestSettlement() {
+        const self = this;
+        const query = this.city
+        axios.post('/shiptorg/', {
+          json: {
+            "id": "JsonRpcClient.js",
+            "jsonrpc": "2.0",
+            "method": "suggestSettlement",
+            "params": {
+              "query": query,
+              "country_code": "RU"
+            }
+          }
+        }).then(
+          function (response) {
+            self.resultCity = response.data.result
+          }
+        )
+
+      },
+
       nextMethods(){
         this.$store.dispatch('validation', {typeValid: 'validation', value: 2})
       },
@@ -223,16 +288,19 @@
         }
       },
       fcCity(){
+        this.popupCity = true;
         if(this.city.length !== 0) {
           this.focusedCity = true
         } else {
           this.focusedCity = false
         }
-        if ( this.validation.city === true) {
-          this.cityV = false
+
+        if(this.$store.state.basket.city.length > 0){
+
         }else {
-          this.cityV = true
+          this.city = ''
         }
+
       },
       fcEmail(){
         if(this.email.length !== 0) {
@@ -294,6 +362,9 @@
           this.indexV = true
         }
       },
+    },
+    created(){
+      this.getSettlements()
     }
   }
 </script>
