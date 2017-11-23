@@ -17,7 +17,7 @@
             <a class="order__header_list-link" href="https://classicalconversationsbooks.com/cart">Информация о покупателе</a>
             <svg class="order__svg order__svg-active" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><path d="M2 1l1-1 4 4 1 1-1 1-4 4-1-1 4-4"></path></svg>
           </div>
-          <div class="order__header_list-item order__header_list-default">
+          <div class="order__header_list-item" :class="{'order__header_list-default': next === 1}">
             <a class="order__header_list-link" href="https://classicalconversationsbooks.com/cart">Способ доставки</a>
             <svg class="order__svg order__svg-active" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><path d="M2 1l1-1 4 4 1 1-1 1-4 4-1-1 4-4"></path></svg>
           </div>

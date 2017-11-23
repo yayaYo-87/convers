@@ -4,19 +4,15 @@
             <div class="order__shiptorg_item-name"></div>
             <div class="order__shiptorg_item-title">{{ city }}, {{ address }}, {{ index }}</div>
         </div>
-
         <div class="order__info_button">
-            <div  class="order__info_button-return">
+            <div @click="backMethods()"  class="order__info_button-return">
                 <svg class="order__info_button-svg" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><path d="M2 1l1-1 4 4 1 1-1 1-4 4-1-1 4-4"></path></svg>
                 Вернуться к информации о покупателе
             </div>
             <div class="order__info_button-bt">
-                <button  @click="nextMethods()">Перейти к методу доставки</button>
+                <button >Перейти к методу доставки</button>
             </div>
         </div>
-        {{ phone }}
-        <button @click="postShiptorg()">shiptorg</button>
-        {{ result }}
     </div>
 </template>
 
@@ -29,6 +25,9 @@
       }
     },
     computed: {
+      backMethods(){
+        this.$store.dispatch('validation', {typeValid: 'validation', value: 1})
+      },
       next(){
         return this.$store.state.basket.validation
       },
@@ -55,7 +54,7 @@
       },
     },
     methods: {
-      postShiptorg() {
+      calculateShipping() {
         const self = this;
         axios.post('/shiptorg/', {
             json: {

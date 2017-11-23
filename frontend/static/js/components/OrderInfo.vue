@@ -43,17 +43,19 @@
                 </div>
             </div>
             <div class="order__info_address-index">
+
                 <div class="order__info_input">
-                    <label for="address" class="order__info_input-label"
-                           :class="{'order__info_input-label_active': focusedAddress}"
-                    >Адрес</label>
-                    <input  @focus="focusedAddress = true"
-                            @blur="fcAddress()"
-                            v-model="address" id="address"
+                    <label for="city" class="order__info_input-label"
+                           :class="{'order__info_input-label_active': focusedCity}"
+                    >Город</label>
+                    <input  @focus="focusedCity = true"
+                            @blur="fcCity()"
+                            v-model="city" id="city"
                             type="text"
                             class="order__info_input-email">
-                    <div class="valid" v-show="addressV">*Введите адрес</div>
+                    <div class="valid" v-show="cityV">*Введите город</div>
                 </div>
+
                 <div class="order__info_input">
                     <label for="index" class="order__info_input-label"
                            :class="{'order__info_input-label_active': focusedIndex}"
@@ -68,15 +70,15 @@
             </div>
             <div class="order__info_address-city">
                 <div class="order__info_input">
-                    <label for="city" class="order__info_input-label"
-                           :class="{'order__info_input-label_active': focusedCity}"
-                    >Город</label>
-                    <input  @focus="focusedCity = true"
-                            @blur="fcCity()"
-                            v-model="city" id="city"
+                    <label for="address" class="order__info_input-label"
+                           :class="{'order__info_input-label_active': focusedAddress}"
+                    >Адрес</label>
+                    <input  @focus="focusedAddress = true"
+                            @blur="fcAddress()"
+                            v-model="address" id="address"
                             type="text"
                             class="order__info_input-email">
-                    <div class="valid" v-show="cityV">*Введите город</div>
+                    <div class="valid" v-show="addressV">*Введите адрес</div>
                 </div>
             </div>
             <div class="order__info_address-city">
