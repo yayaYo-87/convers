@@ -1,108 +1,110 @@
 <template>
     <div class="order__info-one" v-show="next === 1">
-        <div class="order__info_mail">
-            <div class="order__info_mail-title">Информация для покупателей</div>
-            <div class="order__info_input">
-                <label for="email" class="order__info_input-label"
-                       :class="{'order__info_input-label_active': focusedEmail}"
-                >Email</label>
-                <input  @focus="focusedEmail = true"
-                        @blur="fcEmail()"
-                        v-model="email" id="email"
-                        type="email"
-
-                        class="order__info_input-email">
-                <div class="valid" v-show="mailV">*Не правильно указан e-mail</div>
-            </div>
-        </div>
-
-        <div class="order__info_address">
-            <div class="order__info_address-title">Адрес доставки</div>
-            <div class="order__info_address-name">
+        <form action="">
+            <div class="order__info_mail">
+                <div class="order__info_mail-title">Информация для покупателей</div>
                 <div class="order__info_input">
-                    <label for="FirstName" class="order__info_input-label"
-                           :class="{'order__info_input-label_active': focusedFirstName}"
-                    >Имя</label>
-                    <input  @focus="focusedFirstName = true"
-                            @blur="fcFirstName()"
-                            v-model="FirstName" id="FirstName"
-                            type="text"
+                    <label for="email" class="order__info_input-label"
+                           :class="{'order__info_input-label_active': focusedEmail}"
+                    >Email</label>
+                    <input  @focus="focusedEmail = true"
+                            @blur="fcEmail()"
+                            v-model="email" id="email"
+                            type="email"
+
                             class="order__info_input-email">
-                    <div class="valid" v-show="FirstNameV">*Введите имя</div>
-                </div>
-                <div class="order__info_input">
-                    <label for="LastName" class="order__info_input-label"
-                           :class="{'order__info_input-label_active': focusedLastName}"
-                    >Фамилия</label>
-                    <input  @focus="focusedLastName = true"
-                            @blur="fcLastName()"
-                            v-model="LastName" id="LastName"
-                            type="text"
-                            class="order__info_input-email">
-                    <div class="valid" v-show="LastNameV">*Введите фамилию</div>
+                    <div class="valid" v-show="mailV">*Не правильно указан e-mail</div>
                 </div>
             </div>
-            <div class="order__info_address-index">
 
-                <div class="order__info_input">
-                    <div  class="order__info_input-label"
-                          :class="{'order__info_input-label_active': focusedCity}"
-                    >Город</div>
-                    <input  @focus="fcCity(), focusedCity = true"
-                            @blur="fcCity()"
-                            v-model="city" id="city"
-                            type="text"
-                            class="order__info_input-email">
-                    <div class="valid" v-show="cityV">*Введите город</div>
-                    <div class="order__info_input-popup" v-if="resultCity.length > 0" v-show="popupCity">
-                        <div class="order__info_input-popup_item"
-                             @click="checkedCitypopup(item)"
-                             v-for="item in resultCity">
-                            {{ item.administrative_area }}, {{ item.short_readable }}
-                        </div>
+            <div class="order__info_address">
+                <div class="order__info_address-title">Адрес доставки</div>
+                <div class="order__info_address-name">
+                    <div class="order__info_input">
+                        <label for="FirstName" class="order__info_input-label"
+                               :class="{'order__info_input-label_active': focusedFirstName}"
+                        >Имя</label>
+                        <input  @focus="focusedFirstName = true"
+                                @blur="fcFirstName()"
+                                v-model="FirstName" id="FirstName"
+                                type="text"
+                                class="order__info_input-email">
+                        <div class="valid" v-show="FirstNameV">*Введите имя</div>
+                    </div>
+                    <div class="order__info_input">
+                        <label for="LastName" class="order__info_input-label"
+                               :class="{'order__info_input-label_active': focusedLastName}"
+                        >Фамилия</label>
+                        <input  @focus="focusedLastName = true"
+                                @blur="fcLastName()"
+                                v-model="LastName" id="LastName"
+                                type="text"
+                                class="order__info_input-email">
+                        <div class="valid" v-show="LastNameV">*Введите фамилию</div>
                     </div>
                 </div>
+                <div class="order__info_address-index">
 
-                <div class="order__info_input">
-                    <label for="index" class="order__info_input-label"
-                           :class="{'order__info_input-label_active': focusedIndex}"
-                    >Индекс</label>
-                    <input  @focus="focusedIndex = true"
-                            @blur="fcIndex()"
-                            v-model="index" id="index"
-                            type="text"
-                            class="order__info_input-email">
-                    <div class="valid" v-show="indexV">*Введите индекс</div>
+                    <div class="order__info_input">
+                        <div  class="order__info_input-label"
+                              :class="{'order__info_input-label_active': focusedCity}"
+                        >Город</div>
+                        <input  @focus="fcCity(), focusedCity = true"
+                                @blur="fcCity()"
+                                v-model="city" id="city"
+                                type="text"
+                                class="order__info_input-email">
+                        <div class="valid" v-show="cityV">*Введите город</div>
+                        <div class="order__info_input-popup" v-if="resultCity.length > 0" v-show="popupCity">
+                            <div class="order__info_input-popup_item"
+                                 @click="checkedCitypopup(item)"
+                                 v-for="item in resultCity">
+                                {{ item.administrative_area }}, {{ item.short_readable }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="order__info_input">
+                        <label for="index" class="order__info_input-label"
+                               :class="{'order__info_input-label_active': focusedIndex}"
+                        >Индекс</label>
+                        <input  @focus="focusedIndex = true"
+                                @blur="fcIndex()"
+                                v-model="index" id="index"
+                                type="text"
+                                class="order__info_input-email">
+                        <div class="valid" v-show="indexV">*Введите индекс</div>
+                    </div>
+                </div>
+                <div class="order__info_address-city">
+                    <div class="order__info_input">
+                        <label for="address" class="order__info_input-label"
+                               :class="{'order__info_input-label_active': focusedAddress}"
+                        >Адрес</label>
+                        <input  @focus="focusedAddress = true"
+                                @blur="fcAddress()"
+                                v-model="address" id="address"
+                                type="text"
+                                class="order__info_input-email">
+                        <div class="valid" v-show="addressV">*Введите адрес</div>
+                    </div>
+                </div>
+                <div class="order__info_address-city">
+                    <div class="order__info_input">
+                        <label for="phone" class="order__info_input-label"
+                               :class="{'order__info_input-label_active': focusedPhone}"
+                        >Телефон</label>
+                        <input  @focus="focusedPhone = true"
+                                @blur="fcPhone()"
+                                v-model="phone" id="phone"
+                                type="tel"
+                                name="tel"
+                                class="order__info_input-email">
+                        <div class="valid" v-show="phoneV">*Введите корректный телефон</div>
+                    </div>
                 </div>
             </div>
-            <div class="order__info_address-city">
-                <div class="order__info_input">
-                    <label for="address" class="order__info_input-label"
-                           :class="{'order__info_input-label_active': focusedAddress}"
-                    >Адрес</label>
-                    <input  @focus="focusedAddress = true"
-                            @blur="fcAddress()"
-                            v-model="address" id="address"
-                            type="text"
-                            class="order__info_input-email">
-                    <div class="valid" v-show="addressV">*Введите адрес</div>
-                </div>
-            </div>
-            <div class="order__info_address-city">
-                <div class="order__info_input">
-                    <label for="phone" class="order__info_input-label"
-                           :class="{'order__info_input-label_active': focusedPhone}"
-                    >Телефон</label>
-                    <input  @focus="focusedPhone = true"
-                            @blur="fcPhone()"
-                            v-model="phone" id="phone"
-                            type="tel"
-                            name="tel"
-                            class="order__info_input-email">
-                    <div class="valid" v-show="phoneV">*Введите корректный телефон</div>
-                </div>
-            </div>
-        </div>
+        </form>
         <div class="order__info_radio">
             <input id="ch1" type="checkbox">
             <label for="ch1">Сохраните эту информацию в следующий раз</label>
@@ -123,6 +125,8 @@
   import MaskedInput from 'vue-masked-input'
   import axios from 'axios'
   import vSelect  from 'vue-select'
+  import tokens from 'csrf'
+
   export default {
     data() {
       return {
@@ -365,6 +369,11 @@
     },
     created(){
       this.getSettlements()
+
+    },
+    mounted(){
+      const secret = tokens.secretSync()
+      const token = tokens.create(secret)
     }
   }
 </script>
