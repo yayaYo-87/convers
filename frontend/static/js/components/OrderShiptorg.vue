@@ -9,7 +9,7 @@
             <h3 class="order__shiptorg_methods-title">Способ доставки</h3>
             <div class="order__shiptorg_methods-item" v-for="item in result.methods">
                 <div class="order__shiptorg_methods-item-loader"></div>
-                <div class="order__shiptorg_methods-item-title">{{ item.method.description }}</div>
+                <div class="order__shiptorg_methods-item-title">{{ item.method.name }}, {{ item.method.description }}</div>
                 <div class="order__shiptorg_methods-item-total">
                     {{ item.days }}, {{ item.cost.total.sum }}
                     <span class="rubl" > &#8399;</span>
@@ -76,24 +76,22 @@
       calculateShipping() {
         const self = this;
         axios.post('/shiptorg/', {
-            json: {
-                "id": "JsonRpcClient.js",
-                "jsonrpc": "2.0",
-                "method": "calculateShipping",
-                "params": {
-                    "length": 10,
-                    "width": 10,
-                    "height": 10,
-                    "weight": 10,
-                    "cod": 0,
-                    "country_code": "RU",
-                    "declared_cost": 10,
-                    "kladr_id_from": 77000000000,
-                    "kladr_id": self.city.kladr_id,
-                    "courier": "dpd"
-                }
+          json: {
+            "id": "JsonRpcClient.js",
+            "jsonrpc": "2.0",
+            "method": "calculateShipping",
+            "params": {
+              "length": 10,
+              "width": 10,
+              "height": 10,
+              "weight": 10,
+              "cod": 1000,
+              "country_code": "RU",
+              "declared_cost": 1000,
+              "kladr_id": self.city.kladr_id,
             }
-      }).then(
+          }
+        }).then(
           function (response) {
             console.log(response.data)
             self.result = response.data.result
