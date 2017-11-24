@@ -1,6 +1,6 @@
 <template>
     <div class="order__info-one" v-show="next === 1">
-        <form action="">
+        <form >
             <div class="order__info_mail">
                 <div class="order__info_mail-title">Информация для покупателей</div>
                 <div class="order__info_input">
@@ -372,8 +372,6 @@
 
     },
     mounted(){
-      const secret = tokens.secretSync()
-      const token = tokens.create(secret)
     }
   }
 </script>
