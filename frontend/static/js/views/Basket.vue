@@ -79,11 +79,13 @@
             <span class="rubl" > &#8399;</span>
           </div>
           <div class="basket__cart_item-col">
-            <div class="basket__cart_item-col_minus"
-                 :class="{ 'basket__cart_item-col_hidd': cart.count === 1 }"
-                 @click="switchProductBasket(cart.id,'dec')">-</div>
+            <button :disabled="buttonDisabled" class="basket__cart_item-col_plus" @click="switchProductBasket(cart.id,'inc')">+</button>
+
             <div class="basket__cart_item-col_count">{{ cart.count }}</div>
-            <div class="basket__cart_item-col_plus" @click="switchProductBasket(cart.id,'inc')">+</div>
+            <button class="basket__cart_item-col_minus"
+
+                    :disabled="cart.count === 1 || buttonDisabled"
+                    @click="switchProductBasket(cart.id,'dec')">-</button>
           </div>
           <div class="basket__cart_item-total">
             {{ cart.price }}
@@ -118,7 +120,7 @@
     data() {
       return{
         result: [],
-
+        buttonDisabled: false
       }
     },
     methods: {
@@ -148,11 +150,13 @@
           )
       },
       switchProductBasket( id, inc) {
+        this.buttonDisabled = true
+        const self = this
         axios.post('/api/order_goods/' + id + '/'+ inc +'/', {
         })
           .then((response) => {
             if (response.status === 200) {
-              let self = this
+              self.buttonDisabled = false
               self.$store.dispatch('results')
             }
           })
