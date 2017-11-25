@@ -63,7 +63,7 @@ def resend_pay(request):
     return HttpResponse(f.content)
 
 
-@require_http_methods(["POST"])
+# @require_http_methods(["POST"])
 # @csrf_exempt
 def shiptorg(request):
     json_data = json.loads(request.body.decode("utf-8"))['json']
