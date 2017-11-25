@@ -75,7 +75,7 @@
                     <div class="valid" v-show="indexV">*Введите индекс</div>
                 </div>
             </div>
-            <div class="order__info_address-city">
+            <div class="order__info_address-index">
                 <div class="order__info_input">
                     <label for="address" class="order__info_input-label"
                            :class="{'order__info_input-label_active': focusedAddress}"
@@ -86,6 +86,17 @@
                             type="text"
                             class="order__info_input-email">
                     <div class="valid" v-show="addressV">*Введите адрес</div>
+                </div>
+                <div class="order__info_input">
+                    <label for="dom" class="order__info_input-label"
+                           :class="{'order__info_input-label_active': focusedDom}"
+                    >Дом</label>
+                    <input  @focus="focusedDom = true"
+                            @blur="fcDom()"
+                            v-model="dom" id="dom"
+                            type="text"
+                            class="order__info_input-email">
+                    <div class="valid" v-show="indexV">*Введите номер дома</div>
                 </div>
             </div>
             <div class="order__info_address-city">
@@ -103,10 +114,10 @@
                 </div>
             </div>
         </div>
-        <div class="order__info_radio">
-            <input id="ch1" type="checkbox">
-            <label for="ch1">Сохраните эту информацию в следующий раз</label>
-        </div>
+        <!--<div class="order__info_radio">-->
+        <!--<input id="ch1" type="checkbox">-->
+        <!--<label for="ch1">Сохраните эту информацию в следующий раз</label>-->
+        <!--</div>-->
         <div class="order__info_button">
             <router-link :to="{name: 'basket'}"  class="order__info_button-return">
                 <svg class="order__info_button-svg" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><path d="M2 1l1-1 4 4 1 1-1 1-4 4-1-1 4-4"></path></svg>
@@ -123,6 +134,8 @@
   import MaskedInput from 'vue-masked-input'
   import axios from 'axios'
   import vSelect  from 'vue-select'
+  import tokens from 'csrf'
+
   export default {
     data() {
       return {
@@ -135,6 +148,7 @@
         LastName: '',
         address: '',
         index: '',
+        dom: '',
 
         emailRE: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
         telRE: /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/,
@@ -146,6 +160,7 @@
         indexV: false,
         cityV: false,
         phoneV: false,
+        domV: false,
 
         focusedPhone: false,
         focusedCity: false,
@@ -154,6 +169,7 @@
         focusedLastName: false,
         focusedAddress: false,
         focusedIndex: false,
+        focusedDom: false,
 
         popupCity: false
       }
@@ -207,6 +223,7 @@
           city: !!this.city.trim(),
           address: !!this.address.trim(),
           index: !!this.index.trim(),
+          dom: !!this.dom.trim(),
           email: this.emailRE.test(this.email),
           phone: this.telRE.test(this.phone),
         }
@@ -247,6 +264,10 @@
         }).then(
           function (response) {
             self.resultCity = response.data
+            console.log(response.data)
+          },
+          function (error) {
+            console.log(error)
           }
         )
 
@@ -267,6 +288,7 @@
         }).then(
           function (response) {
             self.resultCity = response.data.result
+            console.log(response.data)
           }
         )
 
@@ -362,9 +384,24 @@
           this.indexV = true
         }
       },
+      fcDom(){
+        if(this.dom.length !== 0) {
+          this.focusedDom = true
+        } else {
+          this.focusedDom = false
+        }
+        if ( this.validation.dom === true) {
+          this.domV = false
+        }else {
+          this.domV = true
+        }
+      },
     },
     created(){
-      this.getSettlements()
+//      this.getSettlements()
+
+    },
+    mounted(){
     }
   }
 </script>

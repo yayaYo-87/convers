@@ -4,25 +4,24 @@
       <div class="order__header">
 
         <router-link :to="{name: 'main'}" class="">
-          <h1 class="order__hidden">Classical Conversations Bookstore</h1>
           <img alt="Classical Conversations Bookstore" class="order__header_logo" src="../../img/logo.png">
         </router-link>
 
         <div class="order__header_list ">
           <div class="order__header_list-item order__header_list-complited">
-            <router-link :to="{name: 'basket'}" class="order__header_list-link" href="https://classicalconversationsbooks.com/cart">Корзина</router-link>
+            <router-link :to="{name: 'basket'}" class="order__header_list-link">Корзина</router-link>
             <svg class="order__svg order__svg-active" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><path d="M2 1l1-1 4 4 1 1-1 1-4 4-1-1 4-4"></path></svg>
           </div>
-          <div class="order__header_list-item " :class="{ 'order__header_list-complited': next === 2 }">
+          <div class="order__header_list-item " :class="{ 'order__header_list-complited': next === 2 || next === 3 }">
             <span class="order__header_list-link" @click="backMethods(1)">Информация о покупателе</span>
             <svg class="order__svg order__svg-active" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><path d="M2 1l1-1 4 4 1 1-1 1-4 4-1-1 4-4"></path></svg>
           </div>
-          <div class="order__header_list-item" :class="{'order__header_list-default': next === 1}">
-            <a class="order__header_list-link" href="https://classicalconversationsbooks.com/cart">Способ доставки</a>
+          <div class="order__header_list-item" @click="backMethods(2)" :class="{'order__header_list-default': next === 1, 'order__header_list-complited': next === 3}">
+            <span class="order__header_list-link">Способ доставки</span>
             <svg class="order__svg order__svg-active" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><path d="M2 1l1-1 4 4 1 1-1 1-4 4-1-1 4-4"></path></svg>
           </div>
-          <div class="order__header_list-item order__header_list-default">
-            <a class="order__header_list-link" href="https://classicalconversationsbooks.com/cart">Способ оплаты</a>
+          <div class="order__header_list-item" :class="{'order__header_list-default': next !== 3}">
+            <span class="order__header_list-link">Способ оплаты</span>
           </div>
         </div>
 
@@ -39,6 +38,10 @@
 
         ></order-shiptorg>
 
+        <order-payment
+
+        ></order-payment>
+
         <div class="order__info_cop">
           <div class="order__info_cop-item">
             Политика возврата
@@ -53,10 +56,10 @@
       </div>
     </div>
     <div class="order__right">
-      <div class="order__right_items">
+      <div class="order__right_items"v-for="cart in basket.results ">
         <div class="order__right_item"
-             v-if="basket.results.length > 0"
-             v-for="item in basket.results[0].cart_goods "
+
+             v-for="item in cart.cart_goods"
         >
           <div class="order__right_item-close" @click="switchItem(item.id, 'deactivate')"></div>
           <div class="order__right_item-active" v-if="!item.active">
@@ -99,13 +102,17 @@
         </div>
         <div class="order__right_subtotal-items">
           <div class="order__right_subtotal-text">Доставка</div>
-          <div class="order__right_subtotal-price">—</div>
+          <div class="order__right_subtotal-price">{{ deliveryTotal }} <span class="rubl" > &#8399;</span></div>
+        </div>
+        <div class="order__right_subtotal-items">
+          <div class="order__right_subtotal-text">Срок доставки</div>
+          <div class="order__right_subtotal-price" v-if="shiptorOrder !== 0">{{ deliveryDays }}</div>
         </div>
       </div>
       <div class="order__right_total">
         <div class="order__right_total_items">
           <div class="order__right_total-text">Итого</div>
-          <div class="order__right_total-price" v-for="item in basket.results">{{ item.price }}<span class="rubl" > &#8399;</span></div>
+          <div class="order__right_total-price" v-for="item in basket.results">{{ item.price + deliveryTotal  }}<span class="rubl" > &#8399;</span></div>
         </div>
       </div>
     </div>
@@ -117,12 +124,15 @@
   import axios from 'axios'
   import orderInfo from '../components/OrderInfo.vue'
   import orderShiptorg from '../components/OrderShiptorg.vue'
+  import orderPayment from '../components/OrderPayment.vue'
 
   export default {
     data() {
       return {
         focusedCode: false,
         code: '',
+        deliveryTotal: 0,
+        deliveryDays: 0,
       }
     },
     directives: { focus: focus },
@@ -130,13 +140,23 @@
       basket() {
         return this.$store.state.basket.results
       },
+      shiptorOrder() {
+        return this.$store.state.basket.shiptor
+      },
       next(){
         return this.$store.state.basket.validation
       },
     },
     components: {
       orderInfo,
-      orderShiptorg
+      orderShiptorg,
+      orderPayment
+    },
+    watch: {
+      shiptorOrder(now){
+        this.deliveryTotal = now.cost.total.sum
+        this.deliveryDays = now.days
+      }
     },
     methods: {
       backMethods(id){
