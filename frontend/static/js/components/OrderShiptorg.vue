@@ -7,7 +7,10 @@
         </div>
         <div class="order__shiptorg_methods">
             <h3 class="order__shiptorg_methods-title">Способ доставки</h3>
-            <div class="order__shiptorg_methods-item" v-for="item in result.methods">
+            <div class="order__shiptorg_methods-item"
+                 :class="{ 'order__shiptorg_methods-item-active'  : indexShiptor === index}"
+                 @click="shiptorAdd(item, index)"
+                 v-for="(item, index) in result.methods">
                 <div class="order__shiptorg_methods-item-loader"></div>
                 <div class="order__shiptorg_methods-item-title">{{ item.method.name }}, {{ item.method.description }}</div>
                 <div class="order__shiptorg_methods-item-total">
@@ -17,12 +20,12 @@
             </div>
         </div>
         <div class="order__info_button">
-            <div @click="backMethods()"  class="order__info_button-return">
+            <div @click="backMethods(1)"  class="order__info_button-return">
                 <svg class="order__info_button-svg" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><path d="M2 1l1-1 4 4 1 1-1 1-4 4-1-1 4-4"></path></svg>
                 Вернуться к информации о покупателе
             </div>
             <div class="order__info_button-bt">
-                <button >Перейти к методу доставки</button>
+                <button @click="backMethods(3)" :disabled="!disabledButton" >Перейти к методу оплаты</button>
             </div>
         </div>
     </div>
@@ -33,7 +36,12 @@
   export default {
     data() {
       return {
-        result: []
+        result: [],
+        indexShiptor: -1,
+        disabledButton: false,
+        shiptor: [
+
+        ]
       }
     },
     computed: {
@@ -67,11 +75,19 @@
         if( now === 2) {
           this.calculateShipping()
         }
+      },
+      shiptor(now){
+        this.disabledButton = true
+        this.$store.dispatch('validation', {typeValid: 'shiptor', value: now})
       }
     },
     methods: {
-      backMethods(){
-        this.$store.dispatch('validation', {typeValid: 'validation', value: 1})
+      shiptorAdd(value,index){
+        this.indexShiptor = index
+        this.shiptor = value
+      },
+      backMethods(id){
+        this.$store.dispatch('validation', {typeValid: 'validation', value: id})
       },
       calculateShipping() {
         const self = this;
@@ -84,10 +100,8 @@
               "length": 10,
               "width": 10,
               "height": 10,
-              "weight": 10,
-              "cod": 1000,
+              "weight": 2,
               "country_code": "RU",
-              "declared_cost": 1000,
               "kladr_id": self.city.kladr_id,
             }
           }

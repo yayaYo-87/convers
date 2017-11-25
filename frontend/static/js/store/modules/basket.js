@@ -9,7 +9,7 @@ const state = {
   LastName: '',
   address: '',
   index: '',
-
+  shiptor: [],
   validation: 1
 };
 
