@@ -4,7 +4,6 @@
       <div class="order__header">
 
         <router-link :to="{name: 'main'}" class="">
-          <h1 class="order__hidden">Classical Conversations Bookstore</h1>
           <img alt="Classical Conversations Bookstore" class="order__header_logo" src="../../img/logo.png">
         </router-link>
 
@@ -13,15 +12,15 @@
             <router-link :to="{name: 'basket'}" class="order__header_list-link">Корзина</router-link>
             <svg class="order__svg order__svg-active" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><path d="M2 1l1-1 4 4 1 1-1 1-4 4-1-1 4-4"></path></svg>
           </div>
-          <div class="order__header_list-item " :class="{ 'order__header_list-complited': next === 2 }">
+          <div class="order__header_list-item " :class="{ 'order__header_list-complited': next === 2 || next === 3 }">
             <span class="order__header_list-link" @click="backMethods(1)">Информация о покупателе</span>
             <svg class="order__svg order__svg-active" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><path d="M2 1l1-1 4 4 1 1-1 1-4 4-1-1 4-4"></path></svg>
           </div>
-          <div class="order__header_list-item" :class="{'order__header_list-default': next === 1}">
+          <div class="order__header_list-item" @click="backMethods(2)" :class="{'order__header_list-default': next === 1, 'order__header_list-complited': next === 3}">
             <span class="order__header_list-link">Способ доставки</span>
             <svg class="order__svg order__svg-active" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><path d="M2 1l1-1 4 4 1 1-1 1-4 4-1-1 4-4"></path></svg>
           </div>
-          <div class="order__header_list-item order__header_list-default">
+          <div class="order__header_list-item" :class="{'order__header_list-default': next !== 3}">
             <span class="order__header_list-link">Способ оплаты</span>
           </div>
         </div>
@@ -125,6 +124,7 @@
   import axios from 'axios'
   import orderInfo from '../components/OrderInfo.vue'
   import orderShiptorg from '../components/OrderShiptorg.vue'
+  import orderPayment from '../components/OrderPayment.vue'
 
   export default {
     data() {
@@ -149,7 +149,8 @@
     },
     components: {
       orderInfo,
-      orderShiptorg
+      orderShiptorg,
+      orderPayment
     },
     watch: {
       shiptorOrder(now){

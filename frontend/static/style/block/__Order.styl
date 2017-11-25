@@ -206,6 +206,9 @@
       display: flex
       margin-top: 15px
       padding-bottom: 30px
+      &-item{
+        transition .3s
+      }
       &-link{
         font-size 14px
         line-height: 18px
@@ -433,6 +436,7 @@
       padding: 10px
       position: relative
       padding-left: 15px
+      padding-right: 15px
       &-name{
         padding-right: 20px
       }
@@ -443,11 +447,25 @@
       }
       &-edit{
         position: absolute
-        top: 12px
+        top: 8px
         right: 18px
         color: #2a9dcc;
         font-size 12px
         cursor pointer
+      }
+    }
+    &_items{
+      display: flex
+      flex-direction column 
+    }
+    &_pay{
+      position: relative
+      display: flex
+      padding-bottom: 8px
+      &:last-child{
+        padding-bottom: 0px
+        padding-top: 8px
+        border-top: 1px solid #d9d9d9
       }
     }
     &_methods{

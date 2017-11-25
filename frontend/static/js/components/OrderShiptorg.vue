@@ -20,12 +20,12 @@
             </div>
         </div>
         <div class="order__info_button">
-            <div @click="backMethods()"  class="order__info_button-return">
+            <div @click="backMethods(1)"  class="order__info_button-return">
                 <svg class="order__info_button-svg" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><path d="M2 1l1-1 4 4 1 1-1 1-4 4-1-1 4-4"></path></svg>
                 Вернуться к информации о покупателе
             </div>
             <div class="order__info_button-bt">
-                <button :disabled="!disabledButton" >Перейти к методу оплаты</button>
+                <button @click="backMethods(3)" :disabled="!disabledButton" >Перейти к методу оплаты</button>
             </div>
         </div>
     </div>
@@ -86,8 +86,8 @@
         this.indexShiptor = index
         this.shiptor = value
       },
-      backMethods(){
-        this.$store.dispatch('validation', {typeValid: 'validation', value: 1})
+      backMethods(id){
+        this.$store.dispatch('validation', {typeValid: 'validation', value: id})
       },
       calculateShipping() {
         const self = this;
