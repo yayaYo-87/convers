@@ -111,6 +111,7 @@
           }
           self.Items.push(items)
         })
+
       },
       backMethods(id){
         this.$store.dispatch('validation', {typeValid: 'validation', value: id})
