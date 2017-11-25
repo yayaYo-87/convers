@@ -30,8 +30,13 @@ class IndexView(generic.TemplateView):
 @require_http_methods(["POST"])
 @csrf_exempt
 def init_pay(request):
+    json_data = json.loads(request.body.decode("utf-8"))['json']
+    headers = {
+        'content-type': 'application/json',
+    }
     path = 'https://securepay.tinkoff.ru/v2/Init'
-    f = requests.post(path)
+    f = requests.post(path, headers=headers, json=json_data)
+    # print(f.json())
 
     return HttpResponse(f.content)
 

@@ -114,10 +114,10 @@
                 </div>
             </div>
         </div>
-        <!--<div class="order__info_radio">-->
-        <!--<input id="ch1" type="checkbox">-->
-        <!--<label for="ch1">Сохраните эту информацию в следующий раз</label>-->
-        <!--</div>-->
+        <div class="order__info_radio">
+        <input id="ch1" type="checkbox" v-model="radio">
+        <label for="ch1">Вы соглашаетесь с правилами Интернет магазина и политикой предоставления персональных данных</label>
+        </div>
         <div class="order__info_button">
             <router-link :to="{name: 'basket'}"  class="order__info_button-return">
                 <svg class="order__info_button-svg" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><path d="M2 1l1-1 4 4 1 1-1 1-4 4-1-1 4-4"></path></svg>
@@ -142,6 +142,8 @@
         city: '',
         resultCity: [],
 
+        radio: false,
+
         phone: '',
         email: '',
         FirstName:'',
@@ -160,7 +162,6 @@
         indexV: false,
         cityV: false,
         phoneV: false,
-        domV: false,
 
         focusedPhone: false,
         focusedCity: false,
@@ -220,6 +221,7 @@
         return {
           FirstName: !!this.FirstName.trim(),
           LastName: !!this.LastName.trim(),
+          radio: !!this.radio,
           city: !!this.city.trim(),
           address: !!this.address.trim(),
           index: !!this.index.trim(),
