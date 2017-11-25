@@ -75,7 +75,7 @@
       },
       calculateShipping() {
         const self = this;
-        axios.get('/shiptorg/', {
+        axios.post('/shiptorg/', {
           json: {
             "id": "JsonRpcClient.js",
             "jsonrpc": "2.0",
