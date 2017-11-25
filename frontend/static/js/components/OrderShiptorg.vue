@@ -7,7 +7,10 @@
         </div>
         <div class="order__shiptorg_methods">
             <h3 class="order__shiptorg_methods-title">Способ доставки</h3>
-            <div class="order__shiptorg_methods-item" v-for="item in result.methods">
+            <div class="order__shiptorg_methods-item"
+                 :class="{ 'order__shiptorg_methods-item-active'  : indexShiptor === index}"
+                 @click="shiptorAdd(item, index)"
+                 v-for="(item, index) in result.methods">
                 <div class="order__shiptorg_methods-item-loader"></div>
                 <div class="order__shiptorg_methods-item-title">{{ item.method.name }}, {{ item.method.description }}</div>
                 <div class="order__shiptorg_methods-item-total">
@@ -22,7 +25,7 @@
                 Вернуться к информации о покупателе
             </div>
             <div class="order__info_button-bt">
-                <button >Перейти к методу доставки</button>
+                <button :disabled="!disabledButton" >Перейти к методу оплаты</button>
             </div>
         </div>
     </div>
@@ -33,7 +36,12 @@
   export default {
     data() {
       return {
-        result: []
+        result: [],
+        indexShiptor: -1,
+        disabledButton: false,
+        shiptor: [
+
+        ]
       }
     },
     computed: {
@@ -67,9 +75,17 @@
         if( now === 2) {
           this.calculateShipping()
         }
+      },
+      shiptor(now){
+        this.disabledButton = true
+        this.$store.dispatch('validation', {typeValid: 'shiptor', value: now})
       }
     },
     methods: {
+      shiptorAdd(value,index){
+        this.indexShiptor = index
+        this.shiptor = value
+      },
       backMethods(){
         this.$store.dispatch('validation', {typeValid: 'validation', value: 1})
       },
@@ -84,10 +100,8 @@
               "length": 10,
               "width": 10,
               "height": 10,
-              "weight": 10,
-              "cod": 1000,
+              "weight": 2,
               "country_code": "RU",
-              "declared_cost": 1000,
               "kladr_id": self.city.kladr_id,
             }
           }
