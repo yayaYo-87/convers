@@ -136,7 +136,6 @@
   import MaskedInput from 'vue-masked-input'
   import axios from 'axios'
   import vSelect  from 'vue-select'
-  import tokens from 'csrf'
 
   export default {
     data() {
@@ -289,6 +288,7 @@
         axios.get('/get_csrf_token/')
           .then(
             function (response) {
+              console.log(response.data.token)
               axios.post('/shiptorg/', {
                 token: response.data.token,
                 json: {
@@ -418,11 +418,6 @@
 
     },
     mounted(){
-      axios.get('get_csrf_token')
-        .then(
-          (response) => {
-            console.log(response.data)
-          }
-        )    }
+    }
   }
 </script>
