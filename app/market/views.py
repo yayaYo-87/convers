@@ -71,16 +71,18 @@ def resend_pay(request):
     return HttpResponse(f.content)
 
 
-def get_csrf_token(request):
-    token = django.middleware.csrf.get_token(request)
-    return JsonResponse({'token': token})
+# @csrf_exempt
+# def get_csrf_token(request):
+#     token = django.middleware.csrf.get_token(request)
+#     return JsonResponse({'token': token})
 
 
 @require_http_methods(["POST"])
-@csrf_protect
+# @csrf_protect
 def shiptorg(request):
     json_data = json.loads(request.body.decode("utf-8"))['json']
     token = json.loads(request.body.decode("utf-8"))['token']
+    print(token)
     headers = {
         'content-type': 'application/json',
         'x-authorization-token': '4b8015c64d6c260d377374edecda8b54027c78ca',
