@@ -1,5 +1,5 @@
 from config.settings import *
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ['144.76.163.52']
 
 DATABASES = {

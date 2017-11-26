@@ -18,13 +18,14 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from config.api import router
 
-from app.market.views import IndexView, init_pay, cancel_pay, get_state_pay, resend_pay, shiptorg
+from app.market.views import IndexView, init_pay, cancel_pay, get_state_pay, resend_pay, shiptorg, get_csrf_token
 from config import settings
 
 urlpatterns = [
     url(r'^api/', include(router.urls, namespace='api')),
     url(r'^admin/', admin.site.urls),
     url(r'^init_pay/$', init_pay, name='init_pay'),
+    url(r'^get_csrf_token/$', get_csrf_token, name='get_csrf_token'),
     url(r'^cancel_pay/$', cancel_pay, name='cancel_pay'),
     url(r'^get_state_pay/$', get_state_pay, name='get_state_pay'),
     url(r'^resend_pay/$', resend_pay, name='resend_pay'),

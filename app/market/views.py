@@ -1,6 +1,8 @@
+import django
 from django.http import HttpResponse
+from django.http import JsonResponse
 from django.views import generic
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from django.views.decorators.http import require_http_methods
 import json
 
@@ -68,15 +70,23 @@ def resend_pay(request):
     return HttpResponse(f.content)
 
 
-@csrf_exempt
+def get_csrf_token(request):
+    token = django.middleware.csrf.get_token(request)
+    return JsonResponse({'token': token})
+
+
+@require_http_methods(["POST"])
+@ensure_csrf_cookie
 def shiptorg(request):
     json_data = json.loads(request.body.decode("utf-8"))['json']
+    token = json.loads(request.body.decode("utf-8"))['token']
     headers = {
         'content-type': 'application/json',
-        'x-authorization-token': '4b8015c64d6c260d377374edecda8b54027c78ca'
+        'x-authorization-token': '4b8015c64d6c260d377374edecda8b54027c78ca',
+        'X-CSRFToken': token
     }
     path = 'https://api.shiptor.ru/shipping/v1'
     f = requests.post(path, headers=headers, json=json_data)
-    print(f.json())
+    # print(f.json())
 
     return HttpResponse(f.content)
