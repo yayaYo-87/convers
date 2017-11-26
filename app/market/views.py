@@ -1,13 +1,14 @@
+import json
+
 import django
+import requests
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.views import generic
-from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.views.decorators.http import require_http_methods
-import json
 
 from app.orders.models import Cart, OrderGoods
-import requests
 
 
 class IndexView(generic.TemplateView):
@@ -76,7 +77,7 @@ def get_csrf_token(request):
 
 
 @require_http_methods(["POST"])
-@ensure_csrf_cookie
+@csrf_protect
 def shiptorg(request):
     json_data = json.loads(request.body.decode("utf-8"))['json']
     token = json.loads(request.body.decode("utf-8"))['token']
