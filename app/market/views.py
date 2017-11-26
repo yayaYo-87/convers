@@ -1,12 +1,14 @@
+import json
+
+import django
+import requests
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.views import generic
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.views.decorators.http import require_http_methods
-import json
 
 from app.orders.models import Cart, OrderGoods
-import requests
 
 
 class IndexView(generic.TemplateView):
