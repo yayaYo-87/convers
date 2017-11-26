@@ -68,7 +68,6 @@ def resend_pay(request):
     return HttpResponse(f.content)
 
 
-@require_http_methods(["POST"])
 @csrf_exempt
 def shiptorg(request):
     json_data = json.loads(request.body.decode("utf-8"))['json']
@@ -78,6 +77,6 @@ def shiptorg(request):
     }
     path = 'https://api.shiptor.ru/shipping/v1'
     f = requests.post(path, headers=headers, json=json_data)
-    # print(f.json())
+    print(f.json())
 
     return HttpResponse(f.content)
