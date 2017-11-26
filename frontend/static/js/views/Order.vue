@@ -171,6 +171,8 @@
             }
           })
       },
+
+
       fcCode(){
         if(this.code.length !== 0) {
           this.focusedCode = true

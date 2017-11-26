@@ -283,32 +283,31 @@
 
       },
       suggestSettlement() {
-        const request = new XMLHttpRequest();
-        console.log(request)
-        const csrfCookie = document.cookie.match(/CSRF-TOKEN=([\w-]+)/);
-        console.log(csrfCookie)
-        if (csrfCookie) {
-          console.log(123)
-          request.setRequestHeader("X-CSRF-TOKEN", csrfCookie[1]);
-        }
         const self = this;
         const query = this.city
-        axios.post('/shiptorg/', {
-          json: {
-            "id": "JsonRpcClient.js",
-            "jsonrpc": "2.0",
-            "method": "suggestSettlement",
-            "params": {
-              "query": query,
-              "country_code": "RU"
-            }
-          }
-        }).then(
-          function (response) {
-            self.resultCity = response.data.result
-          }
-        )
 
+        axios.get('/get_csrf_token/')
+          .then(
+            function (response) {
+              axios.post('/shiptorg/', {
+                token: response.data.token,
+                json: {
+                  "id": "JsonRpcClient.js",
+                  "jsonrpc": "2.0",
+                  "method": "suggestSettlement",
+                  "params": {
+                    "query": query,
+                    "country_code": "RU"
+                  }
+                }
+              }).then(
+                function (response) {
+                  self.resultCity = response.data.result
+                }
+              )
+
+            }
+          )
       },
 
       nextMethods(){
@@ -419,6 +418,11 @@
 
     },
     mounted(){
-    }
+      axios.get('get_csrf_token')
+        .then(
+          (response) => {
+            console.log(response.data)
+          }
+        )    }
   }
 </script>

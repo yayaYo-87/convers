@@ -1,8 +1,7 @@
-import django
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.views import generic
-from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
+from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 import json
 
@@ -76,7 +75,7 @@ def get_csrf_token(request):
 
 
 @require_http_methods(["POST"])
-@ensure_csrf_cookie
+@csrf_protect
 def shiptorg(request):
     json_data = json.loads(request.body.decode("utf-8"))['json']
     token = json.loads(request.body.decode("utf-8"))['token']
