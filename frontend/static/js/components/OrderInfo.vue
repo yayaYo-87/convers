@@ -154,7 +154,6 @@
         address: '',
         index: '',
         dom: '',
-
         emailRE: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
         telRE: /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/,
 
@@ -175,7 +174,9 @@
         focusedIndex: false,
         focusedDom: false,
 
-        popupCity: false
+        popupCity: false,
+
+        token: ''
       }
     },
     components:{
@@ -287,7 +288,7 @@
 
 
         axios.post('/shiptorg/', {
-          token: '',
+          token: this.token,
           json: {
             "id": "JsonRpcClient.js",
             "jsonrpc": "2.0",
@@ -412,14 +413,19 @@
     created(){
 //      this.getSettlements()
 
-    },
-    mounted() {
       axios.get('/get_csrf_token/')
         .then(
-          function (response) {
-            console.log(response.data.token)
-          }
-        )
+        function (response) {
+
+        }
+      )
+
+
+    },
+    mounted() {
+
+      this.token = Cookies.get('csrftoken');
+
     }
   }
 </script>
