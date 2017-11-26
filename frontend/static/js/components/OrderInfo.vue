@@ -44,7 +44,7 @@
             </div>
             <div class="order__info_address-index">
 
-                <div class="order__info_input">
+                <div class="order__info_input order__info_input-focus">
                     <div  class="order__info_input-label"
                           :class="{'order__info_input-label_active': focusedCity}"
                     >Город</div>
@@ -52,10 +52,12 @@
                             @blur="fcCity()"
                             v-model="city" id="city"
                             type="text"
-                            class="order__info_input-email">
+                            autocomplete="off"
+                            class="order__info_input-email ">
                     <div class="valid" v-show="cityV">*Введите город</div>
                     <div class="order__info_input-popup" v-if="resultCity.length > 0" v-show="popupCity">
                         <div class="order__info_input-popup_item"
+                             :class="{ typeAheadPointer }"
                              @click="checkedCitypopup(item)"
                              v-for="item in resultCity">
                             {{ item.administrative_area }}, {{ item.short_readable }}
@@ -143,6 +145,8 @@
         resultCity: [],
 
         radio: false,
+
+        typeAheadPointer: 0,
 
         phone: '',
         email: '',
@@ -239,6 +243,9 @@
     },
 
     methods: {
+      typeAheadUp(){
+
+      },
       checkedCitypopup(item){
         this.city = item.administrative_area + item.short_readable
         this.$store.dispatch('validation', {typeValid: 'city', value: item})
@@ -299,7 +306,6 @@
         }).then(
           function (response) {
             self.resultCity = response.data.result
-            console.log(response.data)
           }
         )
 

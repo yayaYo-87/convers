@@ -300,6 +300,14 @@
           box-shadow: 0 0 0 2px #2a9dcc;
         }
       }
+      &-focus{
+        input{
+          &:focus{
+            outline none
+            box-shadow: 0 0 0 1px #d9d9d9 !important
+          }
+        }
+      }
       &-popup{
         position: absolute
         top: 44px
@@ -317,6 +325,9 @@
           cursor: pointer
           transition .5s
           &:hover{
+            background-color #d9d9d9
+          }
+          &-hover{
             background-color #d9d9d9
           }
         }
@@ -456,7 +467,7 @@
     }
     &_items{
       display: flex
-      flex-direction column 
+      flex-direction column
     }
     &_pay{
       position: relative
