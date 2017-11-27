@@ -90,12 +90,12 @@
                     <div class="valid" v-show="addressV">*Введите адрес</div>
                 </div>
                 <div class="order__info_input">
-                    <label for="dom" class="order__info_input-label"
+                    <label for="hom" class="order__info_input-label"
                            :class="{'order__info_input-label_active': focusedDom}"
                     >Дом</label>
                     <input  @focus="focusedDom = true"
                             @blur="fcDom()"
-                            v-model="dom" id="dom"
+                            v-model="hom" id="hom"
                             type="text"
                             class="order__info_input-email">
                     <div class="valid" v-show="indexV">*Введите номер дома</div>
@@ -153,7 +153,7 @@
         LastName: '',
         address: '',
         index: '',
-        dom: '',
+        hom: '',
         emailRE: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
         telRE: /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/,
 
@@ -211,6 +211,11 @@
           this.$store.dispatch('validation', {typeValid: 'address', value: now})
         }
       },
+      hom(now){
+        if (this.validation.hom !== false) {
+          this.$store.dispatch('validation', {typeValid: 'hom', value: now})
+        }
+      },
       index(now){
         if (this.validation.index !== false) {
           this.$store.dispatch('validation', {typeValid: 'index', value: now})
@@ -229,7 +234,7 @@
           city: !!this.city.trim(),
           address: !!this.address.trim(),
           index: !!this.index.trim(),
-          dom: !!this.dom.trim(),
+          hom: !!this.hom.trim(),
           email: this.emailRE.test(this.email),
           phone: this.telRE.test(this.phone),
         }
@@ -363,12 +368,12 @@
         }
       },
       fcDom(){
-        if(this.dom.length !== 0) {
+        if(this.hom.length !== 0) {
           this.focusedDom = true
         } else {
           this.focusedDom = false
         }
-        if ( this.validation.dom === true) {
+        if ( this.validation.hom === true) {
           this.domV = false
         }else {
           this.domV = true

@@ -6,6 +6,7 @@ const state = {
   phone: '',
   city: '',
   email: '',
+  hom: '',
   FirstName:'',
   LastName: '',
   address: '',

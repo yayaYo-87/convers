@@ -27,7 +27,7 @@
                 <button :disabled="!city && !shiptorOrder"
                         class="tinkoffPayRow"
                         type="submit"
-                        @click="initPay()"
+                        @click="postOrder()"
                         value="Оплатить">
                     Оплатить
                 </button>
@@ -75,6 +75,9 @@
       },
       city() {
         return this.$store.state.basket.city
+      },
+      hom() {
+        return this.$store.state.basket.hom
       },
       shiptorOrder() {
         return this.$store.state.basket.shiptor
@@ -161,23 +164,22 @@
       postOrder() {
         let self = this
         axios.post('/api/order/', {
-          "total_count": 1,
-          "payment_method": this.checkedCart,
-          "order_delivery": this.deliveries,
-          "email": this.email,
-          "city": this.city,
-          "index": this.index,
-          "address": this.address,
-          "name": this.name,
-          "phone": this.phone
+          "total_count": self.basket.results[0].total_count,
+          "order_delivery": self.shiptorOrder.method.courier,
+          "email": self.email,
+          "city": self.city.short_readable,
+          "index": self.index,
+          "address": self.address,
+          "first_name": self.FirstName,
+          "last_name": self.LastName,
+          "phone": self.phone,
+          "home": self.hom,
+          "total": self.basket.results[0].price + self.shiptorOrder.cost.total.sum
         }).then(
 
           function (response) {
-            self.result = true;
-            self.$store.dispatch('results')
-            setTimeout(function () {
-              location.href = '/man'
-            }, 5000)
+
+            console.log(response.data)
 
           }
         )
