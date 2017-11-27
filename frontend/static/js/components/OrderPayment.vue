@@ -157,7 +157,32 @@
           }
         )
 
+      },
+      postOrder() {
+        let self = this
+        axios.post('/api/order/', {
+          "total_count": 1,
+          "payment_method": this.checkedCart,
+          "order_delivery": this.deliveries,
+          "email": this.email,
+          "city": this.city,
+          "index": this.index,
+          "address": this.address,
+          "name": this.name,
+          "phone": this.phone
+        }).then(
+
+          function (response) {
+            self.result = true;
+            self.$store.dispatch('results')
+            setTimeout(function () {
+              location.href = '/man'
+            }, 5000)
+
+          }
+        )
       }
+
 
     }
   }

@@ -271,10 +271,7 @@
             self.resultCity = response.data.result
           }
         )
-
-
       },
-
       nextMethods(){
         this.$store.dispatch('validation', {typeValid: 'validation', value: 2})
       },

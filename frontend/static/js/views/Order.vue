@@ -156,6 +156,11 @@
       shiptorOrder(now){
         this.deliveryTotal = now.cost.total.sum
         this.deliveryDays = now.days
+      },
+      basket(now){
+        console.log(now)
+
+
       }
     },
     methods: {
@@ -172,7 +177,6 @@
           })
       },
 
-
       fcCode(){
         if(this.code.length !== 0) {
           this.focusedCode = true
@@ -186,6 +190,9 @@
     },
     created() {
       this.get()
+    },
+    mounted(){
+      const self = this
     }
   }
 </script>
