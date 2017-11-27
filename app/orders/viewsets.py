@@ -36,6 +36,7 @@ class OrderViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins.Crea
 
     @detail_route(methods=['post'])
     def change_status(self, request, pk=None):
+        print(request)
         op = get_object_or_404(OrderGoods, pk=pk)
         op.save()
         return Response(OrderGoodsSerializer(instance=op).data)
