@@ -18,7 +18,7 @@ class Order(models.Model):
         ('b2c', 'b2c'),
         ('dpd', 'dpd'),
         ('iml', 'iml'),
-        ('russian-post', 'russian-post'),
+        ('russian-post', 'Почта России'),
         ('pickpoint', 'pickpoint'),
         ('cdek', 'cdek'),
         ('shiptor-one-day', 'shiptor-one-day'),

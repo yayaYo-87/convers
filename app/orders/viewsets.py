@@ -1,3 +1,4 @@
+import json
 from datetime import datetime
 
 from rest_framework import mixins
@@ -36,10 +37,14 @@ class OrderViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins.Crea
 
     @detail_route(methods=['post'])
     def change_status(self, request, pk=None):
-        print(request)
-        op = get_object_or_404(OrderGoods, pk=pk)
+        status = json.loads(request.body.decode("utf-8"))['status']
+        op = get_object_or_404(Order, pk=pk)
+        if status == 'success':
+            op.order_status = 'confirmed'
+        if status == 'error':
+            op.order_status = 'cancel'
         op.save()
-        return Response(OrderGoodsSerializer(instance=op).data)
+        return Response(OrderSerializer(instance=op).data)
 
 
 class CartViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericViewSet):
