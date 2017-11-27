@@ -198,3 +198,49 @@
     }
   }
 </script>
+
+
+
+"id" : "JsonRpcClient.js",
+    "jsonrpc" : "2.0",
+    "method" : "addPackage",
+    "params" : {
+      "stock": 1,
+      "length": 10,
+      "width": 10,
+      "height": 10,
+      "weight": 10,
+      "cod": 0,
+      "declared_cost": 10,
+      "departure": {
+        "shipping_method": 16,
+        "delivery_point": null,
+        "delivery_time": 1,
+        "cashless_payment": true,
+        "comment": "Комментарий",
+        "address": {
+          "country": "RU",
+          "receiver": "Имя Фамилия Отчество",
+          "name": "Имя",
+          "surname": "Фамилия",
+          "patronymic": "Отчество",
+          "email": "test@example.com",
+          "phone": "+78005553535",
+          "postal_code": "101000",
+          "administrative_area": "Московская обл",
+          "settlement": "Москва",
+          "street": "Красная пл.",
+          "house": "1",
+          "apartment": "1",
+          "address_line_1": "Московская обл, Москва, Красная пл., 1, 1",
+          "kladr_id": "34000001000"
+        }
+      },
+      "products": [
+      	{
+      		"shopArticle": "HOLOD10",
+      		"count": 1,
+      		"price": 15000,
+      	}
+      ]
+    }}
