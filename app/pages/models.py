@@ -44,9 +44,6 @@ class QuestionFAQ(models.Model):
     answer = models.TextField(verbose_name='Ответ', null=False)
     category = models.ForeignKey(CategoryFAQ, verbose_name='Категория вопроса', related_name='faq_questions')
 
-    def __str__(self):
-        return self.id
-
     class Meta:
         verbose_name = 'Вопрос'
         verbose_name_plural = 'Вопросы'

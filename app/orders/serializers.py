@@ -69,6 +69,7 @@ class OrderSerializer(serializers.ModelSerializer):
             'first_name',
             'last_name',
             'address',
+            'order_delivery',
             'home',
             'email',
             'city',
