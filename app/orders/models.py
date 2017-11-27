@@ -12,18 +12,32 @@ class Order(models.Model):
         ('confirmed', 'Обработано'),
         ('cancel', 'Отменен'),
     )
+    DELIVERIES = (
+        ('shiptor', 'shiptor'),
+        ('boxberry', 'boxberry'),
+        ('b2c', 'b2c'),
+        ('dpd', 'dpd'),
+        ('iml', 'iml'),
+        ('russian-post', 'russian-post'),
+        ('pickpoint', 'pickpoint'),
+        ('cdek', 'cdek'),
+        ('shiptor-one-day', 'shiptor-one-day'),
+        ('spsr', 'spsr'),
+        ('shiptor-oversize', 'shiptor-oversize'),
+    )
     order_status = models.CharField('Статус заказа', choices=STATUSES, max_length=10, null=False, blank=False)
+    order_delivery = models.CharField('Способ доставки', choices=DELIVERIES, max_length=16, null=True, blank=False)
     city = models.CharField(max_length=255, verbose_name='Город доставки', blank=False, null=True)
     address = models.CharField(max_length=255, verbose_name='Адрес доставки', blank=False, null=True)
     index = models.CharField(max_length=255, verbose_name='Индекс доставки', blank=False, null=True)
     first_name = models.CharField(max_length=255, verbose_name='Имя', blank=False, null=True)
     last_name = models.CharField(max_length=255, verbose_name='Фамилия', blank=False, null=True)
     email = models.CharField(max_length=255, verbose_name='Email', blank=False, null=True)
+    home = models.CharField(max_length=256, verbose_name='Дом', blank=False, null=True)
     phone = models.CharField(max_length=255, verbose_name='Номер телефона', blank=False, null=True)
     total = models.PositiveIntegerField(verbose_name='Общая сумма заказа', default=0, null=True)
     created_at = models.DateTimeField(verbose_name='Дата создания', auto_now_add=True, blank=True, null=True)
     total_count = models.IntegerField(verbose_name='Общее количество продуктов', blank=True, null=True, default=0)
-    save_info = models.BooleanField(verbose_name='Сохранить', default=True)
 
     class Meta:
         verbose_name = 'Заказ'
