@@ -23,8 +23,8 @@ class PageFAQ(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = 'Страница'
-        verbose_name_plural = 'Страницы'
+        verbose_name = 'FAQ'
+        verbose_name_plural = 'FAQ'
 
 
 class CategoryFAQ(models.Model):

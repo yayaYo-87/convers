@@ -24,6 +24,7 @@ from config import settings
 urlpatterns = [
     url(r'^api/', include(router.urls, namespace='api')),
     url(r'^admin/', admin.site.urls),
+    url(r'^_nested_admin/', include('nested_admin.urls')),
     url(r'^init_pay/$', init_pay, name='init_pay'),
     url(r'^get_csrf_token/$', get_csrf_token, name='get_csrf_token'),
     url(r'^cancel_pay/$', cancel_pay, name='cancel_pay'),
