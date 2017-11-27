@@ -2,9 +2,11 @@ import axios from 'axios'
 
 const state = {
   results: [],
+  resultsCart: [],
   phone: '',
   city: '',
   email: '',
+  hom: '',
   FirstName:'',
   LastName: '',
   address: '',
@@ -22,7 +24,8 @@ const actions = {
       .then(
         function (response) {
 
-          state.commit('results', { type: 'results', items: response.data})
+          state.commit('results', { type: 'results', items: response.data});
+
         },
         function (error) {
         }
@@ -41,6 +44,9 @@ const getters = {
 const mutations = {
   results(state, {type, items}) {
     state[type] = items
+  },
+  pushItem(state, {type, items}) {
+    state[type] = state[type].concat(items)
   },
 
 };
