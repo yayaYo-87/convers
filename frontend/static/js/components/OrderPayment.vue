@@ -48,7 +48,8 @@
         result: [],
         Items: [],
         price: 0,
-        itemOrder: 0
+        itemOrder: 0,
+        itemsShiptor: []
       }
     },
     watch: {
@@ -63,6 +64,9 @@
     computed: {
       basket() {
         return this.$store.state.basket.results
+      },
+      comment() {
+        return this.$store.state.basket.comment
       },
       next(){
         return this.$store.state.basket.validation
@@ -110,6 +114,7 @@
       forEachBasket(now){
         const self = this
         self.Items = []
+        self.itemsShiptor = []
         let result = {}
         this.price = now.results[0].price;
         this.itemOrder = now.results[0].id;
@@ -123,7 +128,15 @@
             "Tax": "none",
 
           }
+          const itemsShiptor = {
+            "shopArticle": item.goods.id,
+            "price": item.goods.price,
+            "count": item.count,
+            "vat": 18,
+
+          }
           self.Items.push(items)
+          self.itemsShiptor.push(itemsShiptor)
         })
 
       },
@@ -162,6 +175,91 @@
         )
 
       },
+      shiptor() {
+        const self = this;
+        const photo = self.resultsCart
+
+        axios.post('/shiptorg/', {
+          json: {
+            "id" : "JsonRpcClient.js",
+            "jsonrpc" : "2.0",
+            "method" : "addPackage",
+            "params" : {
+              "length": 10,
+              "width": 10,
+              "height": 10,
+              "weight": 10,
+              "cod": 0,
+              "declared_cost": self.basket.results[0].price,
+              "external_id": self.basket.results[0].id,
+              "photos" : ["/9j/4AAQSkZJRgABAQAAAQABAA....", "/9j/g1BNd28JImnijI7M4HQAAZRJABAA...."],
+              "departure": {
+                "shipping_method": self.shiptorOrder.method.id,
+                "delivery_point": self.city.kladr_id,
+                "cashless_payment": true,
+                "comment": self.basket.comment,
+                "address": {
+                  "country": self.city.country.code,
+                  "receiver": self.LastName + '' + self.FirstName ,
+                  "name": self.LastName,
+                  "surname": self.FirstName,
+                  "email": self.email,
+                  "phone": self.phone,
+                  "postal_code": self.index,
+                  "administrative_area": self.city.administrative_area,
+                  "settlement": self.city.name,
+                  "street": self.address,
+                  "house": self.hom,
+                  "address_line_1": self.city.readable_parents + ',' + self.address + ',' + self.hom,
+                  "kladr_id": self.city.kladr_id
+                }
+              },
+              "products": [
+                {
+                  "shopArticle": "CSV48",
+                  "count": 20,
+                  "price": 100,
+                  "vat": 18
+                },
+                {
+                  "shopArticle": "CSV10",
+                  "count": 10
+                  "price": 756,
+                  "vat": 18
+                },
+                {
+                  "shopArticle": "CSV1",
+                  "count": 1,
+                  "price": 124.21,
+                  "vat": 18
+                }
+              ],
+              "services": [
+                {
+                  "shopArticle": "delivery1",
+                  "count": 1,
+                  "price": 1350,
+                  "vat": 18
+                }
+              ]
+            }
+          }
+        }).then(
+          function (response) {
+            self.result = response.data
+            console.log(response.data)
+            if(response.data.ErrorCode === '8') {
+              self.errorPopup(response.data.Details)
+
+            }
+            if(response.data.PaymentURL !== undefined){
+              location.href = response.data.PaymentURL
+            }
+          }, function (error) {
+          }
+        )
+
+      },
       postOrder() {
         let self = this
         axios.post('/api/order/', {
@@ -179,7 +277,8 @@
         }).then(
 
           function (response) {
-            self.initPay()
+//            self.initPay()
+            self.shiptor()
             console.log(response.data)
 
           }

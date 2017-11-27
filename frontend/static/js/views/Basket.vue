@@ -102,7 +102,7 @@
       <div class="basket__comment" >
         <div class="basket__comment_item">
           <span>Комментарий:</span>
-          <textarea class="basket__comment_item-textarea" rows="3" cols="60" name="text"></textarea>
+          <textarea class="basket__comment_item-textarea" v-model="comment" rows="3" cols="60" name="text"></textarea>
         </div>
         <div class="basket__comment_item">
           <router-link tag="button" :to="{name: 'order'}"  class="button">
@@ -120,7 +120,13 @@
     data() {
       return{
         result: [],
-        buttonDisabled: false
+        buttonDisabled: false,
+        comment: ''
+      }
+    },
+    watch:{
+      comment(now){
+        this.$store.dispatch('validation', {typeValid: 'comment', value: now})
       }
     },
     methods: {
