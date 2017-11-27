@@ -47,6 +47,9 @@
       }
     },
     computed: {
+      basket() {
+        return this.$store.state.basket.results
+      },
       next(){
         return this.$store.state.basket.validation
       },
@@ -75,7 +78,8 @@
     watch: {
       next(now) {
         if( now === 2) {
-          this.calculateShipping()
+          this.pushItem()
+
         }
       },
       shiptor(now){
@@ -91,8 +95,36 @@
       backMethods(id){
         this.$store.dispatch('validation', {typeValid: 'validation', value: id})
       },
+      pushItem(){
+        const self = this
+        const itemCart = this.basket.results[0].cart_goods;
+        console.log(123)
+        self.$store.commit('results', { type: 'resultsCart', items: []})
+        let id = []
+        itemCart.forEach(function (item, i, arr) {
+          id.push(item.goods.id);
+        })
+
+        id.forEach(function (item, id) {
+          axios.get('/api/goods/' + item + '/')
+            .then(
+              function (response) {
+
+                length = response.data
+
+                self.$store.commit('pushItem', { type: 'resultsCart', items: response.data})
+                if(itemCart.length - 1 === id) {
+                  self.calculateShipping()
+                }
+              }
+            )
+
+        })
+
+      },
       calculateShipping() {
         const self = this;
+
         axios.get('get_csrf_token')
           .then(
             (response) => {

@@ -1,3 +1,4 @@
+import json
 from datetime import datetime
 
 from rest_framework import mixins
@@ -16,7 +17,7 @@ class OrderViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins.Crea
     authentication_classes = ()
 
     def perform_create(self, serializer):
-        status_code = 'waiting' if self.request.data['payment_method'] else 'processing'
+        status_code = 'waiting'
         serializer.save(order_status=status_code)
         obj = serializer.save()
         cart = Cart.objects.filter(cookie=self.request.session.session_key).first()
@@ -33,6 +34,17 @@ class OrderViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins.Crea
         if self.action == 'retrieve':
             return OrderDetailSerializer
         return super(OrderViewSet, self).get_serializer_class()
+
+    @detail_route(methods=['post'])
+    def change_status(self, request, pk=None):
+        status = json.loads(request.body.decode("utf-8"))['status']
+        op = get_object_or_404(Order, pk=pk)
+        if status == 'success':
+            op.order_status = 'confirmed'
+        if status == 'error':
+            op.order_status = 'cancel'
+        op.save()
+        return Response(OrderSerializer(instance=op).data)
 
 
 class CartViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericViewSet):

@@ -27,7 +27,7 @@
                 <button :disabled="!city && !shiptorOrder"
                         class="tinkoffPayRow"
                         type="submit"
-                        @click="initPay()"
+                        @click="postOrder()"
                         value="Оплатить">
                     Оплатить
                 </button>
@@ -75,6 +75,9 @@
       },
       city() {
         return this.$store.state.basket.city
+      },
+      hom() {
+        return this.$store.state.basket.hom
       },
       shiptorOrder() {
         return this.$store.state.basket.shiptor
@@ -149,6 +152,7 @@
             console.log(response.data)
             if(response.data.ErrorCode === '8') {
               self.errorPopup(response.data.Details)
+
             }
             if(response.data.PaymentURL !== undefined){
               location.href = response.data.PaymentURL
@@ -157,7 +161,31 @@
           }
         )
 
+      },
+      postOrder() {
+        let self = this
+        axios.post('/api/order/', {
+          "total_count": self.basket.results[0].total_count,
+          "order_delivery": self.shiptorOrder.method.courier,
+          "email": self.email,
+          "city": self.city.short_readable,
+          "index": self.index,
+          "address": self.address,
+          "first_name": self.FirstName,
+          "last_name": self.LastName,
+          "phone": self.phone,
+          "home": self.hom,
+          "total": self.basket.results[0].price + self.shiptorOrder.cost.total.sum
+        }).then(
+
+          function (response) {
+            self.initPay()
+            console.log(response.data)
+
+          }
+        )
       }
+
 
     }
   }

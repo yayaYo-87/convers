@@ -23,8 +23,8 @@ class PageFAQ(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = 'Страница'
-        verbose_name_plural = 'Страницы'
+        verbose_name = 'FAQ'
+        verbose_name_plural = 'FAQ'
 
 
 class CategoryFAQ(models.Model):
@@ -43,9 +43,6 @@ class QuestionFAQ(models.Model):
     question = models.TextField(verbose_name='Вопрос', null=False)
     answer = models.TextField(verbose_name='Ответ', null=False)
     category = models.ForeignKey(CategoryFAQ, verbose_name='Категория вопроса', related_name='faq_questions')
-
-    def __str__(self):
-        return self.id
 
     class Meta:
         verbose_name = 'Вопрос'
