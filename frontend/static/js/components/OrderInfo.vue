@@ -251,44 +251,12 @@
         this.$store.dispatch('validation', {typeValid: 'city', value: item})
 
       },
-      getSettlements(){
-
-        const self = this;
-        const query = this.city
-        axios.post('/shiptorg/', {
-          json: {
-            "id": "JsonRpcClient.js",
-            "jsonrpc": "2.0",
-            "method": "getSettlements",
-            "params": {
-              "per_page": 90,
-              "page": 1,
-              "types": [
-                "Город"
-              ],
-              "level": 3,
-              "parent": "02000000000",
-              "country_code": "RU"
-            }
-          }
-        }).then(
-          function (response) {
-            self.resultCity = response.data
-            console.log(response.data)
-          },
-          function (error) {
-            console.log(error)
-          }
-        )
-
-      },
       suggestSettlement() {
         const self = this;
         const query = this.city
 
 
         axios.post('/shiptorg/', {
-          token: this.token,
           json: {
             "id": "JsonRpcClient.js",
             "jsonrpc": "2.0",
@@ -408,23 +376,14 @@
         }else {
           this.domV = true
         }
-      },
+      }
     },
     created(){
-//      this.getSettlements()
-
-      axios.get('/get_csrf_token/')
-        .then(
-        function (response) {
-
-        }
-      )
 
 
     },
     mounted() {
 
-      this.token = Cookies.get('csrftoken');
 
     }
   }

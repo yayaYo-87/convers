@@ -78,15 +78,12 @@ def get_csrf_token(request):
 
 
 @require_http_methods(["POST"])
-# @csrf_protect
+@csrf_exempt
 def shiptorg(request):
     json_data = json.loads(request.body.decode("utf-8"))['json']
-    token = json.loads(request.body.decode("utf-8"))['token']
-    print(token)
     headers = {
         'content-type': 'application/json',
         'x-authorization-token': '4b8015c64d6c260d377374edecda8b54027c78ca',
-        'X-CSRFToken': token
     }
     path = 'https://api.shiptor.ru/shipping/v1'
     f = requests.post(path, headers=headers, json=json_data)
