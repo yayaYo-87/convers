@@ -93,6 +93,17 @@
       },
     },
     methods: {
+      errorPopup(now){
+        const newDiv = document.createElement('div')
+        newDiv.classList.add('popup')
+        newDiv.innerHTML = now
+
+        document.body.appendChild(newDiv)
+
+        setTimeout(function () {
+          document.body.removeChild(newDiv)
+        }, 6000)
+      },
       forEachBasket(now){
         const self = this
         self.Items = []
@@ -134,11 +145,15 @@
           }
         }).then(
           function (response) {
-            console.log(response.data)
             self.result = response.data
+            console.log(response.data)
+            if(response.data.ErrorCode === '8') {
+              self.errorPopup(response.data.Details)
+            }
             if(response.data.PaymentURL !== undefined){
               location.href = response.data.PaymentURL
             }
+          }, function (error) {
           }
         )
 

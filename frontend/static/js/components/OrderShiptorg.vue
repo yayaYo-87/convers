@@ -33,6 +33,8 @@
 
 <script>
   import axios from 'axios'
+  import jsCookie from 'js-cookie'
+
   export default {
     data() {
       return {
@@ -91,41 +93,36 @@
       },
       calculateShipping() {
         const self = this;
-        axios.post('/shiptorg/', {
-          json: {
-            "id": "JsonRpcClient.js",
-            "jsonrpc": "2.0",
-            "method": "calculateShipping",
-            "params": {
-              "length": 10,
-              "width": 10,
-              "height": 10,
-              "weight": 2,
-              "country_code": "RU",
-              "kladr_id": self.city.kladr_id,
-            }
-          }
-        }).then(
-          function (response) {
-            console.log(response.data)
-            self.result = response.data.result
-          }
-        )
+        axios.get('get_csrf_token')
+          .then(
+            (response) => {
+              axios.post('/shiptorg/', {
+                json: {
+                  "id": "JsonRpcClient.js",
+                  "jsonrpc": "2.0",
+                  "method": "calculateShipping",
+                  "params": {
+                    "length": 10,
+                    "width": 10,
+                    "height": 10,
+                    "weight": 2,
+                    "country_code": "RU",
+                    "kladr_id": self.city.kladr_id,
+                  }
+                }
+              }).then(
+                function (response) {
 
+                  self.result = response.data.result
+                }
+              )
+
+            }
+          )
       }
     },
     mounted(){
-      function csrfSafeMethod(method) {
-        // these HTTP methods do not require CSRF protection
-        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-      }
-      $.ajaxSetup({
-        beforeSend: function(xhr, settings) {
-          if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-            xhr.setRequestHeader("X-CSRFToken", csrftoken);
-          }
-        }
-      });
+
     }
   }
 </script>

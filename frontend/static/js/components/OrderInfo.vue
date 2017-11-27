@@ -44,7 +44,7 @@
             </div>
             <div class="order__info_address-index">
 
-                <div class="order__info_input">
+                <div class="order__info_input order__info_input-focus">
                     <div  class="order__info_input-label"
                           :class="{'order__info_input-label_active': focusedCity}"
                     >Город</div>
@@ -52,10 +52,12 @@
                             @blur="fcCity()"
                             v-model="city" id="city"
                             type="text"
-                            class="order__info_input-email">
+                            autocomplete="off"
+                            class="order__info_input-email ">
                     <div class="valid" v-show="cityV">*Введите город</div>
                     <div class="order__info_input-popup" v-if="resultCity.length > 0" v-show="popupCity">
                         <div class="order__info_input-popup_item"
+                             :class="{ typeAheadPointer }"
                              @click="checkedCitypopup(item)"
                              v-for="item in resultCity">
                             {{ item.administrative_area }}, {{ item.short_readable }}
@@ -134,7 +136,6 @@
   import MaskedInput from 'vue-masked-input'
   import axios from 'axios'
   import vSelect  from 'vue-select'
-  import tokens from 'csrf'
 
   export default {
     data() {
@@ -144,6 +145,8 @@
 
         radio: false,
 
+        typeAheadPointer: 0,
+
         phone: '',
         email: '',
         FirstName:'',
@@ -151,7 +154,6 @@
         address: '',
         index: '',
         dom: '',
-
         emailRE: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
         telRE: /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/,
 
@@ -172,7 +174,9 @@
         focusedIndex: false,
         focusedDom: false,
 
-        popupCity: false
+        popupCity: false,
+
+        token: ''
       }
     },
     components:{
@@ -239,53 +243,19 @@
     },
 
     methods: {
+      typeAheadUp(){
+
+      },
       checkedCitypopup(item){
         this.city = item.administrative_area + item.short_readable
         this.$store.dispatch('validation', {typeValid: 'city', value: item})
 
       },
-      getSettlements(){
-
-        const self = this;
-        const query = this.city
-        axios.post('/shiptorg/', {
-          json: {
-            "id": "JsonRpcClient.js",
-            "jsonrpc": "2.0",
-            "method": "getSettlements",
-            "params": {
-              "per_page": 90,
-              "page": 1,
-              "types": [
-                "Город"
-              ],
-              "level": 3,
-              "parent": "02000000000",
-              "country_code": "RU"
-            }
-          }
-        }).then(
-          function (response) {
-            self.resultCity = response.data
-            console.log(response.data)
-          },
-          function (error) {
-            console.log(error)
-          }
-        )
-
-      },
       suggestSettlement() {
-        const request = new XMLHttpRequest();
-        console.log(request)
-        const csrfCookie = document.cookie.match(/CSRF-TOKEN=([\w-]+)/);
-        console.log(csrfCookie)
-        if (csrfCookie) {
-          console.log(123)
-          request.setRequestHeader("X-CSRF-TOKEN", csrfCookie[1]);
-        }
         const self = this;
         const query = this.city
+
+
         axios.post('/shiptorg/', {
           json: {
             "id": "JsonRpcClient.js",
@@ -299,9 +269,9 @@
         }).then(
           function (response) {
             self.resultCity = response.data.result
-            console.log(response.data)
           }
         )
+
 
       },
 
@@ -406,13 +376,15 @@
         }else {
           this.domV = true
         }
-      },
+      }
     },
     created(){
-//      this.getSettlements()
+
 
     },
-    mounted(){
+    mounted() {
+
+
     }
   }
 </script>

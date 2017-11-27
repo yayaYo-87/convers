@@ -13,6 +13,7 @@ const state = {
   validation: 1
 };
 
+
 // actions
 const actions = {
   results(state){
