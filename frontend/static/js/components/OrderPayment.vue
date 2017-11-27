@@ -178,7 +178,7 @@
         }).then(
 
           function (response) {
-
+            self.initPay()
             console.log(response.data)
 
           }
