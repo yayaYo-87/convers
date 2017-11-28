@@ -17,6 +17,8 @@
       <a :href="item.link" class="main-bar_read"><span>Подробнее →</span></a>
     </div>
 
+
+
   </div>
 </template>
 
