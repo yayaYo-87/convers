@@ -1,6 +1,9 @@
 from config.settings import *
 DEBUG = False
-ALLOWED_HOSTS = ['144.76.163.52']
+ALLOWED_HOSTS = ['classicalbooks.ru', 'www.classicalbooks.ru', 'classical-books.ru', 'классическиекниги.рф', 
+'классические-книги.рф',
+'classicalConversationsbooks.com','www.classical-books.ru', 'www.классическиекниги.рф', 'www.классические-книги.рф',
+'www.classicalconversationsbooks.com']
 
 DATABASES = {
     'default': {
@@ -16,7 +19,7 @@ ADMINS = [
     ('Blackout', 'zubkov@smoothie.digital')
 ]
 
-SITE_HOST = '144.76.163.52'
+SITE_HOST = 'classicalbooks.ru'
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.yandex.ru'
