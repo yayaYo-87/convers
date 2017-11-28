@@ -10,33 +10,14 @@
                 <!--<input class="faq__search-input" type="text " placeholder="Начните вводить текст">-->
             <!--</div>-->
         </div>
-        <div class="faq__items">
-            <div class="faq__items_title">Продукты</div>
-            <div class="faq__item">
-                <div class="faq__item_title">Общие вопросы продукта</div>
-                <item
-                        :desc="'Предлагает ли ЦК все, что необходимо для обучения в домашнем школьном классе моего ребенка?'"
-                        :name="'Да. Классические беседы предоставляют все необходимые тексты и рекомендуют помочь нашим ученикам полностью реализовать свой потенциал!'"
-                ></item>
-                <item
-                        :desc="'Предлагает ли ЦК все, что необходимо для обучения в домашнем школьном классе моего ребенка?'"
-                        :name="'Да. Классические беседы предоставляют все необходимые тексты и рекомендуют помочь нашим ученикам полностью реализовать свой потенциал!'"
-                ></item>
-                <item
-                        :desc="'Предлагает ли ЦК все, что необходимо для обучения в домашнем школьном классе моего ребенка?'"
-                        :name="'Да. Классические беседы предоставляют все необходимые тексты и рекомендуют помочь нашим ученикам полностью реализовать свой потенциал!'"
-                ></item>
-                <item
-                        :desc="'Предлагает ли ЦК все, что необходимо для обучения в домашнем школьном классе моего ребенка?'"
-                        :name="'Да. Классические беседы предоставляют все необходимые тексты и рекомендуют помочь нашим ученикам полностью реализовать свой потенциал!'"
-                ></item>
-                <item
-                        :desc="'Предлагает ли ЦК все, что необходимо для обучения в домашнем школьном классе моего ребенка?'"
-                        :name="'Да. Классические беседы предоставляют все необходимые тексты и рекомендуют помочь нашим ученикам полностью реализовать свой потенциал!'"
-                ></item>
-                <item
-                        :desc="'Предлагает ли ЦК все, что необходимо для обучения в домашнем школьном классе моего ребенка?'"
-                        :name="'Да. Классические беседы предоставляют все необходимые тексты и рекомендуют помочь нашим ученикам полностью реализовать свой потенциал!'"
+        <div class="faq__items" v-for="item in resultFaq">
+            <div class="faq__items_title">{{ item.name }}</div>
+            <div class="faq__item" v-for="cart in item.faq_categories">
+                <div class="faq__item_title">{{ cart.name }}</div>
+                <item   v-for="(type, index) in cart.faq_questions"
+                        :key="index"
+                        :desc="type.question"
+                        :name="type.answer"
                 ></item>
             </div>
         </div>
@@ -65,19 +46,29 @@
 
 <script>
   import item from '../components/FaqItem.vue'
+  import axios from 'axios'
+
   export default {
     data() {
       return {
-        popup: false
+        resultFaq: []
       }
     },
     components: {
       item
     },
     methods:{
-      popupSwitch(){
-        this.popup = !this.popup
-      },
+      getFaq(){
+        const self = this
+        axios.get('/api/faq_page/')
+          .then(function (response) {
+            self.resultFaq = response.data.results
+            console.log(response.data)
+          })
+      }
+    },
+    created(){
+      this.getFaq()
     }
   }
 </script>

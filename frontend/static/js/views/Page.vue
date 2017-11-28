@@ -6,9 +6,10 @@
         </div>
         <div class="about__wrapper">
             <div class="about__wrapper-left">
-                <h1 class="about__title">О нас</h1>
-                <h2>Добро пожаловать в наш интернет-магазин!</h2>
-                Здесь вы найдете учебную программу для школьников, которая поддерживает сообщество классических бесед десятков тысяч опытных семейных домов, которые продвигают христианскую, классическую, общинную модель домашнего обучения, используя учебную программу классических бесед.
+                <h1 class="about__title">{{ resultPage.name }}</h1>
+
+                <div v-html="resultPage.description"></div>
+
                 <h3>Рекомендуемые товары</h3>
                 <div class="cart__rew">
                     <div class="cart__item cart__item-width" v-for="item in limitBy(result, 3)">
@@ -56,11 +57,15 @@
   export default {
     data() {
       return {
-        result: []
+        result: [],
+        resultPage: []
       }
     },
     components: {
       bar
+    },
+    watch: {
+      '$route.params.id': 'getPage'
     },
     methods: {
       getRecommend() {
@@ -75,9 +80,23 @@
             }
           )
       },
+      getPage() {
+        const self = this;
+        const id = this.$route.params.id
+        axios.get('/api/pages/' + id + '/')
+          .then(
+            function (response) {
+              self.resultPage = response.data
+            },
+            function (error) {
+
+            }
+          )
+      },
     },
     created(){
       this.getRecommend()
+      this.getPage()
     }
   }
 </script>
