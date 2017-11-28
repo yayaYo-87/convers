@@ -48,7 +48,8 @@
         result: [],
         Items: [],
         price: 0,
-        itemOrder: 0
+        itemOrder: 0,
+        itemsShiptor: []
       }
     },
     watch: {
@@ -63,6 +64,9 @@
     computed: {
       basket() {
         return this.$store.state.basket.results
+      },
+      comment() {
+        return this.$store.state.basket.comment
       },
       next(){
         return this.$store.state.basket.validation
@@ -110,6 +114,7 @@
       forEachBasket(now){
         const self = this
         self.Items = []
+        self.itemsShiptor = []
         let result = {}
         this.price = now.results[0].price;
         this.itemOrder = now.results[0].id;
@@ -123,7 +128,14 @@
             "Tax": "none",
 
           }
+          const itemsShiptor = {
+            "shopArticle": item.goods.id,
+            "count": item.count,
+            "vat": 18,
+
+          }
           self.Items.push(items)
+          self.itemsShiptor.push(itemsShiptor)
         })
 
       },
@@ -162,6 +174,58 @@
         )
 
       },
+      shiptor() {
+        const self = this;
+        const photo = self.resultsCart
+
+        axios.post('/shiptorg/', {
+          json: {
+            "id": "JsonRpcClient.js",
+            "jsonrpc": "2.0",
+            "method": "addPackage",
+            "params": {
+              "stock": 1,
+              "length": 10,
+              "width": 10,
+              "height": 10,
+              "weight": 10,
+              "cod": 0,
+              "external_id": self.basket.results[0].id,
+              "departure": {
+                "shipping_method": self.shiptorOrder.method.id,
+                "delivery_point": null,
+                "cashless_payment": true,
+                "comment": self.basket.comment,
+                "address": {
+                  "country": self.city.country.code,
+                  "receiver": self.LastName + '' + self.FirstName,
+                  "email": self.email,
+                  "phone": self.phone,
+                  "postal_code": self.index,
+                  "administrative_area": self.city.administrative_area,
+                  "settlement": self.city.name,
+                  "house": self.hom,
+                  "address_line_1": self.city.readable_parents + ', ' + self.address + ', ' + self.hom,
+                  "kladr_id": self.city.country.kladr_id
+                }
+              },
+              "products": [
+                {
+                  "shopArticle": "HOLOD10",
+                  "count": 1,
+                  "price": 15000,
+                }
+              ]
+            }
+          }
+        }).then(
+          function (response) {
+            self.initPay()
+          }, function (error) {
+          }
+        )
+
+      },
       postOrder() {
         let self = this
         axios.post('/api/order/', {
@@ -179,7 +243,8 @@
         }).then(
 
           function (response) {
-            self.initPay()
+//
+            self.shiptor()
             console.log(response.data)
 
           }

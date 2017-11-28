@@ -193,6 +193,38 @@
     },
     mounted(){
       const self = this
+
+//      axios.post('/shiptorg/', {
+//        json: {
+//          "id": "JsonRpcClient.js",
+//          "jsonrpc": "2.0",
+//          "method": "addProduct",
+//          "params": {
+//            "name": "Холодильник",
+//            "barcode": "4606782046203",
+//            "article": "HOLOD10",
+//            "shopArticle": "HOLOD10",
+//            "length": 50,
+//            "width": 50,
+//            "height": 200,
+
+//            "weight": 20,
+//            "price": 12000,
+//            "retailPrice": 15000,
+//            "fragile": false,
+//            "danger": false,
+//            "perishable": false,
+//            "needBox": true
+//          }
+//        }
+//      }).then(
+//        function (response) {
+//          console.log(response.data)
+//        }, function (error) {
+//        }
+//      )
+
+
     }
   }
 </script>
