@@ -1,3 +1,4 @@
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from tinymce.models import HTMLField
 
@@ -5,7 +6,7 @@ from tinymce.models import HTMLField
 class Page(models.Model):
     name = models.CharField(verbose_name='Название страницы', null=False, max_length=256)
     slug = models.SlugField(verbose_name='URL', null=True, blank=False)
-    description = HTMLField(verbose_name='Описание страницы', blank=True)
+    description = RichTextUploadingField(verbose_name='Описание страницы', blank=True)
 
     def __str__(self):
         return self.name
