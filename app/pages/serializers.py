@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from app.pages.models import Page, PageFAQ
+from app.pages.models import Page, PageFAQ, CategoryFAQ, QuestionFAQ
 
 
 class PageSerializer(serializers.ModelSerializer):
@@ -11,7 +11,7 @@ class PageSerializer(serializers.ModelSerializer):
 
 class QuestionFAQSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Page
+        model = QuestionFAQ
         fields = ['id', 'question', 'answer',]
 
 
@@ -19,8 +19,8 @@ class CategoryFAQSerializer(serializers.ModelSerializer):
     faq_questions = QuestionFAQSerializer(many=True)
 
     class Meta:
-        model = Page
-        fields = ['id', 'name', 'answer', 'faq_questions']
+        model = CategoryFAQ
+        fields = ['id', 'name', 'faq_questions']
 
 
 class PageFAQSerializer(serializers.ModelSerializer):

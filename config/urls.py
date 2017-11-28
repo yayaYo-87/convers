@@ -32,7 +32,7 @@ urlpatterns = [
     url(r'^resend_pay/$', resend_pay, name='resend_pay'),
     url(r'^shiptorg/$', shiptorg, name='shiptorg'),
     url(r'^[a-z]*_?/?[a-z]*_?/?[0-9]*_?/?[0-9]*$', IndexView.as_view(), name='index'),
-    # url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
 
 ]
 
