@@ -3,7 +3,7 @@
     <div class="footer__list">
       <!--<div class="footer__list_item">Поиск</div>-->
       <!--<span>|</span>-->
-      <router-link :to="{ name: 'about' }" class="footer__list_item"> О компании</router-link>
+      <!--<router-link :to="{ name: 'about' }" class="footer__list_item"> О компании</router-link>-->
       <span>|</span>
       <div class="footer__list_item">Свяжитесь с нами</div>
       <span>|</span>

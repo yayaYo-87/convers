@@ -43,8 +43,10 @@
         ></header-menu-item>
       </div>
       <div class="header__menu_item"><router-link :to="{ name: 'faq' }">FAQ</router-link></div>
-      <div class="header__menu_item"><router-link :to="{ name: 'about' }">О компании</router-link></div>
-      <div class="header__menu_item"><router-link  :to="{ name: 'contacts' }">Свяжитесь с нами</router-link></div>
+
+      <div class="header__menu_item" v-for="item in resultPage">
+        <router-link :to="{ name: 'page', params: { id: item.slug }}">{{ item.name }}</router-link>
+      </div>
       <!--<div class="header__menu_item"><a href="#">Политика доставки</a></div>-->
     </div>
   </div>
@@ -58,7 +60,8 @@
     name: 'header',
     data () {
       return {
-        result: []
+        result: [],
+        resultPage: []
       }
     },
     components: {
@@ -86,6 +89,19 @@
             }
           )
       },
+      getPage() {
+        const self = this
+        axios.get('/api/pages/')
+          .then(
+            function (response) {
+              self.resultPage = response.data.results
+
+            },
+            function (error) {
+              console.log(erorr)
+            }
+          )
+      },
       getBasket() {
         this.$store.dispatch('results')
       }
@@ -93,6 +109,7 @@
     created() {
       this.get()
       this.getBasket()
+      this.getPage()
     }
   }
 </script>
