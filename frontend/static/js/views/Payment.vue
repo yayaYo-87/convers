@@ -37,7 +37,7 @@
         const self = this;
 
         axios.post('/change_status/' + self.result.OrderId + '/', {
-          'status':  self.result.Success
+          status:  self.result.Success
         }).then(
           function (response) {
 

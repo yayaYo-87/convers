@@ -203,7 +203,6 @@
               "height": 10,
               "weight": 10,
               "cod": 0,
-              "external_id": self.basket.results[0].id,
               "declared_cost": self.basket.results[0].price,
               "departure": {
                 "shipping_method": self.shiptorOrder.method.id,

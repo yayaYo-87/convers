@@ -1,9 +1,11 @@
 import json
 from datetime import datetime
 
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework import mixins
-from rest_framework.decorators import detail_route
+from rest_framework.decorators import detail_route, permission_classes
 from rest_framework.generics import get_object_or_404
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
@@ -36,6 +38,7 @@ class OrderViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins.Crea
         return super(OrderViewSet, self).get_serializer_class()
 
     @detail_route(methods=['post'])
+    @permission_classes((AllowAny,))
     def change_status(self, request, pk=None):
         status = json.loads(request.body.decode("utf-8"))['status']
         op = get_object_or_404(Order, pk=pk)
