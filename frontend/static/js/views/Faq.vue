@@ -16,8 +16,8 @@
                 <div class="faq__item_title">{{ cart.name }}</div>
                 <item   v-for="(type, index) in cart.faq_questions"
                         :key="index"
-                        :desc="type.question"
-                        :name="type.answer"
+                        :desc="type.answer"
+                        :name="type.question"
                 ></item>
             </div>
         </div>

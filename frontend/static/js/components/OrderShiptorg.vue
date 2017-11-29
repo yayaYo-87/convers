@@ -9,6 +9,7 @@
             <h3 class="order__shiptorg_methods-title">Способ доставки</h3>
             <div class="order__shiptorg_methods-item"
                  :class="{ 'order__shiptorg_methods-item-active'  : indexShiptor === index}"
+                 v-if="item.method.id !== 18 && item.method.id !== 25 && item.method.id !== 11 && item.method.id !== 14 && item.method.id !== 67 && item.method.id !== 53  && item.method.id !== 35"
                  @click="shiptorAdd(item, index)"
                  v-for="(item, index) in result.methods">
                 <div class="order__shiptorg_methods-item-loader"></div>
@@ -139,6 +140,7 @@
                     "height": 10,
                     "weight": 2,
                     "country_code": "RU",
+                    "declared_cost": self.basket.results[0].total_count,
                     "kladr_id": self.city.kladr_id,
                   }
                 }
