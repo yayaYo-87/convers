@@ -89,7 +89,7 @@
                             class="order__info_input-email">
                     <div class="valid" v-show="addressV">*Введите адрес</div>
                 </div>
-                <div class="order__info_input">
+                <div class="order__info_input  order__info_input-apartment">
                     <label for="hom" class="order__info_input-label"
                            :class="{'order__info_input-label_active': focusedDom}"
                     >Дом</label>
@@ -99,6 +99,17 @@
                             type="text"
                             class="order__info_input-email">
                     <div class="valid" v-show="indexV">*Введите номер дома</div>
+                </div>
+                <div class="order__info_input">
+                    <label for="apartment" class="order__info_input-label"
+                           :class="{'order__info_input-label_active': focusedApartment}"
+                    >Квартира</label>
+                    <input  @focus="focusedApartment = true"
+                            @blur="fcApartment()"
+                            v-model="apartment" id="apartment"
+                            type="text"
+                            class="order__info_input-email">
+                    <div class="valid" v-show="indexV">*Введите номер квартиры</div>
                 </div>
             </div>
             <div class="order__info_address-city">
@@ -147,6 +158,8 @@
 
         typeAheadPointer: 0,
 
+
+        apartment: '',
         phone: '',
         email: '',
         FirstName:'',
@@ -164,8 +177,10 @@
         indexV: false,
         cityV: false,
         phoneV: false,
+        apartmentV: false,
 
         focusedPhone: false,
+        focusedApartment: false,
         focusedCity: false,
         focusedEmail: false,
         focusedFirstName: false,
@@ -186,6 +201,11 @@
       phone(now){
         if( this.validation.phone !== false ) {
           this.$store.dispatch('validation', {typeValid: 'phone', value: now })
+        }
+      },
+      apartment(now){
+        if( this.validation.apartment !== false ) {
+          this.$store.dispatch('validation', {typeValid: 'apartment', value: now })
         }
       },
       city(now) {
@@ -233,6 +253,7 @@
           radio: !!this.radio,
           city: !!this.city.trim(),
           address: !!this.address.trim(),
+          apartment: !!this.apartment.trim(),
           index: !!this.index.trim(),
           hom: !!this.hom.trim(),
           email: this.emailRE.test(this.email),
@@ -377,6 +398,18 @@
           this.domV = false
         }else {
           this.domV = true
+        }
+      },
+      fcApartment(){
+        if(this.apartment.length !== 0) {
+          this.focusedApartment = true
+        } else {
+          this.focusedApartment = false
+        }
+        if ( this.validation.apartment === true) {
+          this.apartmentV = false
+        }else {
+          this.apartmentV = true
         }
       }
     },

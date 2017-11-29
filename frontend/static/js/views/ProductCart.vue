@@ -146,6 +146,7 @@
       countPlus(){
         this.count = this.count + 1
       },
+
       get() {
         const self = this
         const id = this.$route.params.item

@@ -27,7 +27,7 @@
                 <button :disabled="!city && !shiptorOrder"
                         class="tinkoffPayRow"
                         type="submit"
-                        @click="postOrder()"
+                        @click="shiptorPost()"
                         value="Оплатить">
                     Оплатить
                 </button>
@@ -42,7 +42,7 @@
     props: ['items'],
     data() {
       return{
-        terminalkey: '1505124262290DEMO',
+        terminalkey: '1511862369151DEMO',
         deliveryTotal: 0,
         deliveryMethods: '',
         result: [],
@@ -56,6 +56,16 @@
       shiptorOrder(now){
         this.deliveryTotal = now.cost.total.sum
         this.deliveryMethods = now.method.name
+
+        const delivery = {
+          "Name": 'Доставка',
+          "Price": this.shiptorOrder.cost.total.sum * 100,
+          "Quantity": 1,
+          "Amount": this.shiptorOrder.cost.total.sum * 100,
+          "Tax": "none",
+        };
+
+        this.Items.push(delivery);
       },
       basket(now){
         this.forEachBasket(now)
@@ -82,6 +92,9 @@
       },
       hom() {
         return this.$store.state.basket.hom
+      },
+      apartment() {
+        return this.$store.state.basket.apartment
       },
       shiptorOrder() {
         return this.$store.state.basket.shiptor
@@ -118,6 +131,7 @@
         let result = {}
         this.price = now.results[0].price;
         this.itemOrder = now.results[0].id;
+
         now.results[0].cart_goods.forEach(function (item, i, arr) {
 
           const items = {
@@ -126,18 +140,16 @@
             "Quantity": item.count,
             "Amount": item.price * 100,
             "Tax": "none",
-
-          }
+          };
           const itemsShiptor = {
             "shopArticle": item.goods.id,
             "count": item.count,
             "vat": 18,
 
-          }
-          self.Items.push(items)
+          };
+          self.Items.push(items);
           self.itemsShiptor.push(itemsShiptor)
         })
-
       },
       backMethods(id){
         this.$store.dispatch('validation', {typeValid: 'validation', value: id})
@@ -147,7 +159,7 @@
         axios.post('/init_pay/', {
           json: {
             "TerminalKey": self.terminalkey,
-            "Amount": self.price * 100 + self.deliveryTotal * 100,
+            "Amount": self.basket.results[0].price * 100 + self.shiptorOrder.cost.total.sum * 100,
             "OrderId": self.itemOrder,
             "Description": "Классические беседы",
             "DATA": {"Phone": self.phone, "Email": self.email},
@@ -170,11 +182,12 @@
               location.href = response.data.PaymentURL
             }
           }, function (error) {
+
           }
         )
 
       },
-      shiptor() {
+      shiptorPost() {
         const self = this;
         const photo = self.resultsCart
 
@@ -191,21 +204,23 @@
               "weight": 10,
               "cod": 0,
               "external_id": self.basket.results[0].id,
+              "declared_cost": self.basket.results[0].price,
               "departure": {
                 "shipping_method": self.shiptorOrder.method.id,
-                "delivery_point": null,
+                "delivery_point": self.city.country.kladr_id,
                 "cashless_payment": true,
                 "comment": self.basket.comment,
                 "address": {
                   "country": self.city.country.code,
-                  "receiver": self.LastName + '' + self.FirstName,
+                  "receiver": self.LastName + ' ' + self.FirstName,
                   "email": self.email,
                   "phone": self.phone,
                   "postal_code": self.index,
                   "administrative_area": self.city.administrative_area,
                   "settlement": self.city.name,
                   "house": self.hom,
-                  "address_line_1": self.city.readable_parents + ', ' + self.address + ', ' + self.hom,
+                  "apartment": self.apartment,
+                  "address_line_1": self.city.readable_parents + ', ' + self.address + ', дом.' + self.hom + ', ул.' + self.apartment,
                   "kladr_id": self.city.country.kladr_id
                 }
               },
@@ -220,6 +235,7 @@
           }
         }).then(
           function (response) {
+            self.postOrder()
             self.initPay()
           }, function (error) {
           }
@@ -239,13 +255,11 @@
           "last_name": self.LastName,
           "phone": self.phone,
           "home": self.hom,
-          "total": self.basket.results[0].price + self.shiptorOrder.cost.total.sum
+          "total": parseInt(self.basket.results[0].price + self.shiptorOrder.cost.total.sum)
         }).then(
 
           function (response) {
-//
-            self.shiptor()
-            console.log(response.data)
+
 
           }
         )
