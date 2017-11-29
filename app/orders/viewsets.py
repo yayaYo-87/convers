@@ -39,9 +39,9 @@ class OrderViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins.Crea
     def change_status(self, request, pk=None):
         status = json.loads(request.body.decode("utf-8"))['status']
         op = get_object_or_404(Order, pk=pk)
-        if status == 'success':
+        if status == 'true':
             op.order_status = 'confirmed'
-        if status == 'error':
+        if status == 'false':
             op.order_status = 'cancel'
         op.save()
         return Response(OrderSerializer(instance=op).data)
