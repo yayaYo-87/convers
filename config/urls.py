@@ -31,7 +31,7 @@ urlpatterns = [
     url(r'^cancel_pay/$', cancel_pay, name='cancel_pay'),
     url(r'^get_state_pay/$', get_state_pay, name='get_state_pay'),
     url(r'^resend_pay/$', resend_pay, name='resend_pay'),
-    url(r'^get_payment_status/$', get_payment_status, name='get_payment_status'),
+    url(r'^payment_status/$', get_payment_status, name='get_payment_status'),
     url(r'^shiptorg/$', shiptorg, name='shiptorg'),
     url(r'^[a-z]*_?/?[a-z]*_?/?[0-9]*_?/?[0-9]*$', IndexView.as_view(), name='index'),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),

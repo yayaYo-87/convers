@@ -80,8 +80,11 @@ def get_csrf_token(request):
 
 @csrf_exempt
 def get_payment_status(self, request):
-    params = parse_qs(self.data_string.decode())
-    print(params['token'])
+    id = request.POST.get('OrderId')
+    token = request.POST.get('Token')
+    status = request.POST.get('Status')
+    print('id= ', id, ', token= ', token, ', status= ', status)
+
     return HttpResponse('OK')
 
 
