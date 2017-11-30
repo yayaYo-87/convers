@@ -8,6 +8,8 @@ import order from '../views/Order.vue'
 import catalogItem from '../views/ProductItem.vue'
 import page from '../views/Page.vue'
 import faq  from '../views/Faq.vue'
+import payment from '../views/Payment.vue'
+
 Vue.use(Router)
 
 //При переходе скролит до верха
@@ -30,6 +32,11 @@ export default new Router({
       path: '/faq',
       name: 'faq',
       component: faq
+    },
+    {
+      path: '/payment',
+      name: 'payment',
+      component: payment
     },
     {
       path: '/page/:id',
