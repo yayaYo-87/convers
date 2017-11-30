@@ -9,7 +9,7 @@ from django.views import generic
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.views.decorators.http import require_http_methods
 
-from app.orders.models import Cart, OrderGoods
+from app.orders.models import Cart, OrderGoods, Order
 
 
 class IndexView(generic.TemplateView):
@@ -81,8 +81,11 @@ def get_csrf_token(request):
 @csrf_exempt
 def get_payment_status(self, request):
     id = request.POST.get('OrderId')
-    token = request.POST.get('Token')
     status = request.POST.get('Status')
+    token = request.POST.get('Token')
+    order = Order.objects.filter(id=id)
+    order.status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
+    order.save()
     print('id= ', id, ', token= ', token, ', status= ', status)
 
     return HttpResponse('OK')
