@@ -79,6 +79,7 @@ def get_csrf_token(request):
     return JsonResponse({'token': token})
 
 
+@require_http_methods(["POST"])
 @csrf_exempt
 def get_payment_status(request):
     id = request.POST.get('OrderId')
