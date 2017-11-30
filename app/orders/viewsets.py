@@ -38,18 +38,6 @@ class OrderViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins.Crea
             return OrderDetailSerializer
         return super(OrderViewSet, self).get_serializer_class()
 
-    @detail_route(methods=['post'])
-    @permission_classes((AllowAny,))
-    def change_status(self, request, pk=None):
-        status = json.loads(request.body.decode("utf-8"))['status']
-        op = get_object_or_404(Order, pk=pk)
-        if status == 'true':
-            op.order_status = 'confirmed'
-        if status == 'false':
-            op.order_status = 'cancel'
-        op.save()
-        return Response(OrderSerializer(instance=op).data)
-
 
 class CartViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericViewSet):
     queryset = Cart.objects.all()
