@@ -5,24 +5,18 @@
         <img src="../../img/logo.png" alt="">
       </router-link>
       <div class="header__right">
-        <!--<div class="header__right_soc">-->
-        <!--<div class="header__right_soc-items">-->
-        <!--<div class="header__right_soc-item"></div>-->
-        <!--<div class="header__right_soc-item"></div>-->
-        <!--<div class="header__right_soc-item"></div>-->
-        <!--<div class="header__right_soc-item"></div>-->
-        <!--<div class="header__right_soc-item"></div>-->
-        <!--<div class="header__right_soc-item"></div>-->
-        <!--<div class="header__right_soc-item"></div>-->
-        <!--</div>-->
-        <!--<div class="header__right_soc-log">-->
-        <!--<div class="header__right_soc-log_text"><span>Вход</span>  |</div>-->
-        <!--<div class="header__right_soc-log_reg">&nbsp;<span>Регистрация</span></div>-->
-        <!--</div>-->
-        <!--</div>-->
+        <div class="header__right_soc">
+          <div class="header__right_soc-items">
+            <a class="facebook header__right_soc-item" target="_blank" href="https://www.facebook.com/irina.shamolina"></a>
+            <a class="vk header__right_soc-item" target="_blank" href="https://vk.com/ishamolina"></a>
+            <a class="instagram header__right_soc-item" target="_blank" href="https://instagram.com/irinashamolina "></a>
+            <a class="youtube header__right_soc-item" target="_blank" href="https://www.youtube.com/channel/UC1LSsHHVzGkeNdHOdoKyDzw"></a>
+
+          </div>
+        </div>
         <div class="header__right-search">
           <!--<div class="header__right-search_left">-->
-            <!--<input type="text" placeholder="Поиск">-->
+          <!--<input type="text" placeholder="Поиск">-->
           <!--</div>-->
           <div class="header__right-search_right">
             <router-link tag="button" :to="{name: 'basket'}" class="button"> <span v-for='item in basket'>Корзина ({{ item.total_count }})</span></router-link>
