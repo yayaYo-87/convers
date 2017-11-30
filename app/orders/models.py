@@ -35,9 +35,11 @@ class Order(models.Model):
     email = models.CharField(max_length=255, verbose_name='Email', blank=False, null=True)
     home = models.CharField(max_length=256, verbose_name='Дом', blank=False, null=True)
     phone = models.CharField(max_length=255, verbose_name='Номер телефона', blank=False, null=True)
-    total = models.PositiveIntegerField(verbose_name='Общая сумма заказа', default=0, null=True)
+    total = models.PositiveIntegerField(verbose_name='Cумма заказа', default=0, null=True)
     created_at = models.DateTimeField(verbose_name='Дата создания', auto_now_add=True, blank=True, null=True)
     total_count = models.IntegerField(verbose_name='Общее количество продуктов', blank=True, null=True, default=0)
+    total_delivery = models.PositiveIntegerField(verbose_name='Cумма заказа и доставки', default=0, null=True)
+
 
     class Meta:
         verbose_name = 'Заказ'

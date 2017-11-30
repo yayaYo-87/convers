@@ -74,6 +74,7 @@ class OrderSerializer(serializers.ModelSerializer):
             'email',
             'city',
             'total',
+            'total_delivery',
             'created_at',
         ]
 
@@ -87,6 +88,7 @@ class OrderDetailSerializer(serializers.ModelSerializer):
             'id',
             'total_count',
             'order_status',
+            'order_delivery',
             'phone',
             'city',
             'address',
@@ -96,6 +98,7 @@ class OrderDetailSerializer(serializers.ModelSerializer):
             'email',
             'phone',
             'total',
+            'total_delivery',
             'created_at',
             'goods',
         ]

@@ -93,6 +93,7 @@ class LeftBlog(models.Model):
     description = models.CharField(verbose_name='Описание', max_length=256, null=True, blank=True)
     cover = models.ImageField(verbose_name='Обложка', blank=True, upload_to=upload_to)
     link = models.URLField(verbose_name='Ссылка', blank=True)
+    pages = models.ForeignKey('pages.Page', verbose_name='Страница', related_name='Blog_page', null=True)
 
     def __str__(self):
         return self.name
