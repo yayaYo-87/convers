@@ -31,6 +31,7 @@ class OrderViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins.Crea
         cart.save()
         obj.save()
         OrderGoods.objects.filter(cart=cart, active=False).delete()
+        return Response(obj.id)
 
     def get_serializer_class(self):
         if self.action == 'retrieve':
