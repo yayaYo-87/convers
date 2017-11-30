@@ -129,7 +129,7 @@
         </div>
         <div class="order__info_radio">
             <input id="ch1" type="checkbox" v-model="radio">
-            <label for="ch1">Вы соглашаетесь с правилами Интернет магазина и политикой предоставления персональных данных</label>
+            <label for="ch1">Вы соглашаетесь с правилами Интернет магазина и политикой предоставления персональных данных, а также вы соглашаетесь не воспроизводить/распространять ни в какой форме никакие части изданий ООО "Классические беседы".</label>
         </div>
         <div class="order__info_button">
             <router-link :to="{name: 'basket'}"  class="order__info_button-return">

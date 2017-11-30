@@ -34,8 +34,13 @@ export default new Router({
       component: faq
     },
     {
-      path: '/payment',
-      name: 'payment',
+      path: '/payment_success',
+      name: 'payment_success',
+      component: payment
+    },
+    {
+      path: '/payment_error',
+      name: 'payment_error',
       component: payment
     },
     {
