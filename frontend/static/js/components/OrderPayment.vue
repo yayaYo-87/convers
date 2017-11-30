@@ -24,7 +24,7 @@
                 Вернуться к методам доставки
             </div>
             <div class="order__info_button-bt">
-                <button :disabled="!city && !shiptorOrder"
+                <button :disabled="disabledR"
                         class="tinkoffPayRow"
                         type="submit"
                         @click="postOrder()"
@@ -42,12 +42,14 @@
     props: ['items'],
     data() {
       return{
+        disabledR: false,
         terminalkey: '1511862369151DEMO',
         loader: false,
         deliveryTotal: 0,
         deliveryMethods: '',
         result: [],
         Items: [],
+        ItemsDelivery: [],
         price: 0,
         itemOrder: 0,
         itemsShiptor: []
@@ -58,7 +60,7 @@
         this.deliveryTotal = now.cost.total.sum
         this.deliveryMethods = now.method.name
 
-        const delivery = {
+        this.ItemsDelivery = {
           "Name": 'Доставка',
           "Price": this.shiptorOrder.cost.total.sum * 100,
           "Quantity": 1,
@@ -66,7 +68,6 @@
           "Tax": "none",
         };
 
-        this.Items.push(delivery);
       },
       basket(now){
         this.forEachBasket(now)
@@ -244,6 +245,9 @@
       },
       postOrder() {
         this.loader = true;
+        this.disabledR = true;
+
+        this.Items.push(this.ItemsDelivery);
         let self = this;
         axios.post('/api/order/', {
           "total_count": self.basket.results[0].total_count,
