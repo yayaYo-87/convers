@@ -3,6 +3,7 @@ from urllib.parse import parse_qs
 
 import django
 import requests
+import sys
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.views import generic
@@ -86,7 +87,7 @@ def get_payment_status(self, request):
     order = Order.objects.filter(id=id)
     order.status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
     order.save()
-    print('id= ', id, ', token= ', token, ', status= ', status)
+    print('id= ', id, ', token= ', token, ', status= ', status, file=sys.stderr)
 
     return HttpResponse('OK')
 
