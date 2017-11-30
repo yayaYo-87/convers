@@ -80,7 +80,7 @@ def get_csrf_token(request):
 
 
 @csrf_exempt
-def get_payment_status(self, request):
+def get_payment_status(request):
     id = request.POST.get('OrderId')
     status = request.POST.get('Status')
     token = request.POST.get('Token')
@@ -89,7 +89,7 @@ def get_payment_status(self, request):
     order.save()
     print('id= ', id, ', token= ', token, ', status= ', status, file=sys.stderr)
 
-    return HttpResponse('OK')
+    return HttpResponse(status=200, content='OK')
 
 
 @require_http_methods(["POST"])
