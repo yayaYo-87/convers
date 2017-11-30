@@ -27,7 +27,7 @@
                 <button :disabled="!city && !shiptorOrder"
                         class="tinkoffPayRow"
                         type="submit"
-                        @click="shiptorPost()"
+                        @click="postOrder()"
                         value="Оплатить">
                     Оплатить
                 </button>
@@ -154,13 +154,13 @@
       backMethods(id){
         this.$store.dispatch('validation', {typeValid: 'validation', value: id})
       },
-      initPay() {
+      initPay(id) {
         const self = this;
         axios.post('/init_pay/', {
           json: {
             "TerminalKey": self.terminalkey,
             "Amount": self.basket.results[0].price * 100 + self.shiptorOrder.cost.total.sum * 100,
-            "OrderId": self.itemOrder,
+            "OrderId": id,
             "Description": "Классические беседы",
             "DATA": {"Phone": self.phone, "Email": self.email},
             "Receipt": {
@@ -187,7 +187,7 @@
         )
 
       },
-      shiptorPost() {
+      shiptorPost(id) {
         const self = this;
         const photo = self.resultsCart
 
@@ -234,8 +234,7 @@
           }
         }).then(
           function (response) {
-            self.postOrder()
-            self.initPay()
+            self.initPay(id)
           }, function (error) {
           }
         )
@@ -256,10 +255,9 @@
           "home": self.hom,
           "total": parseInt(self.basket.results[0].price + self.shiptorOrder.cost.total.sum)
         }).then(
-
           function (response) {
-
-
+            console.log(response.data)
+            self.shiptorPost(response.data.id)
           }
         )
       }
