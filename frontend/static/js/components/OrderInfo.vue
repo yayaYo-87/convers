@@ -113,16 +113,11 @@
                 </div>
             </div>
             <div class="order__info_address-city">
-                <div class="order__info_input">
+                <div class="order__info_input order__info_input-tel">
                     <label for="phone" class="order__info_input-label"
                            :class="{'order__info_input-label_active': focusedPhone}"
-                    >Телефон</label>
-                    <input  @focus="focusedPhone = true"
-                            @blur="fcPhone()"
-                            v-model="phone" id="phone"
-                            type="tel"
-                            name="tel"
-                            class="order__info_input-email">
+                    ></label>
+                    <masked-input mask="\+\7(111)111-11-11" placeholder="Телефон" id="phone" type="tel"  class="order__info_input-email" v-model="phone"/>
                     <div class="valid" v-show="phoneV">*Введите корректный телефон</div>
                 </div>
             </div>
@@ -168,7 +163,7 @@
         index: '',
         hom: '',
         emailRE: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-        telRE: /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/,
+        telRE: /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/,
 
         mailV: false,
         FirstNameV: false,
@@ -195,7 +190,8 @@
       }
     },
     components:{
-      vSelect
+      vSelect,
+      MaskedInput
     },
     watch: {
       phone(now){

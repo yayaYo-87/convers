@@ -16,7 +16,7 @@
             <span class="order__header_list-link" @click="backMethods(1)">Информация о покупателе</span>
             <svg class="order__svg order__svg-active" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><path d="M2 1l1-1 4 4 1 1-1 1-4 4-1-1 4-4"></path></svg>
           </div>
-          <div class="order__header_list-item" @click="backMethods(2)" :class="{'order__header_list-default': next === 1, 'order__header_list-complited': next === 3}">
+          <div class="order__header_list-item"  :class="{'order__header_list-default': next === 1, 'order__header_list-complited': next === 3}">
             <span class="order__header_list-link">Способ доставки</span>
             <svg class="order__svg order__svg-active" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><path d="M2 1l1-1 4 4 1 1-1 1-4 4-1-1 4-4"></path></svg>
           </div>
