@@ -14,9 +14,9 @@
             </div>
         </div>
         <div class="order__shiptorg_methods">
-            <!--<h3 class="order__shiptorg_methods-title">Оплата</h3>-->
-
-
+            <div class="order__shiptorg_methods-wr" v-if="loader">
+                <img class="order__shiptorg_methods-img" src="/static/img/loader.gif" alt="loader">
+            </div>
         </div>
         <div class="order__info_button">
             <div @click="backMethods(2)"  class="order__info_button-return">
@@ -43,6 +43,7 @@
     data() {
       return{
         terminalkey: '1511862369151DEMO',
+        loader: false,
         deliveryTotal: 0,
         deliveryMethods: '',
         result: [],
@@ -182,7 +183,7 @@
               location.href = response.data.PaymentURL
             }
           }, function (error) {
-
+            self.loader = false
           }
         )
 
@@ -236,12 +237,14 @@
           function (response) {
             self.initPay(id)
           }, function (error) {
+            self.loader = false
           }
         )
 
       },
       postOrder() {
-        let self = this
+        this.loader = true;
+        let self = this;
         axios.post('/api/order/', {
           "total_count": self.basket.results[0].total_count,
           "order_delivery": self.shiptorOrder.method.courier,
@@ -258,6 +261,8 @@
           function (response) {
             console.log(response.data)
             self.shiptorPost(response.data.id)
+          }, function (error) {
+            self.loader = false
           }
         )
       }
