@@ -3,10 +3,13 @@
         <div class="order__shiptorg_item">
             <div class="order__shiptorg_item-name">Адрес доставки</div>
             <div class="order__shiptorg_item-title">{{ city.administrative_area }}, {{ city.short_readable }}, {{ address }}, {{ index }}</div>
-            <div class="order__shiptorg_item-edit" @click="backMethods()">Изменить</div>
+            <div class="order__shiptorg_item-edit" @click="backMethods(1)">Изменить</div>
         </div>
         <div class="order__shiptorg_methods">
             <h3 class="order__shiptorg_methods-title">Способ доставки</h3>
+            <div class="order__shiptorg_methods-wr" v-if="loader">
+                <img class="order__shiptorg_methods-img" src="/static/img/loader.gif" alt="loader">
+            </div>
             <div class="order__shiptorg_methods-item"
                  :class="{ 'order__shiptorg_methods-item-active'  : indexShiptor === index}"
                  v-if="item.method.id !== 18 && item.method.id !== 25 && item.method.id !== 11 && item.method.id !== 14 && item.method.id !== 67 && item.method.id !== 53  && item.method.id !== 35"
@@ -42,6 +45,7 @@
         result: [],
         indexShiptor: -1,
         disabledButton: false,
+        loader: true,
         shiptor: [
 
         ]
@@ -110,9 +114,7 @@
           axios.get('/api/goods/' + item + '/')
             .then(
               function (response) {
-
                 length = response.data
-
                 self.$store.commit('pushItem', { type: 'resultsCart', items: response.data})
                 if(itemCart.length - 1 === id) {
                   self.calculateShipping()
@@ -146,7 +148,7 @@
                 }
               }).then(
                 function (response) {
-
+                  self.loader = false
                   self.result = response.data.result
                 }
               )
