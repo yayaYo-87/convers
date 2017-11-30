@@ -1,4 +1,5 @@
 import json
+from urllib.parse import parse_qs
 
 import django
 import requests
@@ -75,6 +76,13 @@ def resend_pay(request):
 def get_csrf_token(request):
     token = django.middleware.csrf.get_token(request)
     return JsonResponse({'token': token})
+
+
+@csrf_exempt
+def get_payment_status(self, request):
+    params = parse_qs(self.data_string.decode())
+    print(params['token'])
+    return HttpResponse('OK')
 
 
 @require_http_methods(["POST"])
