@@ -28,5 +28,6 @@ EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
 
 SERVER_EMAIL = EMAIL_HOST_USER
+TINKOFF_PASSWORD=os.environ.get('TINKOFF_PASSWORD')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
