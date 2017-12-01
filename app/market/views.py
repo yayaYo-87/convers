@@ -79,10 +79,7 @@ def get_payment_status(request):
     id = request.POST.get('OrderId')
     status = request.POST.get('Status')
     token = request.POST.get('Token')
-    try:
-        order = get_object_or_404(Order, id=id)
-    except MyModel.DoesNotExist:
-        raise Http404("No such Order.")
+    order = get_object_or_404(Order, id=id)
     order.status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
     order.save()
     print('id= ', id, ', token= ', token, ', status= ', status, file=sys.stderr)
