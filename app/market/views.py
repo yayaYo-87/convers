@@ -91,9 +91,9 @@ def check_token(params):
 @require_http_methods(["POST"])
 @csrf_exempt
 def get_payment_status(request):
-    id = request.POST.get('OrderId')
-    status = request.POST.get('Status')
     params = json.loads(request.body.decode("utf-8"))
+    id = params.get('OrderId')
+    status = params.get('Status')
     # convert python booleans to js string
     # e.g True to "true"
     params = {k: str(v).lower() if isinstance(v, bool) else v for k, v in params.items()}
