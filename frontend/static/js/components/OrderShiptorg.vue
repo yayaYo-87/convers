@@ -127,34 +127,27 @@
       },
       calculateShipping() {
         const self = this;
-
-        axios.get('get_csrf_token')
-          .then(
-            (response) => {
-              axios.post('/shiptorg/', {
-                json: {
-                  "id": "JsonRpcClient.js",
-                  "jsonrpc": "2.0",
-                  "method": "calculateShipping",
-                  "params": {
-                    "length": 10,
-                    "width": 10,
-                    "height": 10,
-                    "weight": 2,
-                    "country_code": "RU",
-                    "declared_cost": self.basket.results[0].total_count,
-                    "kladr_id": self.city.kladr_id,
-                  }
-                }
-              }).then(
-                function (response) {
-                  self.loader = false
-                  self.result = response.data.result
-                }
-              )
-
+        axios.post('/shiptorg/', {
+          json: {
+            "id": "JsonRpcClient.js",
+            "jsonrpc": "2.0",
+            "method": "calculateShipping",
+            "params": {
+              "length": 10,
+              "width": 10,
+              "height": 10,
+              "weight": 2,
+              "country_code": "RU",
+              "declared_cost": self.basket.results[0].total_count,
+              "kladr_id": self.city.kladr_id,
             }
-          )
+          }
+        }).then(
+          function (response) {
+            self.loader = false
+            self.result = response.data.result
+          }
+        )
       }
     },
     mounted(){

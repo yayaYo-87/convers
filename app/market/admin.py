@@ -49,6 +49,7 @@ class GoodsAdmin(admin.ModelAdmin):
                 'classes': ('suit-tab', 'suit-tab-general',),
                 'fields': (
                     'name',
+                    'articul',
                     'type',
                     'category',
                     'price',
@@ -101,6 +102,17 @@ class GoodsAdmin(admin.ModelAdmin):
                     'size',
                 )
             }
+        ),
+        (
+            'Meta tags',
+            {
+                'classes': ('suit-tab', 'suit-tab-tags',),
+                'fields': (
+                    'meta_title',
+                    'meta_description',
+                    'meta_keywords',
+                )
+            }
         )
     ]
     filter_horizontal = ['size', 'related_goods',]
@@ -124,6 +136,12 @@ class GoodsAdmin(admin.ModelAdmin):
 
     image_hover_img.short_description = 'Фотография ховера обложки'
     image_hover_img.allow_tags = True
-    suit_form_tabs = (('general', 'Основные'), ('size', 'Габариты и рекомендованные товары'), ('extra', 'Для книг'), ('clothes', 'Размеры для одежды'))
+    suit_form_tabs = (
+        ('general', 'Основные'),
+        ('size', 'Габариты и рекомендованные товары'),
+        ('extra', 'Для книг'),
+        ('clothes', 'Размеры для одежды'),
+        ('tags', 'Meta tags')
+    )
     list_filter = ['category', 'type', 'is_active', 'available', 'size']
     search_fields = ['name', 'title', 'date_publication']

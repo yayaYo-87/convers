@@ -37,6 +37,7 @@ class OrderModelAdmin(admin.ModelAdmin):
     readonly_fields = [
         'total',
         'total_count',
+        'total_delivery',
         'created_at',
         # 'payment_method',
         'order_status',

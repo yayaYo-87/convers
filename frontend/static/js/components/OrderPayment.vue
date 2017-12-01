@@ -62,9 +62,9 @@
 
         this.ItemsDelivery = {
           "Name": 'Доставка',
-          "Price": this.shiptorOrder.cost.total.sum * 100,
+          "Price": Math.round(this.shiptorOrder.cost.total.sum * 100),
           "Quantity": 1,
-          "Amount": this.shiptorOrder.cost.total.sum * 100,
+          "Amount": Math.round(this.shiptorOrder.cost.total.sum * 100),
           "Tax": "none",
         };
 
@@ -161,7 +161,7 @@
         axios.post('/init_pay/', {
           json: {
             "TerminalKey": self.terminalkey,
-            "Amount": self.basket.results[0].price * 100 + self.shiptorOrder.cost.total.sum * 100,
+            "Amount": Math.round(self.basket.results[0].price * 100 + self.shiptorOrder.cost.total.sum * 100),
             "OrderId": id,
             "Description": "Классические беседы",
             "DATA": {"Phone": self.phone, "Email": self.email},
@@ -252,6 +252,7 @@
         axios.post('/api/order/', {
           "total_count": self.basket.results[0].total_count,
           "order_delivery": self.shiptorOrder.method.courier,
+          "total_delivery": Math.round(self.shiptorOrder.cost.total.sum),
           "email": self.email,
           "city": self.city.short_readable,
           "index": self.index,

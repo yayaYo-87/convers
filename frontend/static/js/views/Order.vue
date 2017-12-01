@@ -112,7 +112,7 @@
       <div class="order__right_total">
         <div class="order__right_total_items">
           <div class="order__right_total-text">Итого</div>
-          <div class="order__right_total-price" v-for="item in basket.results">{{ parseInt(item.price) + deliveryTotal  }}<span class="rubl" > &#8399;</span></div>
+          <div class="order__right_total-price" v-for="item in basket.results">{{ item.price + deliveryTotal  }}<span class="rubl" > &#8399;</span></div>
         </div>
       </div>
     </div>

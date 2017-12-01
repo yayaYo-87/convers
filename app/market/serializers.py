@@ -43,6 +43,7 @@ class GoodsDetailSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'name',
+            'articul',
             'type',
             'price',
             'description',
@@ -66,7 +67,10 @@ class GoodsDetailSerializer(serializers.ModelSerializer):
             'date_publication',
             'size',
             'related_goods',
-            'photos'
+            'photos',
+            'meta_title',
+            'meta_description',
+            'meta_keywords',
         ]
 
 
