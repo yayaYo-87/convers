@@ -191,3 +191,5 @@ CKEDITOR_CONFIGS = {
 
     },
 }
+
+TINKOFF_PASSWORD=os.environ.get('TINKOFF_PASSWORD')
