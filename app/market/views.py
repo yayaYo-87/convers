@@ -1,13 +1,12 @@
 import json
-from urllib.parse import parse_qs
+from _sha256 import sha256
 
-import django
 import requests
-import sys
+from django.conf import settings
 from django.http import HttpResponse
-from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 from django.views import generic
-from django.views.decorators.csrf import csrf_exempt, csrf_protect
+from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
 from app.orders.models import Cart, OrderGoods, Order
@@ -73,18 +72,37 @@ def resend_pay(request):
     return HttpResponse(f.content)
 
 
+def check_token(params):
+    """
+    https://oplata.tinkoff.ru/landing/develop/plug/tokens
+    """
+    received_token = params.pop('Token')
+    params['Password'] = settings.TINKOFF_PASSWORD
+    items_list = sorted(params.items(), key=lambda x: x[0])
+
+    pure_value = ''
+    for item in items_list:
+        pure_value = '%s%s' % (pure_value, item[1])
+
+    generated_token = sha256(pure_value.encode('ascii')).hexdigest()
+    return generated_token == received_token
+
+
 @require_http_methods(["POST"])
 @csrf_exempt
 def get_payment_status(request):
     id = request.POST.get('OrderId')
     status = request.POST.get('Status')
-    token = request.POST.get('Token')
-    order = get_object_or_404(Order, id=id)
-    order.status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
-    order.save()
-    print('id= ', id, ', token= ', token, ', status= ', status, file=sys.stderr)
-
-    return HttpResponse(status=200, content='OK')
+    params = request.POST.copy()
+    token_valid = check_token(params)
+    
+    if token_valid:
+        order = get_object_or_404(Order, id=id)
+        order.status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
+        order.save()
+        return HttpResponse(status=200, content='OK')
+    
+    return HttpResponse(status=403)
 
 
 @require_http_methods(["POST"])
