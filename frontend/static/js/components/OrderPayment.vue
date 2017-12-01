@@ -252,6 +252,7 @@
         axios.post('/api/order/', {
           "total_count": self.basket.results[0].total_count,
           "order_delivery": self.shiptorOrder.method.courier,
+          "total_delivery": Math.round(self.shiptorOrder.cost.total.sum),
           "email": self.email,
           "city": self.city.short_readable,
           "index": self.index,
