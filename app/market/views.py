@@ -3,13 +3,14 @@ from urllib.parse import parse_qs
 
 import django
 import requests
+import sys
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.views import generic
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.views.decorators.http import require_http_methods
 
-from app.orders.models import Cart, OrderGoods
+from app.orders.models import Cart, OrderGoods, Order
 
 
 class IndexView(generic.TemplateView):
@@ -72,20 +73,18 @@ def resend_pay(request):
     return HttpResponse(f.content)
 
 
+@require_http_methods(["POST"])
 @csrf_exempt
-def get_csrf_token(request):
-    token = django.middleware.csrf.get_token(request)
-    return JsonResponse({'token': token})
-
-
-@csrf_exempt
-def get_payment_status(self, request):
+def get_payment_status(request):
     id = request.POST.get('OrderId')
-    token = request.POST.get('Token')
     status = request.POST.get('Status')
-    print('id= ', id, ', token= ', token, ', status= ', status)
+    token = request.POST.get('Token')
+    order = Order.objects.filter(id=id)
+    order.status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
+    order.save()
+    print('id= ', id, ', token= ', token, ', status= ', status, file=sys.stderr)
 
-    return HttpResponse('OK')
+    return HttpResponse(status=200, content='OK')
 
 
 @require_http_methods(["POST"])

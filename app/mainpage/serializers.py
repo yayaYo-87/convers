@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from app.mainpage.models import Slider, TopSlide, TopBanner, LeftSlide, LeftSlider, LeftBlog
+from app.pages.serializers import PageSerializer
 
 
 class TopSlideSerializer(serializers.ModelSerializer):
@@ -38,6 +39,7 @@ class LeftSliderSerializer(serializers.ModelSerializer):
 
 
 class LeftBlogSerializer(serializers.ModelSerializer):
+    pages = PageSerializer()
     class Meta:
         model = LeftBlog
-        fields = ['id', 'name', 'title', 'date', 'description', 'cover', 'link']
+        fields = ['id', 'name', 'title', 'date', 'description', 'cover', 'link', 'pages']

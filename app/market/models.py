@@ -76,6 +76,7 @@ class Goods(models.Model):
     category = models.ForeignKey('Category', verbose_name='Категория товаров', related_name='goods_categories', null=True)
 
     name = models.CharField(verbose_name='Название', max_length=256)
+    articul = models.CharField(verbose_name='Артикул товара', max_length=256, null=True, blank=False)
     price = models.PositiveIntegerField(verbose_name='Цена', blank=False)
     description = RichTextUploadingField(verbose_name='Описание', blank=True)
     # description = HTMLField(verbose_name='Описание', blank=True)
@@ -107,6 +108,11 @@ class Goods(models.Model):
 
     size = models.ManyToManyField('market.Size', verbose_name='Доступные размеры', blank=True)
     related_goods = models.ManyToManyField('market.Goods', verbose_name='Похожие товары', related_name='+', blank=True)
+
+    meta_title = models.CharField(verbose_name='meta title', max_length=200, null=True, blank=True)
+    meta_description = models.TextField(verbose_name='meta description', null=True, blank=True)
+    meta_keywords = models.TextField(verbose_name='meta keywords', null=True, blank=True)
+
 
     def __str__(self):
         return self.name
