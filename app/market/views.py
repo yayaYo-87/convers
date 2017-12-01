@@ -93,7 +93,10 @@ def check_token(params):
 def get_payment_status(request):
     id = request.POST.get('OrderId')
     status = request.POST.get('Status')
-    params = request.POST.copy()
+    params = json.loads(request.body.decode("utf-8"))
+    # convert python booleans to js string
+    # e.g True to "true"
+    params = {k: str(v).lower() if isinstance(v, bool) else v for k, v in params.items()}
     token_valid = check_token(params)
     
     if token_valid:
