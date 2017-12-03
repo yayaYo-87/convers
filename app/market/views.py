@@ -96,6 +96,7 @@ def get_payment_status(request):
     id = params.get('OrderId')
     print('id=', id)
     status = params.get('Status')
+    print('status = ', status)
     # convert python booleans to js string
     # e.g True to "true"
     params = {k: str(v).lower() if isinstance(v, bool) else v for k, v in params.items()}
@@ -104,7 +105,9 @@ def get_payment_status(request):
     
     if token_valid:
         order = get_object_or_404(Order, id=id)
+        print('order =', order)
         order.status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
+        print('order_status = ', order.status)
         order.save()
         return HttpResponse(status=200, content='OK')
     
