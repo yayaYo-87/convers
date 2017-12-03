@@ -9,7 +9,7 @@ class Order(models.Model):
         ('waiting', 'Ожидание'),
         ('processing', 'В обработке'),
         ('paid', 'Оплачено онлайн'),
-        ('confirmed', 'Обработано'),
+        ('confirmed', 'Подтвержден'),
         ('cancel', 'Отменен'),
     )
     DELIVERIES = (
