@@ -1,7 +1,8 @@
 from rest_framework import viewsets
 
-from app.mainpage.models import Slider, LeftSlider, TopBanner, LeftBlog
-from app.mainpage.serializers import TopSliderSerializer, LeftSliderSerializer, TopBannerSerializer, LeftBlogSerializer
+from app.mainpage.models import Slider, LeftSlider, TopBanner, LeftBlog, LeftAbout
+from app.mainpage.serializers import TopSliderSerializer, LeftSliderSerializer, TopBannerSerializer, LeftBlogSerializer, \
+    LeftAboutSerializer
 
 
 class TopSliderViewSet(viewsets.ModelViewSet):
@@ -22,3 +23,8 @@ class LeftSliderViewSet(viewsets.ModelViewSet):
 class LeftBlogViewSet(viewsets.ModelViewSet):
     queryset = LeftBlog.objects.all()
     serializer_class = LeftBlogSerializer
+
+
+class LeftAboutViewSet(viewsets.ModelViewSet):
+    queryset = LeftAbout.objects.all()
+    serializer_class = LeftAboutSerializer
