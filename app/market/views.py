@@ -94,20 +94,16 @@ def check_token(params):
 def get_payment_status(request):
     params = json.loads(request.body.decode("utf-8"))
     id = params.get('OrderId')
-    print('id=', id)
     status = params.get('Status')
     print('status = ', status)
     # convert python booleans to js string
     # e.g True to "true"
     params = {k: str(v).lower() if isinstance(v, bool) else v for k, v in params.items()}
     token_valid = check_token(params)
-    print('token_valid=', token_valid)
-    
+
     if token_valid:
         order = get_object_or_404(Order, id=id)
-        print('order =', order)
         order.order_status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
-        print('order_status = ', order.order_status)
         order.save()
         return HttpResponse(status=200, content='OK')
     
