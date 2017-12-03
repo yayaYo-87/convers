@@ -106,7 +106,7 @@ def get_payment_status(request):
     if token_valid:
         order = get_object_or_404(Order, id=id)
         print('order =', order)
-        order.status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
+        order.order_status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
         print('order_status = ', order.status)
         order.save()
         return HttpResponse(status=200, content='OK')
