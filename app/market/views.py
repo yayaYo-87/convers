@@ -83,6 +83,7 @@ def check_token(params):
     pure_value = ''
     for item in items_list:
         pure_value = '%s%s' % (pure_value, item[1])
+    print(pure_value)
 
     generated_token = sha256(pure_value.encode('ascii')).hexdigest()
     return generated_token == received_token
@@ -93,11 +94,13 @@ def check_token(params):
 def get_payment_status(request):
     params = json.loads(request.body.decode("utf-8"))
     id = params.get('OrderId')
+    print('id=', id)
     status = params.get('Status')
     # convert python booleans to js string
     # e.g True to "true"
     params = {k: str(v).lower() if isinstance(v, bool) else v for k, v in params.items()}
     token_valid = check_token(params)
+    print('token_valid=', token_valid)
     
     if token_valid:
         order = get_object_or_404(Order, id=id)
