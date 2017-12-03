@@ -1,6 +1,7 @@
 from rest_framework.routers import DefaultRouter
 
-from app.mainpage.viewsets import TopSliderViewSet, TopBannerViewSet, LeftSliderViewSet, LeftBlogViewSet
+from app.mainpage.viewsets import TopSliderViewSet, TopBannerViewSet, LeftSliderViewSet, LeftBlogViewSet, \
+    LeftAboutViewSet
 from app.market.viewsets import CatalogViewSet, CategoryViewSet, GoodsViewSet, MainGoodsViewSet
 from app.orders.viewsets import OrderViewSet, CartViewSet, OrderGoodsViewSet
 from app.pages.viewsets import PageViewset, PageFAQViewset
@@ -18,6 +19,7 @@ router.register(r'order_goods', OrderGoodsViewSet)
 router.register(r'top_slider', TopSliderViewSet)
 router.register(r'top_banner', TopBannerViewSet)
 router.register(r'left_slider', LeftSliderViewSet)
+router.register(r'left_about', LeftAboutViewSet)
 router.register(r'left_blog', LeftBlogViewSet)
 
 router.register(r'pages', PageViewset)

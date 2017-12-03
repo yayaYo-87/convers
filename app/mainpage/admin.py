@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from app.mainpage.models import TopSlide, Slider, LeftSlide, LeftSlider, TopBanner, LeftBlog
+from app.mainpage.models import TopSlide, Slider, LeftSlide, LeftSlider, TopBanner, LeftBlog, LeftAbout
 
 
 class TopSlideInline(admin.StackedInline):
@@ -36,6 +36,12 @@ class LeftSliderAdmin(admin.ModelAdmin):
     model = LeftSlider
     fields = ['name',]
     inlines = [LeftSlideInline, ]
+
+
+@admin.register(LeftAbout)
+class LeftAboutAdmin(admin.ModelAdmin):
+    model = LeftAbout
+    fields = ['name', 'description', 'pages']
 
 
 @admin.register(LeftBlog)

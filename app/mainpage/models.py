@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.safestring import mark_safe
 
+from ckeditor_uploader.fields import RichTextUploadingField
+
 from app.market.models import upload_to
 
 
@@ -86,6 +88,19 @@ class LeftSlide(models.Model):
         ordering = ['sort_index']
 
 
+class LeftAbout(models.Model):
+    name = models.CharField(verbose_name='Название', max_length=256)
+    description = RichTextUploadingField(verbose_name='Описание', null=True, blank=True)
+    pages = models.ForeignKey('pages.Page', verbose_name='Страница', related_name='about_page', null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'О нас'
+        verbose_name_plural = 'О нас'
+
+
 class LeftBlog(models.Model):
     name = models.CharField(verbose_name='Название', max_length=256)
     title = models.CharField(verbose_name='Заголовок', max_length=256, blank=True)
@@ -93,7 +108,6 @@ class LeftBlog(models.Model):
     description = models.CharField(verbose_name='Описание', max_length=256, null=True, blank=True)
     cover = models.ImageField(verbose_name='Обложка', blank=True, upload_to=upload_to)
     link = models.URLField(verbose_name='Ссылка', blank=True)
-    pages = models.ForeignKey('pages.Page', verbose_name='Страница', related_name='Blog_page', null=True)
 
     def __str__(self):
         return self.name
