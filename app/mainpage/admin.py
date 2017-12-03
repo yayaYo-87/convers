@@ -47,4 +47,4 @@ class LeftAboutAdmin(admin.ModelAdmin):
 @admin.register(LeftBlog)
 class LeftBlogAdmin(admin.ModelAdmin):
     model = LeftBlog
-    fields = ['name', 'title', 'date', 'description', 'cover', 'link', 'pages']
+    fields = ['name', 'title', 'date', 'description', 'cover', 'link']
