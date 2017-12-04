@@ -18,7 +18,7 @@
                 <div class="order__shiptorg_methods-item-loader"></div>
                 <div class="order__shiptorg_methods-item-title">{{ item.method.name }}, {{ item.method.description }}</div>
                 <div class="order__shiptorg_methods-item-total">
-                    {{ item.days }}, {{ item.cost.total.sum }}
+                    {{ item.days }}, {{ Math.ceil(item.cost.total.sum) }}
                     <span class="rubl" > &#8399;</span>
                 </div>
             </div>
