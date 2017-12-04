@@ -166,7 +166,7 @@
               self.errorPopup(response.data.Details)
             }
             if(response.data.PaymentURL !== undefined){
-              location.href = response.data.PaymentURL
+//              location.href = response.data.PaymentURL
             }
           }, function (error) {
             self.loader = false
@@ -241,7 +241,7 @@
           "order_delivery": self.shiptorOrder.method.courier,
           "total_delivery": Math.ceil(self.shiptorOrder.cost.total.sum),
           "shipping_id": self.shiptorOrder.method.id,
-          "delivery_point": self.city.country.kladr_id,
+          "delivery_point": self.city.kladr_id,
           "administrative_area": self.city.administrative_area,
           "email": self.email,
           "apartment": self.apartment,
