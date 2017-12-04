@@ -55,6 +55,7 @@ def init_pay(request):
                 'Name':i.goods.name,
                 'Price':int(i.goods.price)*100,
                 'Quantity':i.count,
+                'Amount':int(i.goods.price)*100*i.count,
                 'Tax':'none'
             }
             json_data['Receipt']['Items'].append(item)
