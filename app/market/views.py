@@ -154,7 +154,7 @@ def shiptorg_post(order):
         'x-authorization-token': '4b8015c64d6c260d377374edecda8b54027c78ca',
     }
     path = 'https://api.shiptor.ru/shipping/v1'
-    f = requests.post(path, headers=headers, json=order)
+    f = requests.post(path, headers=headers, json=json_data)
     print(f.json())
     print(f.content)
 
