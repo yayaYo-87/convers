@@ -38,7 +38,7 @@ def init_pay(request):
     order = Order.objects.filter(id=id).first()
     json_data = {}
     if order:
-        json_data['TerminalKey'] = '1511862369151DEMO'
+        json_data['TerminalKey'] = '1511862369151'
         json_data['Amount'] = int(order.total_delivery) * 100 + int(order.total) * 100
         json_data['OrderId'] = order.id
         json_data['Description'] = 'Классические беседы'
