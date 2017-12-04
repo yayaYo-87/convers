@@ -159,32 +159,18 @@
       initPay(id) {
         const self = this;
         axios.post('/init_pay/', {
-          json: {
-            "TerminalKey": self.terminalkey,
-            "Amount": Math.round(self.basket.results[0].price * 100 + self.shiptorOrder.cost.total.sum * 100),
-            "OrderId": id,
-            "Description": "Классические беседы",
-            "DATA": {"Phone": self.phone, "Email": self.email},
-            "Receipt": {
-              "Email": self.email,
-              "Phone": self.phone,
-              "Taxation": "usn_income",
-              "Items": self.Items
-            }
-          }
+          id: id
         }).then(
           function (response) {
-            self.result = response.data
-            console.log(response.data)
             if(response.data.ErrorCode === '8') {
               self.errorPopup(response.data.Details)
-
             }
             if(response.data.PaymentURL !== undefined){
               location.href = response.data.PaymentURL
             }
           }, function (error) {
             self.loader = false
+
           }
         )
 
@@ -236,7 +222,7 @@
           }
         }).then(
           function (response) {
-            self.initPay(id)
+
           }, function (error) {
             self.loader = false
           }
@@ -246,16 +232,23 @@
       postOrder() {
         this.loader = true;
         this.disabledR = true;
+        let self = this;
 
         this.Items.push(this.ItemsDelivery);
-        let self = this;
         axios.post('/api/order/', {
           "total_count": self.basket.results[0].total_count,
           "order_delivery": self.shiptorOrder.method.courier,
-          "total_delivery": Math.round(self.shiptorOrder.cost.total.sum),
+          "total_delivery": Math.ceil(self.shiptorOrder.cost.total.sum),
+          "shipping_id": self.shiptorOrder.method.id,
+          "delivery_point": self.city.kladr_id,
+          "administrative_area": self.city.administrative_area,
           "email": self.email,
+          "apartment": self.apartment,
+          "settlement": self.city.name,
+          "kladr_id": self.city.kladr_id,
           "city": self.city.short_readable,
           "index": self.index,
+          "comment": self.comment,
           "address": self.address,
           "first_name": self.FirstName,
           "last_name": self.LastName,
@@ -264,8 +257,8 @@
           "total": parseInt(self.basket.results[0].price + self.shiptorOrder.cost.total.sum)
         }).then(
           function (response) {
-            console.log(response.data)
-            self.shiptorPost(response.data.id)
+            self.initPay(response.data.id)
+
           }, function (error) {
             self.loader = false
           }

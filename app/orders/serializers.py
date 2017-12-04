@@ -76,6 +76,13 @@ class OrderSerializer(serializers.ModelSerializer):
             'total',
             'total_delivery',
             'created_at',
+            'shipping_id',
+            'kladr_id',
+            'delivery_point',
+            'administrative_area',
+            'settlement',
+            'apartment',
+            'comment',
         ]
 
 

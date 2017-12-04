@@ -38,7 +38,15 @@ class Order(models.Model):
     total = models.PositiveIntegerField(verbose_name='Cумма заказа', default=0, null=True)
     created_at = models.DateTimeField(verbose_name='Дата создания', auto_now_add=True, blank=True, null=True)
     total_count = models.IntegerField(verbose_name='Общее количество продуктов', blank=True, null=True, default=0)
-    total_delivery = models.PositiveIntegerField(verbose_name='Cумма заказа и доставки', default=0, null=True)
+    total_delivery = models.PositiveIntegerField(verbose_name='Cтоимость доставки', default=0, null=True)
+
+    shipping_id = models.PositiveIntegerField(verbose_name='ID способа доставки', default=0, null=False)
+    kladr_id = models.CharField(verbose_name='kladr_id', max_length=256, default=0, null=False)
+    delivery_point = models.CharField(verbose_name='ID пункта самовывоза', max_length=256, default=0, null=True)
+    administrative_area = models.CharField(verbose_name='Область', max_length=256, null=True)
+    settlement = models.CharField(verbose_name='Населенный пункт', max_length=256, null=True)
+    apartment = models.CharField(verbose_name='Квартира', max_length=256, null=True)
+    comment = models.TextField(verbose_name='Комментарий', null=True, blank=True)
 
 
     class Meta:
@@ -66,7 +74,7 @@ class OrderGoods(models.Model):
     goods = models.ForeignKey(Goods, verbose_name='Товар', null=True)
     size = models.ForeignKey(Size, verbose_name='Размер', null=True)
     count = models.PositiveIntegerField(verbose_name='Количество')
-    price = models.FloatField(verbose_name='Цена', default=0)
+    price = models.PositiveIntegerField(verbose_name='Цена', default=0)
     created_at = models.DateTimeField(verbose_name='Дата создания', blank=True, null=True, auto_now=False)
     active = models.BooleanField(default=True)
 
@@ -90,7 +98,7 @@ class OrderGoods(models.Model):
 
 class Cart(models.Model):
     cookie = models.CharField(verbose_name='Кука', max_length=48, blank=True, null=True)
-    price = models.FloatField(verbose_name='Сумма заказа', default=0)
+    price = models.PositiveIntegerField(verbose_name='Сумма заказа', default=0)
     total_count = models.PositiveIntegerField(verbose_name='Общее количество товаров', blank=True, null=True)
 
     def save(self, *args, **kwargs):
