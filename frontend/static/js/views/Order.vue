@@ -102,7 +102,7 @@
         </div>
         <div class="order__right_subtotal-items">
           <div class="order__right_subtotal-text">Доставка</div>
-          <div class="order__right_subtotal-price">{{ deliveryTotal }} <span class="rubl" > &#8399;</span></div>
+          <div class="order__right_subtotal-price">{{ Math.ceil(deliveryTotal) }} <span class="rubl" > &#8399;</span></div>
         </div>
         <div class="order__right_subtotal-items">
           <div class="order__right_subtotal-text">Срок доставки</div>
@@ -112,7 +112,7 @@
       <div class="order__right_total">
         <div class="order__right_total_items">
           <div class="order__right_total-text">Итого</div>
-          <div class="order__right_total-price" v-for="item in basket.results">{{ item.price + deliveryTotal  }}<span class="rubl" > &#8399;</span></div>
+          <div class="order__right_total-price" v-for="item in basket.results">{{ item.price + Math.ceil(deliveryTotal)  }}<span class="rubl" > &#8399;</span></div>
         </div>
       </div>
     </div>
