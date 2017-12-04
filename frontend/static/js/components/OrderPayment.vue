@@ -234,7 +234,6 @@
         this.disabledR = true;
         let self = this;
 
-        console.log( self.comment )
         this.Items.push(this.ItemsDelivery);
         axios.post('/api/order/', {
           "total_count": self.basket.results[0].total_count,
