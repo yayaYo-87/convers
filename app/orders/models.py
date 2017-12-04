@@ -35,10 +35,10 @@ class Order(models.Model):
     email = models.CharField(max_length=255, verbose_name='Email', blank=False, null=True)
     home = models.CharField(max_length=256, verbose_name='Дом', blank=False, null=True)
     phone = models.CharField(max_length=255, verbose_name='Номер телефона', blank=False, null=True)
-    total = models.DecimalField(verbose_name='Cумма заказа', default=0, null=True, decimal_places=2, max_digits=10)
+    total = models.PositiveIntegerField(verbose_name='Cумма заказа', default=0, null=True)
     created_at = models.DateTimeField(verbose_name='Дата создания', auto_now_add=True, blank=True, null=True)
     total_count = models.IntegerField(verbose_name='Общее количество продуктов', blank=True, null=True, default=0)
-    total_delivery = models.DecimalField(verbose_name='Cтоимость доставки', default=0, null=True, decimal_places=2, max_digits=10)
+    total_delivery = models.PositiveIntegerField(verbose_name='Cтоимость доставки', default=0, null=True)
 
 
     class Meta:
@@ -66,7 +66,7 @@ class OrderGoods(models.Model):
     goods = models.ForeignKey(Goods, verbose_name='Товар', null=True)
     size = models.ForeignKey(Size, verbose_name='Размер', null=True)
     count = models.PositiveIntegerField(verbose_name='Количество')
-    price = models.DecimalField(verbose_name='Цена', default=0, decimal_places=2, max_digits=10)
+    price = models.PositiveIntegerField(verbose_name='Цена', default=0)
     created_at = models.DateTimeField(verbose_name='Дата создания', blank=True, null=True, auto_now=False)
     active = models.BooleanField(default=True)
 
@@ -90,7 +90,7 @@ class OrderGoods(models.Model):
 
 class Cart(models.Model):
     cookie = models.CharField(verbose_name='Кука', max_length=48, blank=True, null=True)
-    price = models.DecimalField(verbose_name='Сумма заказа', default=0, decimal_places=2, max_digits=10)
+    price = models.PositiveIntegerField(verbose_name='Сумма заказа', default=0)
     total_count = models.PositiveIntegerField(verbose_name='Общее количество товаров', blank=True, null=True)
 
     def save(self, *args, **kwargs):

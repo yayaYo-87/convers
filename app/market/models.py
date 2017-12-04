@@ -77,7 +77,7 @@ class Goods(models.Model):
 
     name = models.CharField(verbose_name='Название', max_length=256)
     articul = models.CharField(verbose_name='Артикул товара', max_length=256, null=True, blank=False)
-    price = models.DecimalField(verbose_name='Цена', blank=False, decimal_places=2, max_digits=10)
+    price = models.PositiveIntegerField(verbose_name='Цена', blank=False)
     description = RichTextUploadingField(verbose_name='Описание', blank=True)
     # description = HTMLField(verbose_name='Описание', blank=True)
     available = models.BooleanField(verbose_name='Доcтупен сейчас', default=True)

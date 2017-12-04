@@ -39,7 +39,7 @@ def init_pay(request):
     json_data = {}
     if order:
         json_data['TerminalKey'] = '1511862369151DEMO'
-        json_data['Amount'] = order.total_delivery * 100 + order.total * 100
+        json_data['Amount'] = int(order.total_delivery) * 100 + int(order.total) * 100
         json_data['OrderId'] = order.id
         json_data['Description'] = 'Классические беседы'
         json_data.setdefault('DATA', {})
@@ -53,21 +53,21 @@ def init_pay(request):
         for i in order.order_goods.all():
             item = {
                 'Name':i.goods.name,
-                'Price':i.goods.price*100,
+                'Price':int(i.goods.price)*100,
                 'Quantity':i.count,
-                'Amount':i.goods.price * 100 * i.count,
+                'Amount':int(i.goods.price) * 100 * i.count,
                 'Tax':'none'
             }
             json_data['Receipt']['Items'].append(item)
         delivery = {
             'Name': 'Доставка',
-            'Price': order.total_delivery * 100,
+            'Price': int(order.total_delivery) * 100,
             'Quantity': 1,
-            'Amount': order.total_delivery * 100,
+            'Amount': int(order.total_delivery) * 100,
             'Tax': 'none'
         }
         json_data['Receipt']['Items'].append(delivery)
-        # print(json_data)
+        print(json_data)
 
     headers = {
         'content-type': 'application/json',
@@ -94,6 +94,20 @@ def resend_pay(request):
     f = requests.post(path)
 
     return HttpResponse(f.content)
+
+
+def shiptorg_post(order):
+    print(order)
+    # headers = {
+    #     'content-type': 'application/json',
+    #     'x-authorization-token': '4b8015c64d6c260d377374edecda8b54027c78ca',
+    # }
+    # path = 'https://api.shiptor.ru/shipping/v1'
+    # f = requests.post(path, headers=headers, json=order)
+    # print(f.json())
+
+    # return HttpResponse(f.content)
+    return HttpResponse('2')
 
 
 def check_token(params):
@@ -127,6 +141,8 @@ def get_payment_status(request):
 
     if token_valid:
         order = get_object_or_404(Order, id=id)
+        if order:
+            shiptorg_post(order)
         order.order_status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
         order.save()
         return HttpResponse(status=200, content='OK')
