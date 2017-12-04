@@ -166,10 +166,11 @@
               self.errorPopup(response.data.Details)
             }
             if(response.data.PaymentURL !== undefined){
-//              location.href = response.data.PaymentURL
+              location.href = response.data.PaymentURL
             }
           }, function (error) {
             self.loader = false
+
           }
         )
 
