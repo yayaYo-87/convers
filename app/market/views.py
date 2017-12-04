@@ -59,7 +59,7 @@ def init_pay(request):
                 'Tax':'none'
             }
             json_data['Receipt']['Items'].append(item)
-        # print(json_data)
+        print(json_data)
 
     headers = {
         'content-type': 'application/json',

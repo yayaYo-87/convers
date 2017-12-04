@@ -162,7 +162,7 @@
           id: id
         }).then(
           function (response) {
-
+            console.log(response.data)
           }, function (error) {
             self.loader = false
           }
