@@ -234,14 +234,13 @@
         this.disabledR = true;
         let self = this;
 
-        console.log( self.comment )
         this.Items.push(this.ItemsDelivery);
         axios.post('/api/order/', {
           "total_count": self.basket.results[0].total_count,
           "order_delivery": self.shiptorOrder.method.courier,
           "total_delivery": Math.ceil(self.shiptorOrder.cost.total.sum),
           "shipping_id": self.shiptorOrder.method.id,
-          "delivery_point": self.city.country.kladr_id,
+          "delivery_point": self.city.kladr_id,
           "administrative_area": self.city.administrative_area,
           "email": self.email,
           "apartment": self.apartment,
