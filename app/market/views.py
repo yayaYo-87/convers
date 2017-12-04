@@ -148,17 +148,17 @@ def shiptorg_post(order):
         ', ' + order.address + ', ' + order.home + ', ' + order.apartment
     json_data['params']['departure']['address']['kladr_id'] = order.kladr_id
     json_data['params']['products'] = products
-    print(json_data)
-    # headers = {
-    #     'content-type': 'application/json',
-    #     'x-authorization-token': '4b8015c64d6c260d377374edecda8b54027c78ca',
-    # }
-    # path = 'https://api.shiptor.ru/shipping/v1'
-    # f = requests.post(path, headers=headers, json=order)
-    # print(f.json())
+    # print(json_data)
+    headers = {
+        'content-type': 'application/json',
+        'x-authorization-token': '4b8015c64d6c260d377374edecda8b54027c78ca',
+    }
+    path = 'https://api.shiptor.ru/shipping/v1'
+    f = requests.post(path, headers=headers, json=order)
+    print(f.json())
+    print(f.content)
 
-    # return HttpResponse(f.content)
-    return HttpResponse('2')
+    return HttpResponse(f.content)
 
 
 def check_token(params):

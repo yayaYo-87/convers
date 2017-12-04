@@ -42,7 +42,7 @@ class Order(models.Model):
 
     shipping_id = models.PositiveIntegerField(verbose_name='ID способа доставки', default=0, null=False)
     kladr_id = models.CharField(verbose_name='kladr_id', max_length=256, default=0, null=False)
-    delivery_point = models.PositiveIntegerField(verbose_name='ID пункта самовывоза', default=0, null=True)
+    delivery_point = models.CharField(verbose_name='ID пункта самовывоза', max_length=256, default=0, null=True)
     administrative_area = models.CharField(verbose_name='Область', max_length=256, null=True)
     settlement = models.CharField(verbose_name='Населенный пункт', max_length=256, null=True)
     apartment = models.CharField(verbose_name='Квартира', max_length=256, null=True)
