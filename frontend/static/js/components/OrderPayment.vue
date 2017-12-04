@@ -162,7 +162,12 @@
           id: id
         }).then(
           function (response) {
-            console.log(response.data)
+            if(response.data.ErrorCode === '8') {
+              self.errorPopup(response.data.Details)
+            }
+            if(response.data.PaymentURL !== undefined){
+              location.href = response.data.PaymentURL
+            }
           }, function (error) {
             self.loader = false
           }
