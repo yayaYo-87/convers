@@ -18,7 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from config.api import router
 
-from app.market.views import IndexView, init_pay, cancel_pay, get_state_pay, resend_pay, shiptorg, \
+from app.market.views import IndexView, init_pay, cancel_pay, resend_pay, shiptorg, \
     get_payment_status
 from config import settings
 
@@ -28,7 +28,6 @@ urlpatterns = [
     url(r'^_nested_admin/', include('nested_admin.urls')),
     url(r'^init_pay/$', init_pay, name='init_pay'),
     url(r'^cancel_pay/$', cancel_pay, name='cancel_pay'),
-    url(r'^get_state_pay/$', get_state_pay, name='get_state_pay'),
     url(r'^resend_pay/$', resend_pay, name='resend_pay'),
     url(r'^payment_status/$', get_payment_status, name='get_payment_status'),
     url(r'^shiptorg/$', shiptorg, name='shiptorg'),

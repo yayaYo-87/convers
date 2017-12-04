@@ -244,7 +244,6 @@
           "total": parseInt(self.basket.results[0].price + self.shiptorOrder.cost.total.sum)
         }).then(
           function (response) {
-            console.log(response)
             self.initPay(response.data.id)
 
           }, function (error) {
