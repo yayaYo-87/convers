@@ -35,11 +35,11 @@ class IndexView(generic.TemplateView):
 @csrf_exempt
 def init_pay(request):
     id = json.loads(request.body.decode("utf-8"))['id']
-    order = Order.objects.filter(id=id)
+    order = Order.objects.filter(id=id).first()
     json_data = {}
     if order:
         json_data['TerminalKey'] = '1511862369151DEMO'
-        json_data['Amount'] = order.total_delivery
+        json_data['Amount'] = int(order.total_delivery) * 100
         json_data['OrderId'] = order.id
         json_data['Description'] = 'Классические беседы'
         json_data.setdefault('DATA', {})
@@ -49,16 +49,22 @@ def init_pay(request):
         json_data['Receipt']['Email'] = order.email
         json_data['Receipt']['Phone'] = order.phone
         json_data['Receipt']['Taxation'] = 'usn_income'
-        json_data['Receipt'].setdefault('Items', {})
-        for i in order.order_goods:
-            print(i.name)
-        print(json_data)
+        json_data['Receipt'].setdefault('Items', [])
+        for i in order.order_goods.all():
+            item = {
+                'Name':i.goods.name,
+                'Price':int(i.goods.price)*100,
+                'Quantity':i.count,
+                'Tax':'none'
+            }
+            json_data['Receipt']['Items'].append(item)
+        # print(json_data)
 
-    # headers = {
-    #     'content-type': 'application/json',
-    # }
-    # path = 'https://securepay.tinkoff.ru/v2/Init'
-    # f = requests.post(path, headers=headers, json=id)
+    headers = {
+        'content-type': 'application/json',
+    }
+    path = 'https://securepay.tinkoff.ru/v2/Init'
+    f = requests.post(path, headers=headers, json=json_data)
 
     return HttpResponse(f.content)
 
