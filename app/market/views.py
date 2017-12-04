@@ -97,7 +97,7 @@ def resend_pay(request):
 
 
 def shiptorg_post(order):
-    print(order)
+#     print(order)
     length = 0
     width = 0
     height = 0
@@ -153,8 +153,8 @@ def shiptorg_post(order):
     }
     path = 'https://api.shiptor.ru/shipping/v1'
     f = requests.post(path, headers=headers, json=json_data)
-    print(f.json())
-    print(f.content)
+#     print(f.json())
+#     print(f.content)
 
     return HttpResponse(f.content)
 
