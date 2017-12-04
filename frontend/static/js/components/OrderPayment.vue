@@ -159,30 +159,10 @@
       initPay(id) {
         const self = this;
         axios.post('/init_pay/', {
-          json: {
-            "TerminalKey": self.terminalkey,
-            "Amount": Math.round(self.basket.results[0].price * 100 + self.shiptorOrder.cost.total.sum * 100),
-            "OrderId": id,
-            "Description": "Классические беседы",
-            "DATA": {"Phone": self.phone, "Email": self.email},
-            "Receipt": {
-              "Email": self.email,
-              "Phone": self.phone,
-              "Taxation": "usn_income",
-              "Items": self.Items
-            }
-          }
+          id: id
         }).then(
           function (response) {
-            self.result = response.data
-            console.log(response.data)
-            if(response.data.ErrorCode === '8') {
-              self.errorPopup(response.data.Details)
 
-            }
-            if(response.data.PaymentURL !== undefined){
-              location.href = response.data.PaymentURL
-            }
           }, function (error) {
             self.loader = false
           }
@@ -236,7 +216,7 @@
           }
         }).then(
           function (response) {
-            self.initPay(id)
+
           }, function (error) {
             self.loader = false
           }
@@ -264,8 +244,8 @@
           "total": parseInt(self.basket.results[0].price + self.shiptorOrder.cost.total.sum)
         }).then(
           function (response) {
-            console.log(response.data)
-            self.shiptorPost(response.data.id)
+            this.initPay(response.data.id)
+
           }, function (error) {
             self.loader = false
           }
