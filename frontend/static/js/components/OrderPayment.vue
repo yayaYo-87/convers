@@ -170,6 +170,7 @@
             }
           }, function (error) {
             self.loader = false
+
           }
         )
 
