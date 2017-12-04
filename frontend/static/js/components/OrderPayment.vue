@@ -166,7 +166,7 @@
               self.errorPopup(response.data.Details)
             }
             if(response.data.PaymentURL !== undefined){
-              location.href = response.data.PaymentURL
+//              location.href = response.data.PaymentURL
             }
           }, function (error) {
             self.loader = false
@@ -231,9 +231,10 @@
       postOrder() {
         this.loader = true;
         this.disabledR = true;
-
-        this.Items.push(this.ItemsDelivery);
         let self = this;
+
+        console.log( self.comment )
+        this.Items.push(this.ItemsDelivery);
         axios.post('/api/order/', {
           "total_count": self.basket.results[0].total_count,
           "order_delivery": self.shiptorOrder.method.courier,
@@ -244,10 +245,10 @@
           "email": self.email,
           "apartment": self.apartment,
           "settlement": self.city.name,
-          "kladr_id": self.city.country.kladr_id,
+          "kladr_id": self.city.kladr_id,
           "city": self.city.short_readable,
           "index": self.index,
-          "comment": self.basket.comment,
+          "comment": self.comment,
           "address": self.address,
           "first_name": self.FirstName,
           "last_name": self.LastName,
