@@ -98,12 +98,62 @@ def resend_pay(request):
 
 def shiptorg_post(order):
     print(order)
-    # headers = {
-    #     'content-type': 'application/json',
-    #     'x-authorization-token': '4b8015c64d6c260d377374edecda8b54027c78ca',
-    # }
-    # path = 'https://api.shiptor.ru/shipping/v1'
-    # f = requests.post(path, headers=headers, json=order)
+    length = 0
+    width = 0
+    height = 0
+    weight = 0
+    products = []
+    for i in order.order_goods.all():
+        item = {
+            'shopArticle':i.goods.articul,
+            'count':i.count,
+            'price':i.goods.price
+        }
+        products.append(item)
+        length += i.goods.length
+        width += i.goods.width
+        height += i.goods.height
+        weight += i.goods.weight
+    json_data = {}
+    json_data['id'] = 'JsonRpcClient.js'
+    json_data['jsonrpc'] = '2.0'
+    json_data['method'] = 'addPackage'
+    json_data.setdefault('params', {})
+    json_data['params']['length'] = length
+    json_data['params']['width'] = width
+    json_data['params']['height'] = height
+    json_data['params']['weight'] = weight
+    json_data['params']['cod'] = 0
+    json_data['params']['declared_cost'] = order.total
+    json_data['params'].setdefault('departure', {})
+    json_data['params']['departure']['shipping_method'] = order.shipping_id
+    if order.delivery_point:
+        json_data['params']['departure']['delivery_point'] = order.delivery_point
+    json_data['params']['departure']['cashless_payment'] = 'true'
+    json_data['params']['departure']['comment'] = order.comment
+    json_data['params']['departure'].setdefault('address', {})
+    json_data['params']['departure']['address']['country'] = 'RU'
+    json_data['params']['departure']['address']['name'] = order.first_name
+    json_data['params']['departure']['address']['surname'] = order.last_name
+    json_data['params']['departure']['address']['receiver'] = order.last_name + ' ' + order.first_name
+    json_data['params']['departure']['address']['email'] = order.email
+    json_data['params']['departure']['address']['phone'] = order.phone
+    json_data['params']['departure']['address']['postal_code'] = order.index
+    json_data['params']['departure']['address']['administrative_area'] = order.administrative_area
+    json_data['params']['departure']['address']['settlement'] = order.settlement
+    json_data['params']['departure']['address']['street'] = order.address
+    json_data['params']['departure']['address']['house'] = order.home
+    json_data['params']['departure']['address']['apartment'] = order.apartment
+    json_data['params']['departure']['address']['address_line_1'] = order.administrative_area + ', ' + order.settlement + \
+        ', ' + order.address + ', ' + order.home + ', ' + order.apartment
+    json_data['params']['departure']['address']['kladr_id'] = order.kladr_id
+    json_data['params']['products'] = products
+    headers = {
+        'content-type': 'application/json',
+        'x-authorization-token': '4b8015c64d6c260d377374edecda8b54027c78ca',
+    }
+    path = 'https://api.shiptor.ru/shipping/v1'
+    f = requests.post(path, headers=headers, json=order)
     # print(f.json())
 
     # return HttpResponse(f.content)
