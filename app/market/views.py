@@ -39,7 +39,7 @@ def init_pay(request):
     json_data = {}
     if order:
         json_data['TerminalKey'] = '1511862369151DEMO'
-        json_data['Amount'] = int(order.total_delivery) * 100 +  int(order.total) * 100
+        json_data['Amount'] = order.total_delivery * 100 + order.total * 100
         json_data['OrderId'] = order.id
         json_data['Description'] = 'Классические беседы'
         json_data.setdefault('DATA', {})
@@ -53,21 +53,21 @@ def init_pay(request):
         for i in order.order_goods.all():
             item = {
                 'Name':i.goods.name,
-                'Price':int(i.goods.price)*100,
+                'Price':i.goods.price*100,
                 'Quantity':i.count,
-                'Amount':int(i.goods.price)*100*i.count,
+                'Amount':i.goods.price * 100 * i.count,
                 'Tax':'none'
             }
             json_data['Receipt']['Items'].append(item)
         delivery = {
             'Name': 'Доставка',
-            'Price': int(order.total_delivery) * 100,
+            'Price': order.total_delivery * 100,
             'Quantity': 1,
-            'Amount': int(order.total_delivery) * 100,
+            'Amount': order.total_delivery * 100,
             'Tax': 'none'
         }
         json_data['Receipt']['Items'].append(delivery)
-        print(json_data)
+        # print(json_data)
 
     headers = {
         'content-type': 'application/json',
