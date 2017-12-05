@@ -38,7 +38,7 @@ def init_pay(request):
     order = Order.objects.filter(id=id).first()
     json_data = {}
     if order:
-        json_data['TerminalKey'] = '1511862369151DEMO'
+        json_data['TerminalKey'] = '1511862369151'
         json_data['Amount'] = int(order.total_delivery) * 100 + int(order.total) * 100
         json_data['OrderId'] = order.id
         json_data['Description'] = 'Классические беседы'
@@ -67,7 +67,7 @@ def init_pay(request):
             'Tax': 'none'
         }
         json_data['Receipt']['Items'].append(delivery)
-        print(json_data)
+        # print(json_data)
 
     headers = {
         'content-type': 'application/json',
@@ -97,7 +97,7 @@ def resend_pay(request):
 
 
 def shiptorg_post(order):
-    print(order)
+#     print(order)
     length = 0
     width = 0
     height = 0
@@ -127,9 +127,8 @@ def shiptorg_post(order):
     json_data['params']['declared_cost'] = order.total
     json_data['params'].setdefault('departure', {})
     json_data['params']['departure']['shipping_method'] = order.shipping_id
-    if order.delivery_point:
-        json_data['params']['departure']['delivery_point'] = order.delivery_point
-    json_data['params']['departure']['cashless_payment'] = 'true'
+#     if order.delivery_point:
+#         json_data['params']['departure']['delivery_point'] = order.delivery_point
     json_data['params']['departure']['comment'] = order.comment
     json_data['params']['departure'].setdefault('address', {})
     json_data['params']['departure']['address']['country'] = 'RU'
@@ -148,17 +147,16 @@ def shiptorg_post(order):
         ', ' + order.address + ', ' + order.home + ', ' + order.apartment
     json_data['params']['departure']['address']['kladr_id'] = order.kladr_id
     json_data['params']['products'] = products
-    print(json_data)
-    # headers = {
-    #     'content-type': 'application/json',
-    #     'x-authorization-token': '4b8015c64d6c260d377374edecda8b54027c78ca',
-    # }
-    # path = 'https://api.shiptor.ru/shipping/v1'
-    # f = requests.post(path, headers=headers, json=order)
-    # print(f.json())
+    headers = {
+        'content-type': 'application/json',
+        'x-authorization-token': '4b8015c64d6c260d377374edecda8b54027c78ca',
+    }
+    path = 'https://api.shiptor.ru/shipping/v1'
+    f = requests.post(path, headers=headers, json=json_data)
+#     print(f.json())
+#     print(f.content)
 
-    # return HttpResponse(f.content)
-    return HttpResponse('2')
+    return HttpResponse(f.content)
 
 
 def check_token(params):
@@ -172,7 +170,7 @@ def check_token(params):
     pure_value = ''
     for item in items_list:
         pure_value = '%s%s' % (pure_value, item[1])
-    print(pure_value)
+    # print(pure_value)
 
     generated_token = sha256(pure_value.encode('ascii')).hexdigest()
     return generated_token == received_token
@@ -184,7 +182,7 @@ def get_payment_status(request):
     params = json.loads(request.body.decode("utf-8"))
     id = params.get('OrderId')
     status = params.get('Status')
-    print('status = ', status)
+    # print('status = ', status)
     # convert python booleans to js string
     # e.g True to "true"
     params = {k: str(v).lower() if isinstance(v, bool) else v for k, v in params.items()}
@@ -192,7 +190,7 @@ def get_payment_status(request):
 
     if token_valid:
         order = get_object_or_404(Order, id=id)
-        if order:
+        if order and status == 'CONFIRMED':
             shiptorg_post(order)
         order.order_status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
         order.save()
