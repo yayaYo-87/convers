@@ -78,7 +78,7 @@ module.exports = {
   watch: NODE_ENV === 'development',
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
-      name: "vendor",
+      name: "vendore",
       minChunks: function (module) {
         return module.context && module.context.indexOf("node_modules") !== -1;
       }
