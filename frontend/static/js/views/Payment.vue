@@ -2,13 +2,13 @@
     <div class="payment">
         <div class="payment__wrapper" v-if="result.Success === 'true'">
             <div class="payment__title" v-if="result.Success === 'true'">Успешный заказ!</div>
-            <div class="payment__internet">Интрнет-магазин "Классические беседы"</div>
+            <div class="payment__internet">Интернет-магазин "Классические беседы"</div>
             <div class="payment__item">Номер заказа: {{ result.OrderId }}</div>
             <a target="_blank" :href="'mailto:' + result.EmailReq" class="payment__mail">{{ result.EmailReq }}</a>
         </div>
         <div class="payment__wrapper" v-if="result.Success === 'false'">
             <div class="payment__title">Ошибочный заказ!</div>
-            <div class="payment__internet">Интрнет-магазин "Классические беседы"</div>
+            <div class="payment__internet">Интернет-магазин "Классические беседы"</div>
             <div class="payment__item">Номер заказа: {{ result.OrderId }}</div>
             <a target="_blank" :href="'mailto:' + result.EmailReq" class="payment__mail">{{ result.EmailReq }}</a>
         </div>
