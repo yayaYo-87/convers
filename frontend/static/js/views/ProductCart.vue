@@ -45,11 +45,11 @@
         <div class="cart__right_item cart__right_item-size">
           <div class="cart__right_item-name">Количество</div>
           <div class="basket__cart_item-col">
-            <button class="basket__cart_item-col_plus" @click="countPlus()">+</button>
+            <button class="basket__cart_item-col_plus" @click="countPlus()"></button>
             <div class="basket__cart_item-col_count">{{ count }}</div>
             <button class="basket__cart_item-col_minus"
                     :disabled="count === 1"
-                    @click="countMinus()">-</button>
+                    @click="countMinus()"></button>
           </div>
         </div>
         <button @click="postProduct()" class="cart__right_item-button" >

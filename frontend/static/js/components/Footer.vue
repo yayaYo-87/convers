@@ -34,12 +34,7 @@
       <div class="footer__cop_left">
         © 2017 «Классические беседы»
       </div>
-      <div class="footer__cop_right">
-        <img class="footer__cop_right-img" src="../../img/cop1.svg" alt="">
-        <img class="footer__cop_right-img" src="../../img/cop2.svg" alt="">
-        <img class="footer__cop_right-img" src="../../img/cop4.svg" alt="">
-        <img class="footer__cop_right-img" src="../../img/cop3.svg" alt="">
-      </div>
+
     </div>
   </div>
 </template>
