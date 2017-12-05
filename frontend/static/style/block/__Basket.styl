@@ -121,7 +121,6 @@
         flex: 11%;
         padding-right 40px
         display: flex
-        align-items baseline
         &_hidd{
           opacity: 0
         }
@@ -137,6 +136,17 @@
           background-color white
           margin-left: 5px
           padding:0
+          position: relative
+          &:after{
+            content ''
+            position: absolute
+            background url("/static/img/minus.svg") no-repeat
+            background-size 100%
+            top: 6px;
+            left: 6px;
+            width: 6px;
+            height: 10px;
+          }
           &:disabled{
             opacity: 0.4
             cursor default
@@ -156,11 +166,22 @@
           text-align center
           margin-right: 5px
           cursor: pointer
-          line-height: 20px
           height: 20px
           transition .4s
           background-color white
           padding:0
+          position: relative
+          &:after{
+            content ''
+            position: absolute
+            background url("/static/img/plus.svg") no-repeat
+            background-size 100%
+            top: 5px;
+            left: 5px;
+            width: 8px;
+            height: 10px;
+
+          }
           &:disabled{
             cursor default
             opacity: 0.4

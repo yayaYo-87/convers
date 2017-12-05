@@ -79,13 +79,13 @@
             <span class="rubl" > &#8399;</span>
           </div>
           <div class="basket__cart_item-col">
-            <button :disabled="buttonDisabled" class="basket__cart_item-col_plus" @click="switchProductBasket(cart.id,'inc')">+</button>
+            <button :disabled="buttonDisabled" class="basket__cart_item-col_plus" @click="switchProductBasket(cart.id,'inc')"></button>
 
             <div class="basket__cart_item-col_count">{{ cart.count }}</div>
             <button class="basket__cart_item-col_minus"
 
                     :disabled="cart.count === 1 || buttonDisabled"
-                    @click="switchProductBasket(cart.id,'dec')">-</button>
+                    @click="switchProductBasket(cart.id,'dec')"></button>
           </div>
           <div class="basket__cart_item-total">
             {{ cart.price }}
