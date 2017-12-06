@@ -6,7 +6,7 @@
           <swiper-slide
                   v-for="(item, index) in resultSlider.top_sliders"
                   :key="index">
-            <a  :href="item.link"><img :src="item.cover" alt="cover"></a>
+            <a target="_blank"  :href="item.link"><img :src="item.cover" alt="cover"></a>
           </swiper-slide>
         </swiper>
         <div class="main__banner-prev" slot="button-prev"></div>
