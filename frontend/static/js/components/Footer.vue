@@ -23,8 +23,8 @@
       <div class="header__right_soc">
         Подписывайтесь на нас
         <div class="header__right_soc-items">
-          <a class="facebook header__right_soc-item" target="_blank" href="https://www.facebook.com/irina.shamolina"></a>
           <a class="vk header__right_soc-item" target="_blank" href="https://vk.com/ishamolina"></a>
+          <a class="facebook header__right_soc-item" target="_blank" href="https://www.facebook.com/irina.shamolina"></a>
           <a class="instagram header__right_soc-item" target="_blank" href="https://instagram.com/irinashamolina "></a>
           <a class="youtube header__right_soc-item" target="_blank" href="https://www.youtube.com/channel/UC1LSsHHVzGkeNdHOdoKyDzw"></a>
         </div>
