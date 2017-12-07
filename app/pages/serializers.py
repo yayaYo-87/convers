@@ -6,7 +6,7 @@ from app.pages.models import Page, PageFAQ, CategoryFAQ, QuestionFAQ
 class PageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Page
-        fields = ['id', 'name', 'slug', 'description']
+        fields = ['id', 'name', 'slug', 'description', 'show_top', 'show_bottom']
 
 
 class QuestionFAQSerializer(serializers.ModelSerializer):
