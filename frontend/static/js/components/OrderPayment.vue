@@ -56,6 +56,13 @@
       }
     },
     watch: {
+      price(now){
+        if(now === 0){
+          this.disabledR = true
+        } else {
+          this.disabledR = false
+        }
+      },
       shiptorOrder(now){
         this.deliveryTotal = now.cost.total.sum
         this.deliveryMethods = now.method.name
@@ -135,6 +142,7 @@
         this.itemOrder = now.results[0].id;
 
         now.results[0].cart_goods.forEach(function (item, i, arr) {
+
 
           const items = {
             "Name": item.goods.name,
@@ -257,6 +265,7 @@
           "total": parseInt(self.basket.results[0].price + self.shiptorOrder.cost.total.sum)
         }).then(
           function (response) {
+//            self.$store.dispatch('results')
             self.initPay(response.data.id)
 
           }, function (error) {
