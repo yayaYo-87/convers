@@ -7,7 +7,7 @@ from app.pages.models import Page, PageFAQ, CategoryFAQ, QuestionFAQ
 @admin.register(Page)
 class PageAdmin(admin.ModelAdmin):
     model = Page
-    fields = ['name', 'slug', 'description']
+    fields = ['name', 'slug', 'description', 'show_top', 'show_bottom']
 
 
 class QuestionFAQInline(nested_admin.NestedStackedInline):
