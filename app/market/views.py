@@ -190,10 +190,10 @@ def get_payment_status(request):
 
     if token_valid:
         order = get_object_or_404(Order, id=id)
-        if order and status == 'CONFIRMED':
-            shiptorg_post(order)
         order.order_status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
         order.save()
+        if order.order_status == 'confirmed':
+            shiptorg_post(order)
         return HttpResponse(status=200, content='OK')
     
     return HttpResponse(status=403, content='Incorrect token')
