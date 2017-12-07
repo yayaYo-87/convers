@@ -7,6 +7,8 @@ class Page(models.Model):
     name = models.CharField(verbose_name='Название страницы', null=False, max_length=256)
     slug = models.SlugField(verbose_name='URL', null=True, blank=False)
     description = RichTextUploadingField(verbose_name='Описание страницы', blank=True)
+    show_top = models.BooleanField(verbose_name='Пoказывать в хэдере', default=False)
+    show_bottom = models.BooleanField(verbose_name='Пoказывать в футере', default=False)
 
     def __str__(self):
         return self.name

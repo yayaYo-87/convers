@@ -4,7 +4,7 @@ from app.mainpage.viewsets import TopSliderViewSet, TopBannerViewSet, LeftSlider
     LeftAboutViewSet
 from app.market.viewsets import CatalogViewSet, CategoryViewSet, GoodsViewSet, MainGoodsViewSet
 from app.orders.viewsets import OrderViewSet, CartViewSet, OrderGoodsViewSet
-from app.pages.viewsets import PageViewset, PageFAQViewset
+from app.pages.viewsets import PageViewset, PageFAQViewset, TopPageViewset, BottomPageViewset
 
 router = DefaultRouter()
 router.register(r'catalog', CatalogViewSet)
@@ -23,4 +23,6 @@ router.register(r'left_about', LeftAboutViewSet)
 router.register(r'left_blog', LeftBlogViewSet)
 
 router.register(r'pages', PageViewset)
+router.register(r'top_pages', TopPageViewset)
+router.register(r'bottom_pages', BottomPageViewset)
 router.register(r'faq_page', PageFAQViewset)
