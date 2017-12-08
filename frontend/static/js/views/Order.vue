@@ -190,8 +190,11 @@
     },
     created() {
       this.get()
+      this.$store.dispatch('validation', {typeValid: 'validation', value: 1})
     },
     mounted(){
+
+
       const self = this
 
 //      axios.post('/shiptorg/', {

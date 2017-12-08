@@ -9,7 +9,7 @@
             </div>
             <div class="order__shiptorg_pay">
                 <div class="order__shiptorg_item-name">Метод доставки</div>
-                <div class="order__shiptorg_item-title">{{ deliveryMethods }}, {{ deliveryTotal }}</div>
+                <div class="order__shiptorg_item-title">{{ deliveryMethods }}, {{ Math.ceil(deliveryTotal) }}</div>
                 <div class="order__shiptorg_item-edit" @click="backMethods(2)">Изменить</div>
             </div>
         </div>
@@ -239,7 +239,7 @@
       },
       postOrder() {
         let self = this;
-        if(this.price !== 0) {
+        if ( this.price !== 0 ) {
           this.loader = true;
           this.disabledR = true;
           let self = this;
