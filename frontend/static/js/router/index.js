@@ -1,14 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import main from '../views/Main.vue'
-import catalog from '../views/Product.vue'
-import cart from '../views/ProductCart.vue'
-import basket from '../views/Basket.vue'
-import order from '../views/Order.vue'
-import catalogItem from '../views/ProductItem.vue'
-import page from '../views/Page.vue'
-import faq  from '../views/Faq.vue'
-import payment from '../views/Payment.vue'
+
+
+const main = () => import('../views/Main.vue');
+const catalog = () => import('../views/Product.vue');
+const cart = () => import('../views/ProductCart.vue');
+const basket = () => import('../views/Basket.vue');
+const order = () => import('../views/Order.vue');
+const catalogItem = () => import('../views/ProductItem.vue');
+const page = () => import('../views/Page.vue');
+const faq = () => import('../views/Faq.vue');
+const payment = () => import('../views/Payment.vue');
+const support = () => import('../views/Support.vue');
 
 Vue.use(Router)
 
@@ -37,6 +40,11 @@ export default new Router({
       path: '/payment_success',
       name: 'payment_success',
       component: payment
+    },
+    {
+      path: '/support',
+      name: 'support',
+      component: support
     },
     {
       path: '/payment_error',

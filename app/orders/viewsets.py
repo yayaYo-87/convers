@@ -1,11 +1,8 @@
-import json
 from datetime import datetime
 
-from django.views.decorators.csrf import csrf_exempt
 from rest_framework import mixins
-from rest_framework.decorators import detail_route, permission_classes
+from rest_framework.decorators import detail_route
 from rest_framework.generics import get_object_or_404
-from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
@@ -24,13 +21,16 @@ class OrderViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins.Crea
         obj = serializer.save()
         cart = Cart.objects.filter(cookie=self.request.session.session_key).first()
         order_goods = OrderGoods.objects.filter(cart=cart, active=True)
-        for order in order_goods:
-            order.created_at = datetime.now()
-            order.save()
-        order_goods.update(cart=None, order=obj)
-        cart.save()
-        obj.save()
-        OrderGoods.objects.filter(cart=cart, active=False).delete()
+        if order_goods:
+            for order in order_goods:
+                order.created_at = datetime.now()
+                order.save()
+            order_goods.update(cart=None, order=obj)
+            cart.save()
+            obj.save()
+            OrderGoods.objects.filter(cart=cart, active=False).delete()
+        else:
+            return Response('No goods in a cart')
         return Response(obj.id)
 
     def get_serializer_class(self):

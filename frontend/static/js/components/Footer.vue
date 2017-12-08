@@ -16,6 +16,8 @@
       <span>|</span>
       <router-link :to="{ name: 'faq' }" class="footer__list_item">FAQ</router-link>
       <span>|</span>
+      <router-link :to="{ name: 'support' }" class="footer__list_item">Обратная связь</router-link>
+      <span>|</span>
 
       <!--<div class="footer__list_item">Обратная связь</div>-->
     </div>
@@ -56,7 +58,7 @@
     methods:{
       getPage() {
         const self = this
-        axios.get('/api/pages/')
+        axios.get('/api/bottom_pages/')
           .then(
             function (response) {
               self.resultPage = response.data.results
