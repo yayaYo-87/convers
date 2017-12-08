@@ -96,7 +96,6 @@
       <div class="basket__total">
         <div class="basket__total_end">
           <div class="basket__total_end-total">Итого <span v-for="item in basket">{{ item.price }}<span class="rubl" > &#8399;</span></span></div>
-          <div class="basket__total_end-nal">Исключая налог и доставку</div>
         </div>
       </div>
       <div class="basket__comment" >

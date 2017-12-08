@@ -85,7 +85,7 @@
       },
       getPage() {
         const self = this
-        axios.get('/api/pages/')
+        axios.get('/api/top_pages/')
           .then(
             function (response) {
               self.resultPage = response.data.results
