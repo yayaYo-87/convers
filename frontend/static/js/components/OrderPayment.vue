@@ -56,13 +56,13 @@
       }
     },
     watch: {
-      price(now){
-        if(now === 0){
-          this.disabledR = true
-        } else {
-          this.disabledR = false
-        }
-      },
+//      price(now){
+//        if(now === 0){
+//          this.disabledR = true
+//        } else {
+//          this.disabledR = false
+//        }
+//      },
       shiptorOrder(now){
         this.deliveryTotal = now.cost.total.sum
         this.deliveryMethods = now.method.name
@@ -238,43 +238,44 @@
 
       },
       postOrder() {
-        if(this.price !== 0) {
-          this.loader = true;
-          this.disabledR = true;
-          let self = this;
+//        if(this.price !== 0) {
+        this.loader = true;
+        this.disabledR = true;
+        let self = this;
 
-          this.Items.push(this.ItemsDelivery);
-          axios.post('/api/order/', {
-            "total_count": self.basket.results[0].total_count,
-            "order_delivery": self.shiptorOrder.method.courier,
-            "total_delivery": Math.ceil(self.shiptorOrder.cost.total.sum),
-            "shipping_id": self.shiptorOrder.method.id,
-            "delivery_point": self.city.kladr_id,
-            "administrative_area": self.city.administrative_area,
-            "email": self.email,
-            "apartment": self.apartment,
-            "settlement": self.city.name,
-            "kladr_id": self.city.kladr_id,
-            "city": self.city.short_readable,
-            "index": self.index,
-            "comment": self.comment,
-            "address": self.address,
-            "first_name": self.FirstName,
-            "last_name": self.LastName,
-            "phone": self.phone,
-            "home": self.hom,
-            "total": parseInt(self.basket.results[0].price + self.shiptorOrder.cost.total.sum)
-          }).then(
-            function (response) {
+        this.Items.push(this.ItemsDelivery);
+        axios.post('/api/order/', {
+          "total_count": self.basket.results[0].total_count,
+          "order_delivery": self.shiptorOrder.method.courier,
+          "total_delivery": Math.ceil(self.shiptorOrder.cost.total.sum),
+          "shipping_id": self.shiptorOrder.method.id,
+          "delivery_point": self.city.kladr_id,
+          "administrative_area": self.city.administrative_area,
+          "email": self.email,
+          "apartment": self.apartment,
+          "settlement": self.city.name,
+          "kladr_id": self.city.kladr_id,
+          "city": self.city.short_readable,
+          "index": self.index,
+          "comment": self.comment,
+          "address": self.address,
+          "first_name": self.FirstName,
+          "last_name": self.LastName,
+          "phone": self.phone,
+          "home": self.hom,
+          "total": parseInt(self.basket.results[0].price + self.shiptorOrder.cost.total.sum)
+        }).then(
+          function (response) {
+            console.log(response.data)
 //            self.$store.dispatch('results')
-              self.initPay(response.data.id)
+//              self.initPay(response.data.id)
 
-            }, function (error) {
-              self.loader = false
-            }
-          )
-        }
+          }, function (error) {
+            self.loader = false
+          }
+        )
       }
+//      }
 
 
     }
