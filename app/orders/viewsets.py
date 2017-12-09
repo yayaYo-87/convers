@@ -20,7 +20,8 @@ class OrderViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins.Crea
         serializer.save(order_status=status_code)
         obj = serializer.save()
         cart = Cart.objects.filter(cookie=self.request.session.session_key).first()
-        order_goods = OrderGoods.objects.filter(cart=cart, active=True)
+        order_goods = OrderGoods.objects.filter(cart=cart, active=True).all()
+        print(order_goods)
         if order_goods:
             for order in order_goods:
                 order.created_at = datetime.now()
