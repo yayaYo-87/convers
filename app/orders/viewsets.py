@@ -1,38 +1,58 @@
 from datetime import datetime
 
 from rest_framework import mixins
+from rest_framework import status
 from rest_framework.decorators import detail_route
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
+from rest_framework.settings import api_settings
 from rest_framework.viewsets import GenericViewSet
 
 from app.orders.models import Order, Cart, OrderGoods
 from app.orders.serializers import OrderSerializer, OrderDetailSerializer, CartSerializer, OrderGoodsSerializer
 
 
-class OrderViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins.CreateModelMixin, GenericViewSet):
+class OrderViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
     authentication_classes = ()
 
-    def perform_create(self, serializer):
-        status_code = 'waiting'
-        serializer.save(order_status=status_code)
-        obj = serializer.save()
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
         cart = Cart.objects.filter(cookie=self.request.session.session_key).first()
         order_goods = OrderGoods.objects.filter(cart=cart, active=True).all()
         print(order_goods)
-        if order_goods:
-            for order in order_goods:
-                order.created_at = datetime.now()
-                order.save()
-            order_goods.update(cart=None, order=obj)
-            cart.save()
-            obj.save()
-            OrderGoods.objects.filter(cart=cart, active=False).delete()
+        if order_goods.exists():
+            self.perform_create(serializer, cart=cart, order_goods=order_goods)
+            headers = self.get_success_headers(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
         else:
-            return Response('No goods in a cart')
+            return Response('error:No goods in a cart')
+
+    def perform_create(self, serializer, **kwargs):
+        status_code = 'waiting'
+        # cart = Cart.objects.filter(cookie=self.request.session.session_key).first()
+        cart = kwargs.get('cart')
+        order_goods = kwargs.get('order_goods')
+        # order_goods = OrderGoods.objects.filter(cart=cart, active=True).all()
+        serializer.save(order_status=status_code)
+        obj = serializer.save()
+        print(9879879)
+        for order in order_goods:
+            order.created_at = datetime.now()
+            order.save()
+        order_goods.update(cart=None, order=obj)
+        cart.save()
+        obj.save()
+        OrderGoods.objects.filter(cart=cart, active=False).delete()
         return Response(obj.id)
+
+    def get_success_headers(self, data):
+        try:
+            return {'Location': data[api_settings.URL_FIELD_NAME]}
+        except (TypeError, KeyError):
+            return {}
 
     def get_serializer_class(self):
         if self.action == 'retrieve':
