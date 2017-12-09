@@ -272,6 +272,7 @@
 //              self.initPay(response.data.id)
 
           }, function (error) {
+            console.log(error)
             self.loader = false
           }
         )
