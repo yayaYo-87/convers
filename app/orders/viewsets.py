@@ -28,14 +28,12 @@ class OrderViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericView
             headers = self.get_success_headers(serializer.data)
             return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
         else:
-            return Response('error:No goods in a cart')
+            return Response({'error':'No goods in a cart'})
 
     def perform_create(self, serializer, **kwargs):
         status_code = 'waiting'
-        # cart = Cart.objects.filter(cookie=self.request.session.session_key).first()
         cart = kwargs.get('cart')
         order_goods = kwargs.get('order_goods')
-        # order_goods = OrderGoods.objects.filter(cart=cart, active=True).all()
         serializer.save(order_status=status_code)
         obj = serializer.save()
         print(9879879)
