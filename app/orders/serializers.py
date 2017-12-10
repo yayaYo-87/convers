@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from app.market.models import Goods, Size
 from app.market.serializers import TypesSerializer
-from app.orders.models import OrderGoods, Cart, Order
+from app.orders.models import OrderGoods, Cart, Order, Promocode
 
 
 class GoodsSerializer(serializers.ModelSerializer):
@@ -16,6 +16,12 @@ class SizeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Size
         fields = ['id', 'name']
+
+
+class PromocodeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Promocode
+        fields = ['id', 'code', 'discount']
 
 
 class OrderGoodsSerializer(serializers.ModelSerializer):
@@ -50,7 +56,7 @@ class CartSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Cart
-        fields = ['id', 'price', 'total_count', 'cart_goods', ]
+        fields = ['id', 'price', 'total_count', 'cart_goods', 'total_discount']
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -75,6 +81,7 @@ class OrderSerializer(serializers.ModelSerializer):
             'city',
             'total',
             'total_delivery',
+            'total_discount',
             'created_at',
             'shipping_id',
             'kladr_id',
@@ -107,6 +114,7 @@ class OrderDetailSerializer(serializers.ModelSerializer):
             'phone',
             'total',
             'total_delivery',
+            'total_discount',
             'created_at',
             'goods',
         ]

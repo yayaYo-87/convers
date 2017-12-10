@@ -1,7 +1,7 @@
 import nested_admin
 from django.contrib import admin
 
-from app.orders.models import OrderGoods, Order
+from app.orders.models import OrderGoods, Order, Promocode
 
 
 class BaseProductInline(nested_admin.NestedTabularInline):
@@ -34,12 +34,12 @@ class OrderModelAdmin(admin.ModelAdmin):
         'total',
     ]
     list_filter = ['order_status']
-    readonly_fields = [
+    fields = [
         'total',
-        'total_count',
+        'total_discount',
         'total_delivery',
+        'total_count',
         'created_at',
-        # 'payment_method',
         'order_status',
         'order_delivery',
         'city',
@@ -50,8 +50,41 @@ class OrderModelAdmin(admin.ModelAdmin):
         'last_name',
         'email',
         'phone',
+        'delivery_point',
+        'administrative_area',
+        'settlement',
+        'apartment',
+        'comment',
+
+    ]
+    readonly_fields = [
+        'total',
+        'total_discount',
+        'total_delivery',
+        'total_count',
+        'created_at',
+        'order_status',
+        'order_delivery',
+        'city',
+        'address',
+        'home',
+        'index',
+        'first_name',
+        'last_name',
+        'email',
+        'phone',
+        'delivery_point',
+        'administrative_area',
+        'settlement',
+        'apartment',
     ]
     inlines = [OrderGoodsInline, ]
     actions = None
+
+
+@admin.register(Promocode)
+class PromocodeAdmin(admin.ModelAdmin):
+    model = Promocode
+    fields = ['code', 'discount']
 
 admin.site.register(Order, OrderModelAdmin)
