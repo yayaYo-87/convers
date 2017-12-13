@@ -183,60 +183,6 @@
         )
 
       },
-      shiptorPost(id) {
-        const self = this;
-        const photo = self.resultsCart
-
-        axios.post('/shiptorg/', {
-          json: {
-            "id": "JsonRpcClient.js",
-            "jsonrpc": "2.0",
-            "method": "addPackage",
-            "params": {
-              "stock": 1,
-              "length": 10,
-              "width": 10,
-              "height": 10,
-              "weight": 10,
-              "cod": 0,
-              "declared_cost": self.basket.results[0].price,
-              "departure": {
-                "shipping_method": self.shiptorOrder.method.id,
-                "delivery_point": self.city.country.kladr_id,
-                "cashless_payment": true,
-                "comment": self.basket.comment,
-                "address": {
-                  "country": self.city.country.code,
-                  "receiver": self.LastName + ' ' + self.FirstName,
-                  "email": self.email,
-                  "phone": self.phone,
-                  "postal_code": self.index,
-                  "administrative_area": self.city.administrative_area,
-                  "settlement": self.city.name,
-                  "house": self.hom,
-                  "apartment": self.apartment,
-                  "address_line_1": self.city.readable_parents + ', ' + self.address + ', дом.' + self.hom + ', ул.' + self.apartment,
-                  "kladr_id": self.city.country.kladr_id
-                }
-              },
-              "products": [
-                {
-                  "shopArticle": "HOLOD10",
-                  "count": 1,
-                  "price": 15000,
-                }
-              ]
-            }
-          }
-        }).then(
-          function (response) {
-
-          }, function (error) {
-            self.loader = false
-          }
-        )
-
-      },
       postOrder() {
         let self = this;
         if ( this.price !== 0 ) {
