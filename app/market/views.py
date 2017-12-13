@@ -127,8 +127,8 @@ def shiptorg_post(order):
     json_data['params']['declared_cost'] = order.total
     json_data['params'].setdefault('departure', {})
     json_data['params']['departure']['shipping_method'] = order.shipping_id
-#     if order.delivery_point:
-#         json_data['params']['departure']['delivery_point'] = order.delivery_point
+    if order.delivery_point:
+        json_data['params']['departure']['delivery_point'] = order.delivery_point
     json_data['params']['departure']['comment'] = order.comment
     json_data['params']['departure'].setdefault('address', {})
     json_data['params']['departure']['address']['country'] = 'RU'
@@ -153,8 +153,6 @@ def shiptorg_post(order):
     }
     path = 'https://api.shiptor.ru/shipping/v1'
     f = requests.post(path, headers=headers, json=json_data)
-#     print(f.json())
-#     print(f.content)
 
     return HttpResponse(f.content)
 
@@ -170,7 +168,6 @@ def check_token(params):
     pure_value = ''
     for item in items_list:
         pure_value = '%s%s' % (pure_value, item[1])
-    # print(pure_value)
 
     generated_token = sha256(pure_value.encode('ascii')).hexdigest()
     return generated_token == received_token
