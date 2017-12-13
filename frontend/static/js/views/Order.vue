@@ -187,7 +187,6 @@
         }
       },
       get() {
-        console.log(123)
         this.$store.dispatch('results')
       },
     },

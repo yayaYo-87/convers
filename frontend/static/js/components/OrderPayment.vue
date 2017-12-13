@@ -221,6 +221,7 @@
 
             }, function (error) {
               self.loader = false
+              console.log(error)
             }
           )
         } else {
