@@ -54,6 +54,7 @@
     "vue-youtube-embed": "^2.1.2",
     "vue-zoom": "^1.0.6",
     "vue2-filters": "^0.1.9",
+    "vue2-google-maps": "^0.8.4",
     "vuex": "^2.3.1",
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.7.1",
