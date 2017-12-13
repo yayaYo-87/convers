@@ -110,8 +110,10 @@ def shiptorg_post(order):
             'price':i.goods.price
         }
         products.append(item)
-        length += i.goods.length
-        width += i.goods.width
+        if length < i.goods.length:
+            length = i.goods.length
+        if weight < i.goods.weight:
+            width = i.goods.width
         height += i.goods.height
         weight += i.goods.weight
     json_data = {}
