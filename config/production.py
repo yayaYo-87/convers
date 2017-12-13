@@ -3,7 +3,7 @@ DEBUG = False
 ALLOWED_HOSTS = ['classicalbooks.ru', 'www.classicalbooks.ru', 'classical-books.ru', 'классическиекниги.рф', 
 'классические-книги.рф',
 'classicalConversationsbooks.com','www.classical-books.ru', 'www.классическиекниги.рф', 'www.классические-книги.рф',
-'www.classicalconversationsbooks.com']
+'www.classicalconversationsbooks.com', '144.76.163.52']
 
 DATABASES = {
     'default': {
