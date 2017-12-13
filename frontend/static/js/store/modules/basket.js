@@ -12,6 +12,7 @@ const state = {
   address: '',
   index: '',
   shiptor: [],
+  deliveryPoint: [],
   validation: 1,
   comment: ''
 };

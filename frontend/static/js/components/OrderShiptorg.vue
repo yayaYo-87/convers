@@ -12,7 +12,7 @@
             </div>
             <div class="order__shiptorg_methods-item"
                  :class="{ 'order__shiptorg_methods-item-active'  : indexShiptor === index}"
-                 v-if="item.method.id !== 18 && item.method.id !== 25 && item.method.id !== 11 && item.method.id !== 14 && item.method.id !== 67 && item.method.id !== 53  && item.method.id !== 35"
+                 v-if="item.method.id !== 16 && item.method.id !== 19 && item.method.id !== 13 && item.method.id !== 68"
                  @click="shiptorAdd(item, index)"
                  v-for="(item, index) in result.methods">
                 <div class="order__shiptorg_methods-item-loader"></div>
@@ -32,12 +32,14 @@
                 <button @click="backMethods(3)" :disabled="!disabledButton" >Перейти к методу оплаты</button>
             </div>
         </div>
+        <map-block></map-block>
     </div>
 </template>
 
 <script>
   import axios from 'axios'
   import jsCookie from 'js-cookie'
+  import mapBlock from '../components/OrderMap.vue'
 
   export default {
     data() {
@@ -51,7 +53,13 @@
         ]
       }
     },
+    components:{
+      mapBlock
+    },
     computed: {
+      deliveryPoint() {
+        return this.$store.state.basket.deliveryPoint
+      },
       basket() {
         return this.$store.state.basket.results
       },
@@ -87,15 +95,23 @@
 
         }
       },
+      deliveryPoint(now, old){
+
+        if(now.length !== 0) {
+          this.disabledButton = false
+        } else {
+          this.disabledButton = true
+        }
+      },
       shiptor(now){
-        this.disabledButton = true
+        this.disabledButton = true;
         this.$store.dispatch('validation', {typeValid: 'shiptor', value: now})
       }
     },
     methods: {
       shiptorAdd(value,index){
-        this.indexShiptor = index
-        this.shiptor = value
+        this.indexShiptor = index;
+        this.shiptor = value;
       },
       backMethods(id){
         this.$store.dispatch('validation', {typeValid: 'validation', value: id})
