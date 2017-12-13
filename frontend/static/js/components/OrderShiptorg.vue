@@ -119,21 +119,35 @@
       pushItem(){
         const self = this
         const itemCart = this.basket.results[0].cart_goods;
-        console.log(123)
         self.$store.commit('results', { type: 'resultsCart', items: []})
         let id = []
         itemCart.forEach(function (item, i, arr) {
           id.push(item.goods.id);
         })
 
+        let width = 0;
+        let height = 0;
+        let length = 0;
+        let weight = 0;
+
         id.forEach(function (item, id) {
           axios.get('/api/goods/' + item + '/')
             .then(
               function (response) {
-                length = response.data
                 self.$store.commit('pushItem', { type: 'resultsCart', items: response.data})
+
+                if( width <  response.data.width) {
+                  width = response.data.width
+                }
+                if( length <  response.data.length) {
+                  length = response.data.length
+                }
+
+                weight += response.data.weight;
+                height += response.data.height;
+
                 if(itemCart.length - 1 === id) {
-                  self.calculateShipping()
+                  self.calculateShipping(weight, height, length, width)
                 }
               }
             )
@@ -141,7 +155,7 @@
         })
 
       },
-      calculateShipping() {
+      calculateShipping(weight, height, length, width) {
         const self = this;
         axios.post('/shiptorg/', {
           json: {
@@ -149,10 +163,10 @@
             "jsonrpc": "2.0",
             "method": "calculateShipping",
             "params": {
-              "length": 10,
-              "width": 10,
-              "height": 10,
-              "weight": 2,
+              "length": length,
+              "width": width,
+              "height": height,
+              "weight": weight,
               "country_code": "RU",
               "declared_cost": self.basket.results[0].total_count,
               "kladr_id": self.city.kladr_id,
@@ -160,7 +174,7 @@
           }
         }).then(
           function (response) {
-            self.loader = false
+            self.loader = false;
             self.result = response.data.result
           }
         )
