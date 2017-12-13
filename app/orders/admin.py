@@ -32,14 +32,15 @@ class OrderModelAdmin(admin.ModelAdmin):
         'order_status',
         'created_at',
         'total',
+        'total_delivery',
     ]
     list_filter = ['order_status']
-    readonly_fields = [
+    fields = [
         'total',
-        'total_count',
+        # 'total_discount',
         'total_delivery',
+        'total_count',
         'created_at',
-        # 'payment_method',
         'order_status',
         'order_delivery',
         'city',
@@ -50,6 +51,33 @@ class OrderModelAdmin(admin.ModelAdmin):
         'last_name',
         'email',
         'phone',
+        # 'delivery_point',
+        'administrative_area',
+        'settlement',
+        'apartment',
+        'comment',
+
+    ]
+    readonly_fields = [
+        'total',
+        # 'total_discount',
+        'total_delivery',
+        'total_count',
+        'created_at',
+        'order_status',
+        'order_delivery',
+        'city',
+        'address',
+        'home',
+        'index',
+        'first_name',
+        'last_name',
+        'email',
+        'phone',
+        # 'delivery_point',
+        'administrative_area',
+        'settlement',
+        'apartment',
     ]
     inlines = [OrderGoodsInline, ]
     actions = None
