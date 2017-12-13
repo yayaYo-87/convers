@@ -70,7 +70,6 @@ def init_pay(request):
             'Tax': 'none'
         }
         json_data['Receipt']['Items'].append(delivery)
-        # print(json_data)
 
     headers = {
         'content-type': 'application/json',
@@ -100,7 +99,7 @@ def resend_pay(request):
 
 
 def shiptorg_post(order):
-#     print(order)
+    print(order)
     length = 0
     width = 0
     height = 0
@@ -129,7 +128,7 @@ def shiptorg_post(order):
     json_data['params']['height'] = height
     json_data['params']['weight'] = weight
     json_data['params']['cod'] = 0
-    json_data['params']['declared_cost'] = order.total
+    json_data['params']['declared_cost'] = 10 if order.total < 12000 else 1000
     json_data['params'].setdefault('departure', {})
     json_data['params']['departure']['shipping_method'] = order.shipping_id
     if order.delivery_point:
@@ -158,6 +157,7 @@ def shiptorg_post(order):
     }
     path = 'https://api.shiptor.ru/shipping/v1'
     f = requests.post(path, headers=headers, json=json_data)
+    print(json_data)
 
     return HttpResponse(f.content)
 
@@ -221,6 +221,7 @@ def shiptorg(request):
 def email_view(request, *args, **kwargs):
     order = kwargs.get('order')
     message = render_to_string('email/email.html', {'order': order})
+    print(message)
     send_mail(
         'Оформление посылки на доставку',
         message,
