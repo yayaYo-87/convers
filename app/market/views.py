@@ -3,8 +3,11 @@ from _sha256 import sha256
 
 import requests
 from django.conf import settings
+from django.core.mail import send_mail
 from django.http import HttpResponse
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
+from django.template.loader import render_to_string
 from django.views import generic
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
@@ -193,6 +196,7 @@ def get_payment_status(request):
         order.save()
         if order.order_status == 'confirmed':
             shiptorg_post(order)
+            email_view(order=order)
         return HttpResponse(status=200, content='OK')
     
     return HttpResponse(status=403, content='Incorrect token')
@@ -211,3 +215,16 @@ def shiptorg(request):
     # print(f.json())
 
     return HttpResponse(f.content)
+
+
+@csrf_exempt
+def email_view(request, *args, **kwargs):
+    order = kwargs.get('order')
+    message = render_to_string('email/email.html', {'order': order})
+    send_mail(
+        'Оформление посылки на доставку',
+        message,
+        'info@classicalbooks.ru',
+        [order.email]
+    )
+    return JsonResponse({'response': 1})
