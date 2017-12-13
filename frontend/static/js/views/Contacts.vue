@@ -43,6 +43,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
             <div class="about__wrapper-right">
                 <bar></bar>

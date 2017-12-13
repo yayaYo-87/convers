@@ -3,8 +3,11 @@ from _sha256 import sha256
 
 import requests
 from django.conf import settings
+from django.core.mail import send_mail
 from django.http import HttpResponse
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
+from django.template.loader import render_to_string
 from django.views import generic
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
@@ -110,8 +113,10 @@ def shiptorg_post(order):
             'price':i.goods.price
         }
         products.append(item)
-        length += i.goods.length
-        width += i.goods.width
+        if length < i.goods.length:
+            length = i.goods.length
+        if weight < i.goods.weight:
+            width = i.goods.width
         height += i.goods.height
         weight += i.goods.weight
     json_data = {}
@@ -127,8 +132,8 @@ def shiptorg_post(order):
     json_data['params']['declared_cost'] = order.total
     json_data['params'].setdefault('departure', {})
     json_data['params']['departure']['shipping_method'] = order.shipping_id
-#     if order.delivery_point:
-#         json_data['params']['departure']['delivery_point'] = order.delivery_point
+    if order.delivery_point:
+        json_data['params']['departure']['delivery_point'] = order.delivery_point
     json_data['params']['departure']['comment'] = order.comment
     json_data['params']['departure'].setdefault('address', {})
     json_data['params']['departure']['address']['country'] = 'RU'
@@ -153,8 +158,6 @@ def shiptorg_post(order):
     }
     path = 'https://api.shiptor.ru/shipping/v1'
     f = requests.post(path, headers=headers, json=json_data)
-#     print(f.json())
-#     print(f.content)
 
     return HttpResponse(f.content)
 
@@ -170,7 +173,6 @@ def check_token(params):
     pure_value = ''
     for item in items_list:
         pure_value = '%s%s' % (pure_value, item[1])
-    # print(pure_value)
 
     generated_token = sha256(pure_value.encode('ascii')).hexdigest()
     return generated_token == received_token
@@ -194,6 +196,7 @@ def get_payment_status(request):
         order.save()
         if order.order_status == 'confirmed':
             shiptorg_post(order)
+            email_view(order=order)
         return HttpResponse(status=200, content='OK')
     
     return HttpResponse(status=403, content='Incorrect token')
@@ -212,3 +215,16 @@ def shiptorg(request):
     # print(f.json())
 
     return HttpResponse(f.content)
+
+
+@csrf_exempt
+def email_view(request, *args, **kwargs):
+    order = kwargs.get('order')
+    message = render_to_string('email/email.html', {'order': order})
+    send_mail(
+        'Оформление посылки на доставку',
+        message,
+        'info@classicalbooks.ru',
+        [order.email]
+    )
+    return JsonResponse({'response': 1})

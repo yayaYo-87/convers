@@ -60,13 +60,14 @@
         <div class="order__right_item"
 
              v-for="item in cart.cart_goods"
+             v-if="item.active"
         >
-          <div class="order__right_item-close" @click="switchItem(item.id, 'deactivate')"></div>
-          <div class="order__right_item-active" v-if="!item.active">
-            <button class=" button-basket" @click="switchItem(item.id, 'activate')">
-              <span>Вернуть обратно</span>
-            </button>
-          </div>
+          <!--<div class="order__right_item-close" @click="switchItem(item.id, 'deactivate')"></div>-->
+          <!--<div class="order__right_item-active" v-if="!item.active">-->
+            <!--<button class=" button-basket" @click="switchItem(item.id, 'activate')">-->
+              <!--<span>Вернуть обратно</span>-->
+            <!--</button>-->
+          <!--</div>-->
           <div class="order__right_item-img">
             <div class="order__right_item-img_wrapper">
               <img :src="item.goods.cover" alt="cover">
@@ -161,7 +162,8 @@
         if(now.results[0].cart_goods.length === 0){
           this.$router.push({name: 'basket'})
         }
-      }
+      },
+      '$route.path': 'get'
     },
     methods: {
       backMethods(id){
@@ -193,39 +195,6 @@
       this.$store.dispatch('validation', {typeValid: 'validation', value: 1})
     },
     mounted(){
-
-
-      const self = this
-
-//      axios.post('/shiptorg/', {
-//        json: {
-//          "id": "JsonRpcClient.js",
-//          "jsonrpc": "2.0",
-//          "method": "addProduct",
-//          "params": {
-//            "name": "Холодильник",
-//            "barcode": "4606782046203",
-//            "article": "HOLOD10",
-//            "shopArticle": "HOLOD10",
-//            "length": 50,
-//            "width": 50,
-//            "height": 200,
-//
-//            "weight": 20,
-//            "price": 12000,
-//            "retailPrice": 15000,
-//            "fragile": false,
-//            "danger": false,
-//            "perishable": false,
-//            "needBox": true
-//          }
-//        }
-//      }).then(
-//        function (response) {
-//          console.log(response.data)
-//        }, function (error) {
-//        }
-//      )
 
 
     }
