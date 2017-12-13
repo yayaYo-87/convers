@@ -9,7 +9,7 @@
             </div>
             <div class="order__shiptorg_pay">
                 <div class="order__shiptorg_item-name">Метод доставки</div>
-                <div class="order__shiptorg_item-title">{{ deliveryMethods }}, {{ Math.ceil(deliveryTotal) }}</div>
+                <div class="order__shiptorg_item-title">{{ deliveryMethods }}, {{ Math.ceil(deliveryTotal) }}<span class="rubl" > &#8399;</span></div>
                 <div class="order__shiptorg_item-edit" @click="backMethods(2)">Изменить</div>
             </div>
         </div>
@@ -81,6 +81,9 @@
       }
     },
     computed: {
+      deliveryPoint() {
+        return this.$store.state.basket.deliveryPoint
+      },
       basket() {
         return this.$store.state.basket.results
       },
@@ -196,7 +199,7 @@
             "order_delivery": self.shiptorOrder.method.courier,
             "total_delivery": Math.ceil(self.shiptorOrder.cost.total.sum),
             "shipping_id": self.shiptorOrder.method.id,
-            "delivery_point": self.city.kladr_id,
+            "delivery_point": self.deliveryPoint.id,
             "administrative_area": self.city.administrative_area,
             "email": self.email,
             "apartment": self.apartment,

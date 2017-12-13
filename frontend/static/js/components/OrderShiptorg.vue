@@ -136,10 +136,10 @@
               function (response) {
                 self.$store.commit('pushItem', { type: 'resultsCart', items: response.data})
 
-                if( width <  response.data.width) {
+                if( width <=  response.data.width) {
                   width = response.data.width
                 }
-                if( length <  response.data.length) {
+                if( length <=  response.data.length) {
                   length = response.data.length
                 }
 
