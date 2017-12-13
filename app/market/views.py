@@ -218,7 +218,7 @@ def shiptorg(request):
 
 
 @csrf_exempt
-def email_view(request, *args, **kwargs):
+def email_view(*args, **kwargs):
     order = kwargs.get('order')
     message = render_to_string('email/email.html', {'order': order})
     print(message)

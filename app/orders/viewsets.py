@@ -36,7 +36,6 @@ class OrderViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericView
         order_goods = kwargs.get('order_goods')
         serializer.save(order_status=status_code)
         obj = serializer.save()
-        print(9879879)
         for order in order_goods:
             order.created_at = datetime.now()
             order.save()
