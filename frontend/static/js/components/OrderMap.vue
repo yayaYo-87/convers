@@ -36,10 +36,10 @@
             <div class="map_popup"
                  v-if="infoWinOpen"
             >
-                <!--<div class="map_popup-address">{{ infoContent.address }}</div>-->
-                <!--<div class="map_popup-desc">{{ infoContent.description }}</div>-->
-                <!--<div class="methods__map_popup-phone">{{ infoContent.phone }}</div>-->
-                <!--<div class="methods__map_popup-schedule">{{ infoContent.work }}</div>-->
+                <div class="map_popup-address">{{ infoContent.address }}</div>
+                <div class="map_popup-desc">{{ infoContent.description }}</div>
+                <div class="map_popup-phone">{{ infoContent.phone }}</div>
+                <div class="map_popup-schedule">{{ infoContent.work }}</div>
             </div>
             <button class="map-button" @click="backMethods(3)">Перейти к методу оплаты</button>
         </div>

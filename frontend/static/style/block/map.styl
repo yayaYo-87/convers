@@ -35,7 +35,7 @@
     z-index: 2
   }
   &_wrapper{
-    width: 800px
+    width: 840px;
     height: 537px;
     position: relative
     z-index: 3
@@ -65,7 +65,7 @@
     }
   }
   &_list{
-    width: 250px
+    width: 290px
     height: 400px
     background-color white
     margin-top: 50px
@@ -73,15 +73,31 @@
     &-item{
       padding-bottom: 10px
       padding-top: 10px
-      padding-right: 20px
-      padding-left: 20px
+      padding-right: 25px
+      padding-left: 33px;
       transition .5s
+      font-size 14px
+      position: relative
       cursor: pointer
       &:hover{
         background-color rgba(0, 0, 0, 0.05)
       }
+      &:after{
+        content ''
+        background-color #303942;
+        position: absolute
+        width: 5px;
+        height: 5px;
+        top: 16px;
+        left: 15px;
+        border-radius 50%
+        transition .5s
+      }
       &-active{
         background-color rgba(194,230,245,0.6)
+        &:after{
+          background-color #2a9dcc
+        }
         &:hover{
           background-color rgba(194,230,245,0.6)
         }
@@ -93,7 +109,7 @@
   }
   &-button{
     position: absolute
-    right: 20px
+    right: 41px;
     width: 210px
     z-index: 20
     bottom: 18px;
@@ -111,6 +127,33 @@
     transition .5s
     &:hover{
       opacity: .8
+    }
+  }
+  &_popup{
+    position: absolute
+    width: 480px
+    bottom: 25px
+    padding: 10px
+    left: 20px
+    font-size 12px
+    background-color white
+    border-radius 5px
+    max-height: 150px
+    overflow: auto
+    box-shadow 0px 0px 10px 4px rgba(0, 0, 0, 0.15)
+    &-address{
+      padding-bottom: 5px
+      font-weight bold
+    }
+    &-desc{
+      padding-bottom: 5px
+    }
+    &-phone{
+      padding-bottom: 5px
+      font-weight bold
+    }
+    &-schedule{
+      font-style italic
     }
   }
 }
