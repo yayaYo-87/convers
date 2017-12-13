@@ -131,7 +131,7 @@ def shiptorg_post(order):
     json_data['params']['declared_cost'] = 10 if order.total < 12000 else 1000
     json_data['params'].setdefault('departure', {})
     json_data['params']['departure']['shipping_method'] = order.shipping_id
-    if order.delivery_point:
+    if not order.delivery_point == '0':
         json_data['params']['departure']['delivery_point'] = order.delivery_point
     json_data['params']['departure']['comment'] = order.comment
     json_data['params']['departure'].setdefault('address', {})
