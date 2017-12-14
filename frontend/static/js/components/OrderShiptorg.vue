@@ -12,7 +12,7 @@
             </div>
             <div class="order__shiptorg_methods-item"
                  :class="{ 'order__shiptorg_methods-item-active'  : indexShiptor === index}"
-                 v-if="item.method.id !== 16 && item.method.id !== 19 && item.method.id !== 13 && item.method.id !== 68"
+                 v-if="item.method.id !== 16 && item.method.id !== 19 && item.method.id !== 13 && item.method.id !== 68 && item.method.id !== 53 && item.method.id !== 67"
                  @click="shiptorAdd(item, index)"
                  v-for="(item, index) in result.methods">
                 <div class="order__shiptorg_methods-item-loader"></div>

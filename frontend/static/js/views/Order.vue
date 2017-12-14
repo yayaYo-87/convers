@@ -64,9 +64,9 @@
         >
           <!--<div class="order__right_item-close" @click="switchItem(item.id, 'deactivate')"></div>-->
           <!--<div class="order__right_item-active" v-if="!item.active">-->
-            <!--<button class=" button-basket" @click="switchItem(item.id, 'activate')">-->
-              <!--<span>Вернуть обратно</span>-->
-            <!--</button>-->
+          <!--<button class=" button-basket" @click="switchItem(item.id, 'activate')">-->
+          <!--<span>Вернуть обратно</span>-->
+          <!--</button>-->
           <!--</div>-->
           <div class="order__right_item-img">
             <div class="order__right_item-img_wrapper">
@@ -195,8 +195,6 @@
       this.$store.dispatch('validation', {typeValid: 'validation', value: 1})
     },
     mounted(){
-
-
     }
   }
 </script>
