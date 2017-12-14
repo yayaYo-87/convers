@@ -162,6 +162,18 @@
         if(now.results[0].cart_goods.length === 0){
           this.$router.push({name: 'basket'})
         }
+
+        if(now.results[0].id) {
+          let id = now.results[0].id;
+          axios.post('/api/cart/' + id + '/check_goods/')
+            .then((response) => {
+            console.log(response.data[0])
+              if(response.data[0] === 'false'){
+                location.href = '/'
+              }
+            })
+
+        }
       },
       '$route.path': 'get'
     },
@@ -178,13 +190,6 @@
             }
           })
       },
-      checkOrder(){
-        axios.post('/api/cart/check_goods/')
-          .then((response) => {
-            console.log(response.data)
-          })
-      },
-
       fcCode(){
         if(this.code.length !== 0) {
           this.focusedCode = true
@@ -201,7 +206,6 @@
       this.$store.dispatch('validation', {typeValid: 'validation', value: 1})
     },
     mounted(){
-      this.checkOrder()
     }
   }
 </script>
