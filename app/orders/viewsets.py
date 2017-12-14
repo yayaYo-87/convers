@@ -36,7 +36,6 @@ class OrderViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericView
         order_goods = kwargs.get('order_goods')
         serializer.save(order_status=status_code)
         obj = serializer.save()
-        print(9879879)
         for order in order_goods:
             order.created_at = datetime.now()
             order.save()
@@ -64,6 +63,15 @@ class CartViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericViewS
 
     def get_queryset(self):
         return Cart.objects.filter(cookie=self.request.session.session_key)
+
+    @detail_route(methods=['post'])
+    def check_goods(self, request, pk=None):
+        # cart = Cart.objects.filter(cookie=self.request.session.session_key).first()
+        cart = get_object_or_404(Cart, pk=pk)
+        if cart.cart_goods.all():
+            return Response({'true'})
+        else:
+            return Response({'false'})
 
 
 class OrderGoodsViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins.CreateModelMixin, mixins.DestroyModelMixin, GenericViewSet):
