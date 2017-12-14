@@ -65,9 +65,9 @@ class CartViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericViewS
         return Cart.objects.filter(cookie=self.request.session.session_key)
 
     @detail_route(methods=['post'])
-    def check_goods(self, request, pk=None):
-        # cart = Cart.objects.filter(cookie=self.request.session.session_key).first()
-        cart = get_object_or_404(Cart, pk=pk)
+    def check_goods(self, request):
+        cart = Cart.objects.filter(cookie=self.request.session.session_key).first()
+        # cart = get_object_or_404(Cart, pk=pk)
         if cart.cart_goods.all():
             return Response({'true'})
         else:
