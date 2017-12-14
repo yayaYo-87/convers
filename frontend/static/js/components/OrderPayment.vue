@@ -221,8 +221,6 @@
               } else{
                 self.initPay(response.data.id)
               }
-
-
             }, function (error) {
               self.loader = false
               console.log(error)

@@ -178,6 +178,12 @@
             }
           })
       },
+      checkOrder(){
+        axios.post('/api/cart/check_goods/')
+          .then((response) => {
+            console.log(response.data)
+          })
+      },
 
       fcCode(){
         if(this.code.length !== 0) {
@@ -195,6 +201,7 @@
       this.$store.dispatch('validation', {typeValid: 'validation', value: 1})
     },
     mounted(){
+      this.checkOrder()
     }
   }
 </script>
