@@ -117,8 +117,9 @@
                     <label for="phone" class="order__info_input-label"
                            :class="{'order__info_input-label_active': focusedPhone}"
                     ></label>
-                    <masked-input mask="\+\7(111)111-11-11" placeholder="Телефон" id="phone" type="tel"  class="order__info_input-email" v-model="phone"/>
-                    <div class="valid" v-show="phoneV">*Введите корректный телефон</div>
+                    <masked-input mask="\+\7(111)111-11-11" placeholder="Телефон" id="phone" type="tel"
+                                  class="order__info_input-email" v-model="phone"/>
+                    <div class="valid" v-show="phoneV">*Введите корректный телефон. +7 (9XX)XXX-XX-XX</div>
                 </div>
             </div>
         </div>
@@ -163,7 +164,7 @@
         index: '',
         hom: '',
         emailRE: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-        telRE: /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/,
+        telRE: /^((\+7)[\- ]?)?(\(?(9)\d{2}\)?[\- ]?)?[\d\- ]{7,10}$/,
 
         mailV: false,
         FirstNameV: false,
@@ -194,6 +195,13 @@
       MaskedInput
     },
     watch: {
+      validation(now){
+        if(now.phone === false){
+          this.phoneV = true
+        }else {
+          this.phoneV = false
+        }
+      },
       phone(now){
         if( this.validation.phone !== false ) {
           this.$store.dispatch('validation', {typeValid: 'phone', value: now })

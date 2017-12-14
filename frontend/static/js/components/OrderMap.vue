@@ -1,50 +1,52 @@
 <template>
-    <div class="map" :class="{ 'map-active': show }">
-        <div class="map_wrapper">
-            <div class="map__text">
-                <span class="map__close" @click="clickFalse">сменить метод доставки</span>
-                <h1>Выберите точку приёма выдачи заказа.</h1>
-                <gmap-map
-                        :center="center"
-                        :zoom="12"
-                        style="width: 550px; height: 484px"
+    <transition name="routerw">
+        <div class="map map-active" v-if="show">
+            <div class="map_wrapper">
+                <div class="map__text">
+                    <span class="map__close" @click="clickFalse">сменить метод доставки</span>
+                    <h1>Выберите точку приёма выдачи заказа.</h1>
+                    <gmap-map
+                            :center="center"
+                            :zoom="12"
+                            style="width: 550px; height: 484px"
 
-                >
-                    <gmap-marker
-                            :key="index"
-                            v-for="(m, index) in markers"
-                            :position="m.position"
-                            :clickable="true"
-                            @click="[center=m.position, toggleInfoWindow(m,index)]"
-                    ></gmap-marker>
-                    <gmap-info-window
-                            :options="infoOptions"
-                            :position="infoWindowPos"
-                            :opened="infoWinOpen"
-                            @closeclick="infoWinOpen=false">
-                        Здесь!
-                    </gmap-info-window>
-                </gmap-map>
-            </div>
-            <div class="map_list">
-                <div class="map_list-item"
-                     :class="{ 'map_list-item-active': infoIndex === index }"
-                     v-for="(item, index) in markers" @click="toggleInfoWindow(item, index)">
-                    {{ item.position.address }}
+                    >
+                        <gmap-marker
+                                :key="index"
+                                v-for="(m, index) in markers"
+                                :position="m.position"
+                                :clickable="true"
+                                @click="[center=m.position, toggleInfoWindow(m,index)]"
+                        ></gmap-marker>
+                        <gmap-info-window
+                                :options="infoOptions"
+                                :position="infoWindowPos"
+                                :opened="infoWinOpen"
+                                @closeclick="infoWinOpen=false">
+                            Здесь!
+                        </gmap-info-window>
+                    </gmap-map>
                 </div>
+                <div class="map_list">
+                    <div class="map_list-item"
+                         :class="{ 'map_list-item-active': infoIndex === index }"
+                         v-for="(item, index) in markers" @click="toggleInfoWindow(item, index)">
+                        {{ item.position.address }}
+                    </div>
+                </div>
+                <div class="map_popup"
+                     v-if="infoWinOpen"
+                >
+                    <div class="map_popup-address">{{ infoContent.address }}</div>
+                    <div class="map_popup-desc">{{ infoContent.description }}</div>
+                    <div class="map_popup-phone">{{ infoContent.phone }}</div>
+                    <div class="map_popup-schedule">{{ infoContent.work }}</div>
+                </div>
+                <button class="map-button" @click="backMethods(3)">Перейти к методу оплаты</button>
             </div>
-            <div class="map_popup"
-                 v-if="infoWinOpen"
-            >
-                <div class="map_popup-address">{{ infoContent.address }}</div>
-                <div class="map_popup-desc">{{ infoContent.description }}</div>
-                <div class="map_popup-phone">{{ infoContent.phone }}</div>
-                <div class="map_popup-schedule">{{ infoContent.work }}</div>
-            </div>
-            <button class="map-button" @click="backMethods(3)">Перейти к методу оплаты</button>
-        </div>
 
-    </div>
+        </div>
+    </transition>
 </template>
 
 <script>

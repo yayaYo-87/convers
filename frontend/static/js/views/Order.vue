@@ -64,9 +64,9 @@
         >
           <!--<div class="order__right_item-close" @click="switchItem(item.id, 'deactivate')"></div>-->
           <!--<div class="order__right_item-active" v-if="!item.active">-->
-            <!--<button class=" button-basket" @click="switchItem(item.id, 'activate')">-->
-              <!--<span>Вернуть обратно</span>-->
-            <!--</button>-->
+          <!--<button class=" button-basket" @click="switchItem(item.id, 'activate')">-->
+          <!--<span>Вернуть обратно</span>-->
+          <!--</button>-->
           <!--</div>-->
           <div class="order__right_item-img">
             <div class="order__right_item-img_wrapper">
@@ -162,6 +162,18 @@
         if(now.results[0].cart_goods.length === 0){
           this.$router.push({name: 'basket'})
         }
+
+        if(now.results[0].id) {
+          let id = now.results[0].id;
+          axios.post('/api/cart/' + id + '/check_goods/')
+            .then((response) => {
+            console.log(response.data[0])
+              if(response.data[0] === 'false'){
+                location.href = '/'
+              }
+            })
+
+        }
       },
       '$route.path': 'get'
     },
@@ -178,7 +190,6 @@
             }
           })
       },
-
       fcCode(){
         if(this.code.length !== 0) {
           this.focusedCode = true
@@ -195,8 +206,6 @@
       this.$store.dispatch('validation', {typeValid: 'validation', value: 1})
     },
     mounted(){
-
-
     }
   }
 </script>

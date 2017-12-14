@@ -216,9 +216,11 @@
             "total": parseInt(self.basket.results[0].price + self.shiptorOrder.cost.total.sum)
           }).then(
             function (response) {
-//            self.$store.dispatch('results')
-              self.initPay(response.data.id)
-
+              if(response.data.error !== undefined){
+                location.href = '/'
+              } else{
+                self.initPay(response.data.id)
+              }
             }, function (error) {
               self.loader = false
               console.log(error)
