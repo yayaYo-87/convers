@@ -60,6 +60,7 @@ class OrderViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericView
 class CartViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericViewSet):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
+    authentication_classes = ()
 
     def get_queryset(self):
         return Cart.objects.filter(cookie=self.request.session.session_key)
