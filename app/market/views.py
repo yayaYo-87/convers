@@ -116,8 +116,8 @@ def shiptorg_post(order):
             length = i.goods.length
         if weight < i.goods.weight:
             width = i.goods.width
-        height += i.goods.height
-        weight += i.goods.weight
+        height += int(i.goods.height)
+        weight += int(i.goods.weight)
     json_data = {}
     json_data['id'] = 'JsonRpcClient.js'
     json_data['jsonrpc'] = '2.0'
