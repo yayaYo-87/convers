@@ -7,8 +7,8 @@ from app.market.models import Goods, Size
 class Order(models.Model):
     STATUSES = (
         ('waiting', 'Ожидание'),
-        ('processing', 'В обработке'),
-        ('paid', 'Оплачено онлайн'),
+        # ('processing', 'В обработке'),
+        # ('paid', 'Оплачено онлайн'),
         ('confirmed', 'Подтвержден'),
         ('cancel', 'Отменен'),
     )

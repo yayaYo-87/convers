@@ -32,11 +32,12 @@ class OrderModelAdmin(admin.ModelAdmin):
         'order_status',
         'created_at',
         'total',
+        'total_delivery',
     ]
     list_filter = ['order_status']
     fields = [
         'total',
-        'total_discount',
+        # 'total_discount',
         'total_delivery',
         'total_count',
         'created_at',
@@ -50,7 +51,7 @@ class OrderModelAdmin(admin.ModelAdmin):
         'last_name',
         'email',
         'phone',
-        'delivery_point',
+        # 'delivery_point',
         'administrative_area',
         'settlement',
         'apartment',
@@ -59,7 +60,7 @@ class OrderModelAdmin(admin.ModelAdmin):
     ]
     readonly_fields = [
         'total',
-        'total_discount',
+        # 'total_discount',
         'total_delivery',
         'total_count',
         'created_at',
@@ -73,7 +74,7 @@ class OrderModelAdmin(admin.ModelAdmin):
         'last_name',
         'email',
         'phone',
-        'delivery_point',
+        # 'delivery_point',
         'administrative_area',
         'settlement',
         'apartment',

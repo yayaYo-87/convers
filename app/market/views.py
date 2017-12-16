@@ -3,8 +3,11 @@ from _sha256 import sha256
 
 import requests
 from django.conf import settings
+from django.core.mail import send_mail
 from django.http import HttpResponse
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
+from django.template.loader import render_to_string
 from django.views import generic
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
@@ -105,7 +108,7 @@ def resend_pay(request):
 
 
 def shiptorg_post(order):
-#     print(order)
+    print(order)
     length = 0
     width = 0
     height = 0
@@ -118,10 +121,12 @@ def shiptorg_post(order):
             'price':i.goods.price
         }
         products.append(item)
-        length += i.goods.length
-        width += i.goods.width
-        height += i.goods.height
-        weight += i.goods.weight
+        if length < i.goods.length:
+            length = i.goods.length
+        if weight < i.goods.weight:
+            width = i.goods.width
+        height += int(i.goods.height)
+        weight += int(i.goods.weight)
     json_data = {}
     json_data['id'] = 'JsonRpcClient.js'
     json_data['jsonrpc'] = '2.0'
@@ -132,11 +137,11 @@ def shiptorg_post(order):
     json_data['params']['height'] = height
     json_data['params']['weight'] = weight
     json_data['params']['cod'] = 0
-    json_data['params']['declared_cost'] = order.total
+    json_data['params']['declared_cost'] = 10 if order.total < 12000 else 1000
     json_data['params'].setdefault('departure', {})
     json_data['params']['departure']['shipping_method'] = order.shipping_id
-#     if order.delivery_point:
-#         json_data['params']['departure']['delivery_point'] = order.delivery_point
+    if not order.delivery_point == '0':
+        json_data['params']['departure']['delivery_point'] = order.delivery_point
     json_data['params']['departure']['comment'] = order.comment
     json_data['params']['departure'].setdefault('address', {})
     json_data['params']['departure']['address']['country'] = 'RU'
@@ -161,8 +166,7 @@ def shiptorg_post(order):
     }
     path = 'https://api.shiptor.ru/shipping/v1'
     f = requests.post(path, headers=headers, json=json_data)
-#     print(f.json())
-#     print(f.content)
+    print(json_data)
 
     return HttpResponse(f.content)
 
@@ -178,7 +182,6 @@ def check_token(params):
     pure_value = ''
     for item in items_list:
         pure_value = '%s%s' % (pure_value, item[1])
-    # print(pure_value)
 
     generated_token = sha256(pure_value.encode('ascii')).hexdigest()
     return generated_token == received_token
@@ -204,6 +207,7 @@ def get_payment_status(request):
             shiptorg_post(order)
             order.send_to_shiptor = True
         order.save()
+            # email_view(order=order)
         return HttpResponse(status=200, content='OK')
     
     return HttpResponse(status=403, content='Incorrect token')
@@ -222,3 +226,17 @@ def shiptorg(request):
     # print(f.json())
 
     return HttpResponse(f.content)
+
+
+@csrf_exempt
+def email_view(*args, **kwargs):
+    order = kwargs.get('order')
+    message = render_to_string('email/email.html', {'order': order})
+    print(message)
+    send_mail(
+        'Оформление посылки на доставку',
+        message,
+        'info@classicalbooks.ru',
+        [order.email]
+    )
+    return JsonResponse({'response': 1})
