@@ -69,7 +69,16 @@ def init_pay(request):
             'Amount': int(order.total_delivery) * 100,
             'Tax': 'none'
         }
+        promocode = {
+            'Name': 'Скидка по промокоду',
+            'Price': -int(order.total_discount) * 100,
+            'Quantity': 1,
+            'Amount': -int(order.total_discount) * 100,
+            'Tax': 'none'
+        }
         json_data['Receipt']['Items'].append(delivery)
+        json_data['Receipt']['Items'].append(promocode)
+        # print(json_data)
 
     headers = {
         'content-type': 'application/json',
@@ -193,9 +202,11 @@ def get_payment_status(request):
     if token_valid:
         order = get_object_or_404(Order, id=id)
         order.order_status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
-        order.save()
-        if order.order_status == 'confirmed':
+
+        if order.order_status == 'confirmed' and order.send_to_shiptor == False:
             shiptorg_post(order)
+            order.send_to_shiptor = True
+        order.save()
             # email_view(order=order)
         return HttpResponse(status=200, content='OK')
     
