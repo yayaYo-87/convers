@@ -33,11 +33,12 @@ class OrderModelAdmin(admin.ModelAdmin):
         'created_at',
         'total',
         'total_delivery',
+        'total_discount',
     ]
     list_filter = ['order_status']
     fields = [
         'total',
-        # 'total_discount',
+        'total_discount',
         'total_delivery',
         'total_count',
         'created_at',
@@ -60,7 +61,7 @@ class OrderModelAdmin(admin.ModelAdmin):
     ]
     readonly_fields = [
         'total',
-        # 'total_discount',
+        'total_discount',
         'total_delivery',
         'total_count',
         'created_at',

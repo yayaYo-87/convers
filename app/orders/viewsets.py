@@ -78,11 +78,6 @@ class CartViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericViewS
         else:
             return Response({'error':'No such promocode'})
 
-
-class PromocodeViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericViewSet):
-    queryset = Promocode.objects.all()
-    serializer_class = PromocodeSerializer
-
     @detail_route(methods=['post'])
     def check_goods(self, request, pk=None):
         # cart = Cart.objects.filter(cookie=self.request.session.session_key).first()
@@ -91,6 +86,11 @@ class PromocodeViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, Generic
             return Response({'true'})
         else:
             return Response({'false'})
+
+
+class PromocodeViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericViewSet):
+    queryset = Promocode.objects.all()
+    serializer_class = PromocodeSerializer
 
 
 class OrderGoodsViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins.CreateModelMixin, mixins.DestroyModelMixin, GenericViewSet):
