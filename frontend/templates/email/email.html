@@ -1,3 +1,4 @@
+{% load i18n common %}
 <div dir="ltr" style="color:#343434;font-family:sans-serif;font-weight:300;font-size:16px;line-height:25px">
     <table class="m_-1802661626314348884m_-2670458810514885017main-wrapper" bgcolor="#ffffff" border="0" cellpadding="0" cellspacing="0" width="660" align="center" style="table-layout:fixed;border-top:1px solid #6f6f6f;border-right:1px solid #6f6f6f;border-bottom:1px solid #6f6f6f;border-left:1px solid #6f6f6f">
         <tbody><tr>
@@ -189,8 +190,8 @@
                                                         <tr>
                                                             <td style="padding-right:25px;font-weight:400;padding-top:10px">Итого</td>
                                                             <td align="right" style="padding-left:30px;font-weight:400;padding-top:10px">
-
-                                                                {{ order.total_delivery }} + {{ order.total }} руб.</td>
+                                                                {% set sum = order.total_delivery + order.total %}
+                                                                {% sum %}руб.</td>
                                                         </tr>
                                                         </tbody></table>
                                                 </td>
