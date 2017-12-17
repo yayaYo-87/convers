@@ -232,21 +232,25 @@ def shiptorg(request):
 
 @require_http_methods(["POST"])
 @csrf_exempt
-def email_view(request):
 # def email_view(*args, **kwargs):
-    id = json.loads(request.body.decode("utf-8"))['order_id']
+def email_view(request):
 #     order_id = kwargs.get('order_id')
+    order_id = json.loads(request.body.decode("utf-8"))['order_id']
+    print(order_id)
     order = get_object_or_404(Order, id=order_id)
+    print(order)
     if order:
         subject = "Оформление посылки на доставку"
+        print(subject)
         to = [order.email]
         from_email = 'info@classicalbooks.ru'
 
         ctx = {
-            'order': order,
+            'order': order
         }
 
-        message = get_template('email/email.html').render(Context(ctx))
+        message = get_template('email/email.html').render(ctx)
+        print(message)
         msg = EmailMessage(subject, message, to=to, from_email=from_email)
         msg.content_subtype = 'html'
         msg.send()

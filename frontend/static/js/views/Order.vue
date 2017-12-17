@@ -205,7 +205,7 @@
           }, (error) => {
             this.$store.dispatch('results');
             this.promocode = '';
-            this.errorPopup('Не верный промокод!')
+            this.errorPopup('Неверный промокод!')
           })
 
       },

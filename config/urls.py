@@ -19,7 +19,7 @@ from django.contrib import admin
 from config.api import router
 
 from app.market.views import IndexView, init_pay, cancel_pay, resend_pay, shiptorg, \
-    get_payment_status
+    get_payment_status, email_view
 from config import settings
 
 urlpatterns = [
@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^init_pay/$', init_pay, name='init_pay'),
     url(r'^cancel_pay/$', cancel_pay, name='cancel_pay'),
     url(r'^resend_pay/$', resend_pay, name='resend_pay'),
+    url(r'^email_view/$', email_view, name='email_view'),
     url(r'^payment_status/$', get_payment_status, name='get_payment_status'),
     url(r'^shiptorg/$', shiptorg, name='shiptorg'),
     url(r'^[a-z]*_?/?[a-z]*_?/?[0-9]*_?/?[0-9]*$', IndexView.as_view(), name='index'),

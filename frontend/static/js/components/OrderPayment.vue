@@ -217,9 +217,7 @@
             function (response) {
 
               axios.post('/email_view/', {
-                json: {
-                  order_id: response.data.id
-                }
+                order_id: response.data.id
               })
                 .then((response) => {
                   console.log(response.data)
