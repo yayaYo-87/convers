@@ -103,7 +103,7 @@
         </div>
         <div class="order__right_subtotal-items" v-if="item.total_discount !== 0" v-for="item in basket.results">
           <div class="order__right_subtotal-text">Скидка по промокоду</div>
-          <div class="order__right_subtotal-price" v-for="item in basket.results">{{ item.total_discount }}<span class="rubl" > &#8399;</span></div>
+          <div class="order__right_subtotal-price" v-for="item in basket.results">-{{ item.total_discount }}<span class="rubl" > &#8399;</span></div>
         </div>
         <div class="order__right_subtotal-items">
           <div class="order__right_subtotal-text">Доставка</div>

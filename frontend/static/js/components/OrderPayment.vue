@@ -195,7 +195,7 @@
 
           this.Items.push(this.ItemsDelivery);
           axios.post('/api/order/', {
-            "total_count": self.basket.results[0].total_count,
+            "total_discount": self.basket.results[0].total_discount,
             "order_delivery": self.shiptorOrder.method.courier,
             "total_delivery": Math.ceil(self.shiptorOrder.cost.total.sum),
             "shipping_id": self.shiptorOrder.method.id,
@@ -213,7 +213,6 @@
             "last_name": self.LastName,
             "phone": self.phone,
             "home": self.hom,
-            "total": parseInt(self.basket.results[0].price + self.shiptorOrder.cost.total.sum)
           }).then(
             function (response) {
               if(response.data.error !== undefined){
