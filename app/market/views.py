@@ -230,9 +230,12 @@ def shiptorg(request):
     return HttpResponse(f.content)
 
 
+@require_http_methods(["POST"])
 @csrf_exempt
-def email_view(*args, **kwargs):
-    order_id = kwargs.get('order_id')
+def email_view(request):
+# def email_view(*args, **kwargs):
+    id = json.loads(request.body.decode("utf-8"))['order_id']
+#     order_id = kwargs.get('order_id')
     order = get_object_or_404(Order, id=order_id)
     if order:
         subject = "Оформление посылки на доставку"
