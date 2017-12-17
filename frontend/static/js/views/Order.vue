@@ -88,12 +88,12 @@
           >Подарочная карта или код скидки</label>
           <input  @focus="focusedCode = true"
                   @blur="fcCode()"
-                  v-model="code" id="code"
+                  v-model="promocode" id="code"
                   type="text"
                   class="order__info_input-email">
         </div>
         <div class="order__right_code-button">
-          <button>Использовать</button>
+          <button @click="checkedCode()">Использовать</button>
         </div>
       </div>
       <div class="order__right_subtotal">
@@ -134,6 +134,7 @@
         code: '',
         deliveryTotal: 0,
         deliveryDays: 0,
+        promocode: ''
       }
     },
     directives: { focus: focus },
@@ -167,7 +168,7 @@
           let id = now.results[0].id;
           axios.post('/api/cart/' + id + '/check_goods/')
             .then((response) => {
-            console.log(response.data[0])
+              console.log(response.data[0])
               if(response.data[0] === 'false'){
                 location.href = '/'
               }
@@ -178,6 +179,16 @@
       '$route.path': 'get'
     },
     methods: {
+      checkedCode(){
+        let self = this;
+        const id = this.basket.results[0].id;
+
+        axios.post('/api/cart/' + id + '/use_promocode/?code=' + self.promocode + '/')
+          .then((response) => {
+            console.log(response.data)
+          })
+
+      },
       backMethods(id){
         this.$store.dispatch('validation', {typeValid: 'validation', value: id})
       },
