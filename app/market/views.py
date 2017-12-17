@@ -206,8 +206,8 @@ def get_payment_status(request):
         if order.order_status == 'confirmed' and order.send_to_shiptor == False:
             shiptorg_post(order)
             order.send_to_shiptor = True
-        order.save()
             # email_view(order=order)
+        order.save()
         return HttpResponse(status=200, content='OK')
     
     return HttpResponse(status=403, content='Incorrect token')
