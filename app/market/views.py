@@ -3,11 +3,13 @@ from _sha256 import sha256
 
 import requests
 from django.conf import settings
+from django.core.mail import EmailMessage
 from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
-from django.template.loader import render_to_string
+from django.template import Context
+from django.template.loader import render_to_string, get_template
 from django.views import generic
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
@@ -71,14 +73,14 @@ def init_pay(request):
         }
         promocode = {
             'Name': 'Скидка по промокоду',
-            'Price': -int(order.total_discount) * 100,
+            'Price': -(int(order.total_discount) * 100),
             'Quantity': 1,
             'Amount': -int(order.total_discount) * 100,
             'Tax': 'none'
         }
         json_data['Receipt']['Items'].append(delivery)
         json_data['Receipt']['Items'].append(promocode)
-        # print(json_data)
+        print(json_data)
 
     headers = {
         'content-type': 'application/json',
@@ -230,13 +232,20 @@ def shiptorg(request):
 
 @csrf_exempt
 def email_view(*args, **kwargs):
-    order = kwargs.get('order')
-    message = render_to_string('email/email.html', {'order': order})
-    print(message)
-    send_mail(
-        'Оформление посылки на доставку',
-        message,
-        'info@classicalbooks.ru',
-        [order.email]
-    )
-    return JsonResponse({'response': 1})
+    order_id = kwargs.get('order_id')
+    order = get_object_or_404(Order, id=order_id)
+    if order:
+        subject = "Оформление посылки на доставку"
+        to = [order.email]
+        from_email = 'info@classicalbooks.ru'
+
+        ctx = {
+            'order': order,
+        }
+
+        message = get_template('email/email.html').render(Context(ctx))
+        msg = EmailMessage(subject, message, to=to, from_email=from_email)
+        msg.content_subtype = 'html'
+        msg.send()
+
+        return HttpResponse({'response': 1})
