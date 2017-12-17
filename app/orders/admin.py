@@ -87,6 +87,6 @@ class OrderModelAdmin(admin.ModelAdmin):
 @admin.register(Promocode)
 class PromocodeAdmin(admin.ModelAdmin):
     model = Promocode
-    fields = ['code', 'discount']
+    fields = ['code', 'discount', 'used']
 
 admin.site.register(Order, OrderModelAdmin)

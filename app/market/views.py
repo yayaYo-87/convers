@@ -44,7 +44,7 @@ def init_pay(request):
     json_data = {}
     if order:
         json_data['TerminalKey'] = '1511862369151'
-        json_data['Amount'] = int(order.total_delivery) * 100 + int(order.total) * 100
+        json_data['Amount'] = int(order.total_delivery) * 100 + int(order.total) * 100 - int(order.total_discount) * 100
         json_data['OrderId'] = order.id
         json_data['Description'] = 'Классические беседы'
         json_data.setdefault('DATA', {})
