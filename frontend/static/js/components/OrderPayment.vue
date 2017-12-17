@@ -126,9 +126,9 @@
     },
     methods: {
       errorPopup(now){
-        const newDiv = document.createElement('div')
-        newDiv.classList.add('popup')
-        newDiv.innerHTML = now
+        const newDiv = document.createElement('div');
+        newDiv.classList.add('popup');
+        newDiv.innerHTML = now;
 
         document.body.appendChild(newDiv)
 
@@ -137,10 +137,10 @@
         }, 3000)
       },
       forEachBasket(now){
-        const self = this
-        self.Items = []
-        self.itemsShiptor = []
-        let result = {}
+        const self = this;
+        self.Items = [];
+        self.itemsShiptor = [];
+        let result = {};
         this.price = now.results[0].price;
         this.itemOrder = now.results[0].id;
 
@@ -195,7 +195,7 @@
 
           this.Items.push(this.ItemsDelivery);
           axios.post('/api/order/', {
-            "total_count": self.basket.results[0].total_count,
+            "total_discount": self.basket.results[0].total_discount,
             "order_delivery": self.shiptorOrder.method.courier,
             "total_delivery": Math.ceil(self.shiptorOrder.cost.total.sum),
             "shipping_id": self.shiptorOrder.method.id,
@@ -213,7 +213,6 @@
             "last_name": self.LastName,
             "phone": self.phone,
             "home": self.hom,
-            "total": parseInt(self.basket.results[0].price + self.shiptorOrder.cost.total.sum)
           }).then(
             function (response) {
               if(response.data.error !== undefined){
