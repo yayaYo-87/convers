@@ -39,6 +39,7 @@ class Order(models.Model):
     created_at = models.DateTimeField(verbose_name='Дата создания', auto_now_add=True, blank=True, null=True)
     total_count = models.IntegerField(verbose_name='Общее количество продуктов', blank=True, null=True, default=0)
     total_delivery = models.PositiveIntegerField(verbose_name='Cтоимость доставки', default=0, null=True)
+    total_discount = models.PositiveIntegerField(verbose_name='Размер скидки по промокоду', default=0, null=True)
 
     shipping_id = models.PositiveIntegerField(verbose_name='ID способа доставки', default=0, null=False)
     kladr_id = models.CharField(verbose_name='kladr_id', max_length=256, default=0, null=False)
@@ -47,6 +48,8 @@ class Order(models.Model):
     settlement = models.CharField(verbose_name='Населенный пункт', max_length=256, null=True)
     apartment = models.CharField(verbose_name='Квартира', max_length=256, null=True)
     comment = models.TextField(verbose_name='Комментарий', null=True, blank=True)
+
+    send_to_shiptor = models.BooleanField(verbose_name='Отправлен в шиптор', default=False)
 
 
     class Meta:
@@ -100,6 +103,7 @@ class Cart(models.Model):
     cookie = models.CharField(verbose_name='Кука', max_length=48, blank=True, null=True)
     price = models.PositiveIntegerField(verbose_name='Сумма заказа', default=0)
     total_count = models.PositiveIntegerField(verbose_name='Общее количество товаров', blank=True, null=True)
+    total_discount = models.PositiveIntegerField(verbose_name='Размер скидки по промокоду', default=0, null=True)
 
     def save(self, *args, **kwargs):
         self.price = self.get_price()
@@ -111,3 +115,13 @@ class Cart(models.Model):
 
     def get_total_count(self):
         return float(OrderGoods.objects.filter(cart=self, active=True).aggregate(sum=Sum('count'))['sum'] or 0)
+
+
+class Promocode(models.Model):
+    code = models.CharField(verbose_name='Промокод', max_length=512, null=False)
+    discount = models.PositiveIntegerField(verbose_name='Скидка по промокоду(в %)')
+    used = models.BooleanField(verbose_name='Использован', default=False)
+
+    class Meta:
+        verbose_name = 'Промокод'
+        verbose_name_plural = 'Промокоды'

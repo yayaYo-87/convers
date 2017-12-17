@@ -3,11 +3,13 @@ from _sha256 import sha256
 
 import requests
 from django.conf import settings
+from django.core.mail import EmailMessage
 from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
-from django.template.loader import render_to_string
+from django.template import Context
+from django.template.loader import render_to_string, get_template
 from django.views import generic
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
@@ -42,7 +44,7 @@ def init_pay(request):
     json_data = {}
     if order:
         json_data['TerminalKey'] = '1511862369151'
-        json_data['Amount'] = int(order.total_delivery) * 100 + int(order.total) * 100
+        json_data['Amount'] = int(order.total_delivery) * 100 + int(order.total) * 100 - int(order.total_discount) * 100
         json_data['OrderId'] = order.id
         json_data['Description'] = 'Классические беседы'
         json_data.setdefault('DATA', {})
@@ -69,7 +71,16 @@ def init_pay(request):
             'Amount': int(order.total_delivery) * 100,
             'Tax': 'none'
         }
+        promocode = {
+            'Name': 'Скидка по промокоду',
+            'Price': -(int(order.total_discount) * 100),
+            'Quantity': 1,
+            'Amount': -int(order.total_discount) * 100,
+            'Tax': 'none'
+        }
         json_data['Receipt']['Items'].append(delivery)
+        json_data['Receipt']['Items'].append(promocode)
+        print(json_data)
 
     headers = {
         'content-type': 'application/json',
@@ -162,6 +173,34 @@ def shiptorg_post(order):
     return HttpResponse(f.content)
 
 
+# @require_http_methods(["POST"])
+# @csrf_exempt
+# def email_view(*args, **kwargs):
+def email_view(order):
+# #     order_id = kwargs.get('order_id')
+#     order_id = json.loads(request.body.decode("utf-8"))['order_id']
+#     order = get_object_or_404(Order, id=order_id)
+    if order:
+        subject = "Оформление посылки на доставку"
+        to = [order.email]
+        from_email = 'info@classicalbooks.ru'
+
+        total = order.total + order.total_delivery - order.total_discount
+
+        ctx = {
+            'order': order,
+            'total': total
+        }
+
+        message = get_template('email/email.html').render(ctx)
+        print(message)
+        msg = EmailMessage(subject, message, to=to, from_email=from_email)
+        msg.content_subtype = 'html'
+        msg.send()
+
+        return HttpResponse({'response': 1})
+
+
 def check_token(params):
     """
     https://oplata.tinkoff.ru/landing/develop/plug/tokens
@@ -193,10 +232,12 @@ def get_payment_status(request):
     if token_valid:
         order = get_object_or_404(Order, id=id)
         order.order_status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
-        order.save()
-        if order.order_status == 'confirmed':
+
+        if order.order_status == 'confirmed' and order.send_to_shiptor == False:
             shiptorg_post(order)
-            # email_view(order=order)
+            order.send_to_shiptor = True
+            email_view(order)
+        order.save()
         return HttpResponse(status=200, content='OK')
     
     return HttpResponse(status=403, content='Incorrect token')
@@ -215,17 +256,3 @@ def shiptorg(request):
     # print(f.json())
 
     return HttpResponse(f.content)
-
-
-@csrf_exempt
-def email_view(*args, **kwargs):
-    order = kwargs.get('order')
-    message = render_to_string('email/email.html', {'order': order})
-    print(message)
-    send_mail(
-        'Оформление посылки на доставку',
-        message,
-        'info@classicalbooks.ru',
-        [order.email]
-    )
-    return JsonResponse({'response': 1})

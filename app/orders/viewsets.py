@@ -8,8 +8,9 @@ from rest_framework.response import Response
 from rest_framework.settings import api_settings
 from rest_framework.viewsets import GenericViewSet
 
-from app.orders.models import Order, Cart, OrderGoods
-from app.orders.serializers import OrderSerializer, OrderDetailSerializer, CartSerializer, OrderGoodsSerializer
+from app.orders.models import Order, Cart, OrderGoods, Promocode
+from app.orders.serializers import OrderSerializer, OrderDetailSerializer, CartSerializer, OrderGoodsSerializer, \
+    PromocodeSerializer
 
 
 class OrderViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericViewSet):
@@ -40,6 +41,7 @@ class OrderViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericView
             order.created_at = datetime.now()
             order.save()
         order_goods.update(cart=None, order=obj)
+        cart.total_discount = 0
         cart.save()
         obj.save()
         OrderGoods.objects.filter(cart=cart, active=False).delete()
@@ -65,6 +67,20 @@ class CartViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericViewS
     def get_queryset(self):
         return Cart.objects.filter(cookie=self.request.session.session_key)
 
+    @detail_route(methods=['post'], url_name='use_promocode', url_path='use_promocode/(?P<code>[a-z0-9]+)')
+    def use_promocode(self, request, pk=None, code=None):
+        cart = get_object_or_404(Cart, pk=pk, cookie=self.request.session.session_key)
+        promocode = Promocode.objects.filter(code=code, used=False).first()
+        if promocode:
+            total_discount = cart.price * promocode.discount / 100
+            cart.total_discount = total_discount
+            cart.save()
+            promocode.used = True
+            promocode.save()
+            return Response(CartSerializer(instance=cart).data)
+        else:
+            return Response({'error':'No such promocode'})
+
     @detail_route(methods=['post'])
     def check_goods(self, request, pk=None):
         # cart = Cart.objects.filter(cookie=self.request.session.session_key).first()
@@ -73,6 +89,11 @@ class CartViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericViewS
             return Response({'true'})
         else:
             return Response({'false'})
+
+
+class PromocodeViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericViewSet):
+    queryset = Promocode.objects.all()
+    serializer_class = PromocodeSerializer
 
 
 class OrderGoodsViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins.CreateModelMixin, mixins.DestroyModelMixin, GenericViewSet):
@@ -120,7 +141,7 @@ class OrderGoodsViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins
             cart.save()
         return Response(OrderGoodsSerializer(instance=op).data)
 
-    @detail_route(methods=['post'])
+    @detail_route(methods=['post'], )
     def deactivate(self, request, pk=None):
         cart = Cart.objects.filter(cookie=self.request.session.session_key).first()
         op = get_object_or_404(OrderGoods, pk=pk)

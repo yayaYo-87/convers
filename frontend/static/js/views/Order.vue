@@ -88,18 +88,22 @@
           >Подарочная карта или код скидки</label>
           <input  @focus="focusedCode = true"
                   @blur="fcCode()"
-                  v-model="code" id="code"
+                  v-model="promocode" id="code"
                   type="text"
                   class="order__info_input-email">
         </div>
         <div class="order__right_code-button">
-          <button>Использовать</button>
+          <button @click="checkedCode()">Использовать</button>
         </div>
       </div>
       <div class="order__right_subtotal">
         <div class="order__right_subtotal-items">
           <div class="order__right_subtotal-text">Промежуточный итог</div>
           <div class="order__right_subtotal-price" v-for="item in basket.results">{{ item.price }}<span class="rubl" > &#8399;</span></div>
+        </div>
+        <div class="order__right_subtotal-items" v-if="item.total_discount !== 0" v-for="item in basket.results">
+          <div class="order__right_subtotal-text">Скидка по промокоду</div>
+          <div class="order__right_subtotal-price" v-for="item in basket.results">-{{ item.total_discount }}<span class="rubl" > &#8399;</span></div>
         </div>
         <div class="order__right_subtotal-items">
           <div class="order__right_subtotal-text">Доставка</div>
@@ -113,7 +117,7 @@
       <div class="order__right_total">
         <div class="order__right_total_items">
           <div class="order__right_total-text">Итого</div>
-          <div class="order__right_total-price" v-for="item in basket.results">{{ item.price + Math.ceil(deliveryTotal)  }}<span class="rubl" > &#8399;</span></div>
+          <div class="order__right_total-price" v-for="item in basket.results">{{ item.price + Math.ceil(deliveryTotal) - item.total_discount  }}<span class="rubl" > &#8399;</span></div>
         </div>
       </div>
     </div>
@@ -134,6 +138,7 @@
         code: '',
         deliveryTotal: 0,
         deliveryDays: 0,
+        promocode: ''
       }
     },
     directives: { focus: focus },
@@ -167,7 +172,7 @@
           let id = now.results[0].id;
           axios.post('/api/cart/' + id + '/check_goods/')
             .then((response) => {
-            console.log(response.data[0])
+              console.log(response.data[0])
               if(response.data[0] === 'false'){
                 location.href = '/'
               }
@@ -178,6 +183,38 @@
       '$route.path': 'get'
     },
     methods: {
+      errorPopup(now){
+        const newDiv = document.createElement('div')
+        newDiv.classList.add('popup')
+        newDiv.innerHTML = now
+
+        document.body.appendChild(newDiv)
+
+        setTimeout(function () {
+          document.body.removeChild(newDiv)
+        }, 3000)
+      },
+      checkedCode(){
+        let self = this;
+        const id = this.basket.results[0].id;
+
+        axios.post('/api/cart/' + id + '/use_promocode/' + self.promocode + '/')
+          .then((response) => {
+            this.$store.dispatch('results');
+            console.log(response.data)
+            if (response.data.error === 'No such promocode') {
+              this.errorPopup('Промокод уже был использован!')
+            } else {
+              this.errorPopup('Промокод установлен!')
+
+            }
+          }, (error) => {
+            this.$store.dispatch('results');
+            this.promocode = '';
+            this.errorPopup('Неверный промокод!')
+          })
+
+      },
       backMethods(id){
         this.$store.dispatch('validation', {typeValid: 'validation', value: id})
       },
@@ -191,7 +228,7 @@
           })
       },
       fcCode(){
-        if(this.code.length !== 0) {
+        if(this.promocode.length !== 0) {
           this.focusedCode = true
         } else {
           this.focusedCode = false

@@ -81,6 +81,7 @@
       }
       &-button{
         button{
+          cursor: pointer
           padding: 1.4em 1.7em;
           background: #2a9dcc;
           color: white;
@@ -90,7 +91,10 @@
           border: none
           outline: none
           border-radius 4px
-
+          transition .5s
+          &:hover{
+            opacity .7
+          }
         }
       }
     }

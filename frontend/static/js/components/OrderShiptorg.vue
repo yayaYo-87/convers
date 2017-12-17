@@ -157,6 +157,15 @@
       },
       calculateShipping(weight, height, length, width) {
         const self = this;
+
+        let declaredCost = 0;
+
+        if(self.basket.results[0].price >= 12000) {
+          declaredCost = 1000
+        } else {
+          declaredCost = 10
+        }
+
         axios.post('/shiptorg/', {
           json: {
             "id": "JsonRpcClient.js",
@@ -168,7 +177,7 @@
               "height": height,
               "weight": weight,
               "country_code": "RU",
-              "declared_cost": self.basket.results[0].total_count,
+              "declared_cost": declaredCost,
               "kladr_id": self.city.kladr_id,
             }
           }
