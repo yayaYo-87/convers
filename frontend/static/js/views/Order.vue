@@ -202,7 +202,7 @@
           })
       },
       fcCode(){
-        if(this.code.length !== 0) {
+        if(this.promocode.length !== 0) {
           this.focusedCode = true
         } else {
           this.focusedCode = false
