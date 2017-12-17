@@ -41,6 +41,7 @@ class OrderViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericView
             order.created_at = datetime.now()
             order.save()
         order_goods.update(cart=None, order=obj)
+        cart.total_discount = 0
         cart.save()
         obj.save()
         OrderGoods.objects.filter(cart=cart, active=False).delete()
