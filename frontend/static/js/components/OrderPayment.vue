@@ -215,11 +215,21 @@
             "home": self.hom,
           }).then(
             function (response) {
-              if(response.data.error !== undefined){
-                location.href = '/'
-              } else{
-                self.initPay(response.data.id)
-              }
+
+              axios.post('/email_view/?order_id=' + response.data.id + '/')
+                .then((response) => {
+                  console.log(response.data)
+                }, (error) => {
+                  console.log(error)
+              })
+
+
+
+//              if(response.data.error !== undefined){
+//                location.href = '/'
+//              } else{
+//                self.initPay(response.data.id)
+//              }
             }, function (error) {
               self.loader = false
               console.log(error)
