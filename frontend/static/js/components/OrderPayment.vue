@@ -216,7 +216,11 @@
           }).then(
             function (response) {
 
-              axios.post('/email_view/?order_id=' + response.data.id + '/')
+              axios.post('/email_view/', {
+                json: {
+                  order_id: response.data.id
+                }
+              })
                 .then((response) => {
                   console.log(response.data)
                 }, (error) => {
