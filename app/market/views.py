@@ -173,6 +173,34 @@ def shiptorg_post(order):
     return HttpResponse(f.content)
 
 
+# @require_http_methods(["POST"])
+# @csrf_exempt
+# def email_view(*args, **kwargs):
+def email_view(order):
+# #     order_id = kwargs.get('order_id')
+#     order_id = json.loads(request.body.decode("utf-8"))['order_id']
+#     order = get_object_or_404(Order, id=order_id)
+    if order:
+        subject = "Оформление посылки на доставку"
+        to = [order.email]
+        from_email = 'info@classicalbooks.ru'
+
+        total = order.total + order.total_delivery - order.total_discount
+
+        ctx = {
+            'order': order,
+            'total': total
+        }
+
+        message = get_template('email/email.html').render(ctx)
+        print(message)
+        msg = EmailMessage(subject, message, to=to, from_email=from_email)
+        msg.content_subtype = 'html'
+        msg.send()
+
+        return HttpResponse({'response': 1})
+
+
 def check_token(params):
     """
     https://oplata.tinkoff.ru/landing/develop/plug/tokens
@@ -208,7 +236,7 @@ def get_payment_status(request):
         if order.order_status == 'confirmed' and order.send_to_shiptor == False:
             shiptorg_post(order)
             order.send_to_shiptor = True
-            # email_view(order=order)
+            email_view(order)
         order.save()
         return HttpResponse(status=200, content='OK')
     
@@ -228,34 +256,3 @@ def shiptorg(request):
     # print(f.json())
 
     return HttpResponse(f.content)
-
-
-@require_http_methods(["POST"])
-@csrf_exempt
-# def email_view(*args, **kwargs):
-def email_view(request):
-#     order_id = kwargs.get('order_id')
-    order_id = json.loads(request.body.decode("utf-8"))['order_id']
-    print(order_id)
-    order = get_object_or_404(Order, id=order_id)
-    print(order)
-    if order:
-        subject = "Оформление посылки на доставку"
-        print(subject)
-        to = [order.email]
-        from_email = 'info@classicalbooks.ru'
-
-        total = order.total + order.total_delivery - order.total_discount
-
-        ctx = {
-            'order': order,
-            'total': total
-        }
-
-        message = get_template('email/email.html').render(ctx)
-        print(message)
-        msg = EmailMessage(subject, message, to=to, from_email=from_email)
-        msg.content_subtype = 'html'
-        msg.send()
-
-        return HttpResponse({'response': 1})
