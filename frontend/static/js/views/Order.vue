@@ -183,7 +183,7 @@
         let self = this;
         const id = this.basket.results[0].id;
 
-        axios.post('/api/cart/' + id + '/use_promocode/?code=' + self.promocode + '/')
+        axios.post('/api/cart/' + id + '/use_promocode/' + self.promocode + '/')
           .then((response) => {
             console.log(response.data)
           })
