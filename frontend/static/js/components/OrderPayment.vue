@@ -126,9 +126,9 @@
     },
     methods: {
       errorPopup(now){
-        const newDiv = document.createElement('div')
-        newDiv.classList.add('popup')
-        newDiv.innerHTML = now
+        const newDiv = document.createElement('div');
+        newDiv.classList.add('popup');
+        newDiv.innerHTML = now;
 
         document.body.appendChild(newDiv)
 
@@ -137,10 +137,10 @@
         }, 3000)
       },
       forEachBasket(now){
-        const self = this
-        self.Items = []
-        self.itemsShiptor = []
-        let result = {}
+        const self = this;
+        self.Items = [];
+        self.itemsShiptor = [];
+        let result = {};
         this.price = now.results[0].price;
         this.itemOrder = now.results[0].id;
 
