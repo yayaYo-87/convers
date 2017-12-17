@@ -245,8 +245,11 @@ def email_view(request):
         to = [order.email]
         from_email = 'info@classicalbooks.ru'
 
+        total = order.total + order.total_delivery - order.total_discount
+
         ctx = {
-            'order': order
+            'order': order,
+            'total': total
         }
 
         message = get_template('email/email.html').render(ctx)

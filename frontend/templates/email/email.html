@@ -140,32 +140,38 @@
                                                         <tbody><tr>
                                                             <td colspan="3" style="padding-top:30px"></td>
                                                         </tr>
+                                                        {% for goods in order.order_goods.all %}
                                                         <tr>
                                                             <td valign="top">
                                                                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                                                                    <tbody><tr>
-                                                                        <td width="100" height="100" style="padding-right:20px">
-                                                                            <img src="https://ci5.googleusercontent.com/proxy/xCtE7reFsyTiirb8W5a2_p0TjgfcnKsz3gGpEfZ-_vJev_k2JurbVRsRbrXI_Mi1ILyRYHlZXk6kv5_BrJDXr9Ok9jwnXNg8JGB27izy2lEf2fxo7OmvuwboXNPmc7j13AUsakRGkKCx8CLpE0WdC8N8P8TH22X_gXBb6GfTNtTrZRllKt_qJPf5ZjM=s0-d-e1-ft#http://static.wixstatic.com/media/d10527_85a73282436443369dce2cea974545f5~mv2.png/v1/fill/w_80,h_80,al_c,q_90/file.jpg" width="100" height="100" style="vertical-align:middle" class="CToWUd">
-                                                                        </td>
-                                                                        <td style="padding-right:20px">
-                                                                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                                                                                <tbody><tr>
-                                                                                    <td style="font-weight:400;color:#343434">Книга "Классическое христианское образование в доступной форме"</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>Артикул: 0002</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>Цена: 600,00 руб.</td>
-                                                                                </tr>
-                                                                                </tbody></table>
-                                                                        </td>
-                                                                    </tr>
+                                                                    <tbody>
+
+                                                                        <tr>
+                                                                            <td width="100" height="100" style="padding-right:20px">
+                                                                                <img src="{{ goods.goods.cover }}" width="100" height="100" style="vertical-align:middle" class="CToWUd">
+                                                                            </td>
+                                                                            <td style="padding-right:20px">
+                                                                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                                                                    <tbody><tr>
+                                                                                        <td style="font-weight:400;color:#343434">{{ goods.goods.name }}</td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>{{ goods.goods.articul }}</td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>Цена: {{ goods.goods.price }} руб.</td>
+                                                                                    </tr>
+                                                                                    </tbody></table>
+                                                                            </td>
+                                                                        </tr>
+
+
                                                                     </tbody></table>
                                                             </td>
-                                                            <td valign="top" width="80" style="font-weight:400;color:#343434">К-во: 1</td>
-                                                            <td align="right" width="80" valign="top" style="font-weight:400;color:#343434">600,00 руб.</td>
+                                                            <td valign="top" width="80" style="font-weight:400;color:#343434">К-во: {{ goods.count }}</td>
+                                                            <td align="right" width="80" valign="top" style="font-weight:400;color:#343434">{{ goods.price }} руб.</td>
                                                         </tr>
+                                                        {% endfor %}
                                                         <tr>
                                                             <td colspan="3" style="padding-bottom:30px;border-bottom:1px solid #6f6f6f"></td>
                                                         </tr>
@@ -185,13 +191,16 @@
                                                             <td align="right" style="padding-left:30px;font-weight:400"> {{ order.total_delivery }} руб. </td>
                                                         </tr>
                                                         <tr>
+                                                            <td style="padding-right:25px;font-weight:400">Скидка</td>
+                                                            <td align="right" style="padding-left:30px;font-weight:400"> {{ order.total_discount }} руб. </td>
+                                                        </tr>
+                                                        <tr>
                                                             <td colspan="2" style="padding-top:10px;border-bottom:1px solid #6f6f6f"></td>
                                                         </tr>
                                                         <tr>
                                                             <td style="padding-right:25px;font-weight:400;padding-top:10px">Итого</td>
                                                             <td align="right" style="padding-left:30px;font-weight:400;padding-top:10px">
-                                                                {% set sum = order.total_delivery + order.total %}
-                                                                {% sum %}руб.</td>
+                                                                {{ total }}руб.</td>
                                                         </tr>
                                                         </tbody></table>
                                                 </td>
