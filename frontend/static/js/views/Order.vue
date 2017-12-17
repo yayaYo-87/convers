@@ -201,10 +201,12 @@
         axios.post('/api/cart/' + id + '/use_promocode/' + self.promocode + '/')
           .then((response) => {
             this.$store.dispatch('results');
-            if(response.data.results[0].total_discount === 0 ) {
+            console.log(response.data)
+            if (response.data.error === 'No such promocode') {
               this.errorPopup('Промокод уже был использован!')
             } else {
               this.errorPopup('Промокод установлен!')
+
             }
           }, (error) => {
             this.$store.dispatch('results');
