@@ -122,6 +122,9 @@ class Promocode(models.Model):
     discount = models.PositiveIntegerField(verbose_name='Скидка по промокоду(в %)')
     used = models.BooleanField(verbose_name='Использован', default=False)
 
+    def __str__(self):
+        return 'Промокод "{}" для скидки на {}%'.format(self.code, self.discount)
+
     class Meta:
         verbose_name = 'Промокод'
         verbose_name_plural = 'Промокоды'
