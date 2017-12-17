@@ -17,8 +17,8 @@
                                                                 <img class="m_-1802661626314348884m_-2670458810514885017header-site-logo-image CToWUd" src="https://ci3.googleusercontent.com/proxy/dauE_zUbFZixAbXvBDyGDWjeRkK80XCp4bcIw9J-6wUejitGu3d9kGla1eBYyTNxAm5OmxjhCXZsV1umDnpGHeQKawhe3pSoLqFF8vb75_yacLPu_k-do6Qpoa1p0hBBSvjwfoJTYK1yG4U_jPiOqsN86zxINdG0PYVm6MEZr0gSmew=s0-d-e1-ft#http://static.wixstatic.com/media/f3be4ff2da7642d887eb5094442c39f5.jpg/v1/fill/w_100,h_100,al_c,q_90/file.jpg" width="40" height="40">
                                                             </td>
                                                             <td width="20"></td>
-                                                            <td class="m_-1802661626314348884m_-2670458810514885017header-site-name" style="vertical-align:middle;font-size:28px;font-weight:bold;line-height:38px">Интрнет-магазин "Классические беседы"</td>
-                                                            {{ order.id }}
+                                                            <td class="m_-1802661626314348884m_-2670458810514885017header-site-name" style="vertical-align:middle;font-size:28px;font-weight:bold;line-height:38px">Интернет-магазин "Классические беседы"</td>
+
                                                         </tr>
                                                         </tbody></table>
                                                 </td>
@@ -35,11 +35,11 @@
                                                         <tbody><tr>
                                                             <td width="50%" style="padding-right:25px" valign="top">
                                                                 <span style="font-weight:400;color:#343434">Номер заказа</span>
-                                                                <span>10002</span>
+                                                                <span>{{ order.id }}</span>
                                                             </td>
                                                             <td width="50%" style="padding-left:25px" valign="top">
                                                                 <span style="font-weight:400;color:#343434">Размещен</span>
-                                                                <span>Nov 27, 2017</span>
+                                                                <span>{{ order.created_at }}</span>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -49,7 +49,7 @@
                                                             <td colspan="2" style="padding-bottom:25px"></td>
                                                         </tr>
                                                         <tr>
-                                                            <td width="50%" style="padding-right:25px" valign="top">
+                                                            <td width="30%" valign="top">
 
                                                                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                                                     <tbody><tr>
@@ -57,7 +57,7 @@
 
                                                                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                                                                 <tbody><tr>
-                                                                                    <td style="padding-bottom:20px;font-weight:400;color:#343434">Офлайн-оплата</td>
+                                                                                    <td style="padding-bottom:20px;font-weight:400;color:#343434">Онлайн-оплата</td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td></td>
@@ -67,7 +67,7 @@
                                                                     </tr>
                                                                     </tbody></table>
                                                             </td>
-                                                            <td width="50%" style="padding-left:25px" valign="top">
+                                                            <td width="70%"  valign="top">
                                                                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                                                     <tbody><tr>
                                                                         <td>
@@ -78,34 +78,28 @@
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td style="padding-bottom:20px">
-                                                                                        Почта России  (от 1 до 7 дней в зависимости о региона)
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>тест</td>
-                                                                                </tr>
-                                                                                <tr>
                                                                                     <td>
-                                                                                        Parh
+                                                                                        Способ доставки: {{ order.order_delivery }}
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td>
-                                                                                        <span>
-                                                                                            Volgograd,
-                                                                                            RU-AD,
-                                                                                            400087
-                                                                                         </span>
-                                                                                        <br>
-                                                                                        <span>RUS</span>
+                                                                                        Город доставки: {{ order.city }}
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td>92222222222</td>
+                                                                                    <td>
+                                                                                        Индекс доставки: {{ order.index }},<br>
+                                                                                        Адрес доставки: {{ order.address }}, <br>
+                                                                                        Дом: {{ order.home }}, <br>
+                                                                                        Квартира: {{ order.apartment }} <br>
+                                                                                    </td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td><a href="mailto:kergoff2@gmail.com" target="_blank">kergoff2@gmail.com</a></td>
+                                                                                    <td>Номер телефона: {{ order.phone }}</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td><a href="mailto:{{ order.email }}" target="_blank">{{ order.email }}</a></td>
                                                                                 </tr>
                                                                                 </tbody></table>
                                                                         </td>
@@ -183,22 +177,20 @@
                                                     <table border="0" cellpadding="0" cellspacing="0">
                                                         <tbody><tr>
                                                             <td style="padding-right:25px;font-weight:400">Сумма</td>
-                                                            <td align="right" style="padding-left:30px;font-weight:400">600,00 руб.</td>
+                                                            <td align="right" style="padding-left:30px;font-weight:400">{{ order.total }} руб.</td>
                                                         </tr>
                                                         <tr>
                                                             <td style="padding-right:25px;font-weight:400">Доставка</td>
-                                                            <td align="right" style="padding-left:30px;font-weight:400"> 300,00 руб. </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="padding-right:25px;font-weight:400">Налог</td>
-                                                            <td align="right" style="padding-left:30px;font-weight:400"> 0,00 руб. </td>
+                                                            <td align="right" style="padding-left:30px;font-weight:400"> {{ order.total_delivery }} руб. </td>
                                                         </tr>
                                                         <tr>
                                                             <td colspan="2" style="padding-top:10px;border-bottom:1px solid #6f6f6f"></td>
                                                         </tr>
                                                         <tr>
                                                             <td style="padding-right:25px;font-weight:400;padding-top:10px">Итого</td>
-                                                            <td align="right" style="padding-left:30px;font-weight:400;padding-top:10px">900,00 руб.</td>
+                                                            <td align="right" style="padding-left:30px;font-weight:400;padding-top:10px">
+
+                                                                {{ order.total_delivery }} + {{ order.total }} руб.</td>
                                                         </tr>
                                                         </tbody></table>
                                                 </td>
@@ -230,7 +222,7 @@
                                                             <td style="color:#6f6f6f">Мы сделаем все возможное, чтобы вы остались довольны.</td>
                                                         </tr>
                                                         <tr>
-                                                            <td style="color:#6f6f6f">Напишите: <a href="mailto:tezoro@mail.ru" target="_blank">tezoro@mail.ru</a></td>
+                                                            <td style="color:#6f6f6f">Напишите: <a href="mailto:info@classicalbooks.ru" target="_blank">info@classicalbooks.ru</a></td>
                                                         </tr>
                                                         </tbody></table>
                                                 </td>
@@ -243,7 +235,7 @@
                                                             <td style="padding-bottom:20px;font-weight:400;color:#343434">Отправитель письма: Интрнет-магазин "Классические беседы"</td>
                                                         </tr>
                                                         <tr>
-                                                            <td style="color:#6f6f6f"><a href="https://u2382462.ct.sendgrid.net/wf/click?upn=uJznTct2zHXdu89yOybhE-2B24e13J-2FGcrvfhqT6A3-2FrE81HJGF84EKSKyojXtC6AGrof7d5Lp0r8h6l5g2swIYw-3D-3D_c6-2FCyEZgPo5jWBzhH7FkLyeADoeUWN56MhFy-2BB94uRhFUj9qu0vesn6YmqCiahcqpV5X8n33wVebNbTkCNXGqnS3otZkrqXJYKsQyw5aTkEiC39Rev1CKXl-2BwCAaa6Gd4lTJUFD14yaNVQbdT9EBloAdvhF312zGUCF9QNCmBud2ylQAMAW1276SVPz-2BbZViETUcSSK5AYGZ9vyfJGEb6YuWw3e9vAX4datGyDKsF110AnS5xInz9exEHlydAHpHqjOn05jyXWC1bRuGELd9zo6cRNQ5bUM7W6cM11RuzLzRwOBleiJXlYidKkRABU2MRCROhFywSBOhXC7VJQrpAgapnThDGJS-2BGnqHtQkj0LJTjTAfLz4CtLwj1gnhQGEupT6OXSax71gD3UkyAN3vOWfM-2FtQq-2BJkTwD8fCwMJvy5MliIySYMrG1aNHjBO-2BvXGmfBJKBR-2BHv2pjSTbp4N5WoIr-2FWvOejtvMJveZThkMZOUx4V3smRHblnso4HAnVH-2FtKmPs6eoMVPJT8aEsUtygnIpgI9mBuRlKhr2p6A4Gwap-2FyiWf5DaZqxwUJ1C5qu2jmtkx0BpShQHxAWtwUkzy3ypZz-2BAY4bzRa5r7dJIZ-2BMfr8AI-2BUUlMq3lROZWy-2F77D-2FgMTN0folflBVsijPp2IeMheE7G8iuurde2vF7MbhzEXpjhHq95EgXPG7yZ0I-2BkjXq4t5BQbNchLKdx6dQmZWZZBbnNNB5TeiFaHTdO2mpyhzexDuH7cFq5BzThxY-2FW" target="_blank" data-saferedirecturl="https://www.google.com/url?hl=ru&amp;q=https://u2382462.ct.sendgrid.net/wf/click?upn%3DuJznTct2zHXdu89yOybhE-2B24e13J-2FGcrvfhqT6A3-2FrE81HJGF84EKSKyojXtC6AGrof7d5Lp0r8h6l5g2swIYw-3D-3D_c6-2FCyEZgPo5jWBzhH7FkLyeADoeUWN56MhFy-2BB94uRhFUj9qu0vesn6YmqCiahcqpV5X8n33wVebNbTkCNXGqnS3otZkrqXJYKsQyw5aTkEiC39Rev1CKXl-2BwCAaa6Gd4lTJUFD14yaNVQbdT9EBloAdvhF312zGUCF9QNCmBud2ylQAMAW1276SVPz-2BbZViETUcSSK5AYGZ9vyfJGEb6YuWw3e9vAX4datGyDKsF110AnS5xInz9exEHlydAHpHqjOn05jyXWC1bRuGELd9zo6cRNQ5bUM7W6cM11RuzLzRwOBleiJXlYidKkRABU2MRCROhFywSBOhXC7VJQrpAgapnThDGJS-2BGnqHtQkj0LJTjTAfLz4CtLwj1gnhQGEupT6OXSax71gD3UkyAN3vOWfM-2FtQq-2BJkTwD8fCwMJvy5MliIySYMrG1aNHjBO-2BvXGmfBJKBR-2BHv2pjSTbp4N5WoIr-2FWvOejtvMJveZThkMZOUx4V3smRHblnso4HAnVH-2FtKmPs6eoMVPJT8aEsUtygnIpgI9mBuRlKhr2p6A4Gwap-2FyiWf5DaZqxwUJ1C5qu2jmtkx0BpShQHxAWtwUkzy3ypZz-2BAY4bzRa5r7dJIZ-2BMfr8AI-2BUUlMq3lROZWy-2F77D-2FgMTN0folflBVsijPp2IeMheE7G8iuurde2vF7MbhzEXpjhHq95EgXPG7yZ0I-2BkjXq4t5BQbNchLKdx6dQmZWZZBbnNNB5TeiFaHTdO2mpyhzexDuH7cFq5BzThxY-2FW&amp;source=gmail&amp;ust=1512030434506000&amp;usg=AFQjCNHi9UBol832Qk7l8el1nFapGqb79Q">https://www.classicalconversat<wbr>ionsbooks.ru/</a></td>
+                                                            <td style="color:#6f6f6f"><a target="_blank"  href="https://classicalbooks.ru/">https://classicalbooks.ru/</a></td>
                                                         </tr>
                                                         </tbody></table>
                                                 </td>
