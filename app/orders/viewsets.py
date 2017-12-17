@@ -69,11 +69,13 @@ class CartViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericViewS
     @detail_route(methods=['post'], url_name='use_promocode', url_path='use_promocode/(?P<code>[a-z0-9]+)')
     def use_promocode(self, request, pk=None, code=None):
         cart = get_object_or_404(Cart, pk=pk, cookie=self.request.session.session_key)
-        promocode = Promocode.objects.filter(code=code).first()
+        promocode = Promocode.objects.filter(code=code, used=False).first()
         if promocode:
             total_discount = cart.price * promocode.discount / 100
             cart.total_discount = total_discount
             cart.save()
+            promocode.used = True
+            promocode.save()
             return Response(CartSerializer(instance=cart).data)
         else:
             return Response({'error':'No such promocode'})
