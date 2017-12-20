@@ -260,7 +260,7 @@ def shiptorg(request):
 @csrf_exempt
 def feedback_view(request, *args, **kwargs):
     subject = "Сообщение от пользователя"
-    to = ['info@classicalbooks.ru',]
+    to = ['stalkerky@gmail.com',]
     from_email = 'info@classicalbooks.ru'
 
     data = request.POST.copy()
