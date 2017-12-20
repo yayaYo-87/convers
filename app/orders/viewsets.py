@@ -67,7 +67,7 @@ class CartViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, GenericViewS
     def get_queryset(self):
         return Cart.objects.filter(cookie=self.request.session.session_key)
 
-    @detail_route(methods=['post'], url_name='use_promocode', url_path='use_promocode/(?P<code>[a-z0-9]+)')
+    @detail_route(methods=['post'], url_name='use_promocode', url_path='use_promocode/(?P<code>[A-Za-z0-9]+)')
     def use_promocode(self, request, pk=None, code=None):
         cart = get_object_or_404(Cart, pk=pk, cookie=self.request.session.session_key)
         promocode = Promocode.objects.filter(code=code, used=False).first()
