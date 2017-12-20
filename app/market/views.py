@@ -173,9 +173,7 @@ def shiptorg_post(order):
     return HttpResponse(f.content)
 
 
-# @require_http_methods(["POST"])
-# @csrf_exempt
-# def email_view(*args, **kwargs):
+
 def email_view(order):
 # #     order_id = kwargs.get('order_id')
 #     order_id = json.loads(request.body.decode("utf-8"))['order_id']
@@ -256,3 +254,24 @@ def shiptorg(request):
     # print(f.json())
 
     return HttpResponse(f.content)
+
+
+@require_http_methods(["POST"])
+@csrf_exempt
+def feedback_view(request, *args, **kwargs):
+    subject = "Сообщение от пользователя"
+    to = ['info@classicalbooks.ru',]
+    from_email = 'info@classicalbooks.ru'
+
+    data = request.POST.copy()
+
+    ctx = {
+        'data': data,
+    }
+
+    message = get_template('email/feedback.html').render(ctx)
+    msg = EmailMessage(subject, message, to=to, from_email=from_email)
+    msg.content_subtype = 'html'
+    msg.send()
+
+    return HttpResponse({'response': 1})
