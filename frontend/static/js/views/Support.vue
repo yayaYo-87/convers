@@ -9,25 +9,26 @@
                 <h1 class="about__title">Обратная связь</h1>
 
                 <p>Мы очень рады представить вам наш новый книжный интернет-магазин! Мы хотим создать для вас лучший опыт покупок, поэтому, если у вас есть предложения и пожелания, мы хотели бы их услышать! Мы постоянно улучшаем внешний вид и функциональность нашего магазина, и мы хотим, чтобы вы выросли вместе с нами! Если у вас есть какие-либо вопросы о чем-либо другом, кроме нового сайта, пожалуйста, обращайтесь в службу поддержки клиентов и они будут рады помочь вам. Счастливые покупки и благословит вас Бог!</p>
-                
                 <div class="support">
-                    <div class="support_input ">
-                        <label for="name">Имя</label>
-                        <input type="text" id="name">
-                    </div>
-                    <div class="support_input support_input-email">
-                        <label for="email">E-mail</label>
-                        <input type="email" id="email">
-                    </div>
-                    <div class="support_text">
-                        <label for="email">Ваше сообщение</label>
-                        <textarea class="support_text-area"></textarea>
-                    </div>
-                    <button class="button">
-                        <span>Отправить</span>
-                    </button>
+                    <!--<vue-recaptcha sitekey="6LeRaD0UAAAAAEtGaHqiIVXr5_G7Od0MFWtp4i5V">-->
+                        <div class="support_input ">
+                            <label for="name">Имя</label>
+                            <input type="text" id="name">
+                        </div>
+                        <div class="support_input support_input-email">
+                            <label for="email">E-mail</label>
+                            <input type="email" id="email">
+                        </div>
+                        <div class="support_text">
+                            <label for="email">Ваше сообщение</label>
+                            <textarea class="support_text-area"></textarea>
+                        </div>
+
+                        <button class="button">
+                            <span>Отправить</span>
+                        </button>
+                    <!--</vue-recaptcha>-->
                 </div>
-                
                 <h3>Рекомендуемые товары</h3>
                 <div class="cart__rew">
                     <div class="cart__item cart__item-width" v-for="item in limitBy(result, 3)">
@@ -73,6 +74,7 @@
 <script>
   import axios from 'axios'
   import bar from '../components/Bar.vue'
+//  import VueRecaptcha from 'vue-recaptcha';
   export default {
     data() {
       return {
@@ -80,7 +82,8 @@
       }
     },
     components: {
-      bar
+      bar,
+//      VueRecaptcha
     },
     methods: {
       getRecommend() {
