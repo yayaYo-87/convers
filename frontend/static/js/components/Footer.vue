@@ -16,8 +16,8 @@
       <span>|</span>
       <router-link :to="{ name: 'faq' }" class="footer__list_item">FAQ</router-link>
       <span>|</span>
-      <!--<router-link :to="{ name: 'support' }" class="footer__list_item">Обратная связь</router-link>-->
-      <!--<span>|</span>-->
+      <router-link :to="{ name: 'support' }" class="footer__list_item">Обратная связь</router-link>
+      <span>|</span>
 
       <!--<div class="footer__list_item">Обратная связь</div>-->
     </div>
