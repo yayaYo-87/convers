@@ -22,6 +22,15 @@
                     <span class="rubl" > &#8399;</span>
                 </div>
             </div>
+            <div class="order__shiptorg_methods-item"
+                 v-if="!loader"
+                 :class="{ 'order__shiptorg_methods-item-active'  : indexShiptor === 600}"
+                 @click="shiptorAdd('', 600)">
+                <div class="order__shiptorg_methods-item-loader"></div>
+                <div class="order__shiptorg_methods-item-title">Без доставки</div>
+                <div class="order__shiptorg_methods-item-total">0<span class="rubl" > &#8399;</span>
+                </div>
+            </div>
         </div>
         <div class="order__info_button">
             <div @click="backMethods(1)"  class="order__info_button-return">
@@ -110,8 +119,42 @@
     },
     methods: {
       shiptorAdd(value,index){
-        this.indexShiptor = index;
-        this.shiptor = value;
+        if(index === 600) {
+          const ship = {
+            cost:{
+              total: {
+                currency:"RUB",
+                readable:"0",
+                sum: 0
+              },
+              services:[
+                {
+                  currency:"RUB",
+                  readable:"0",
+                  service:"Без доставки",
+                  sum:0
+                }
+              ],
+            },
+            days:"0",
+            method:{
+              category:"Без доставки",
+              comment:"Без доставки",
+              courier:"without",
+              description:null,
+              group:"Без доставки",
+              id:600,
+              name:"Без доставки"
+            },
+            priority:100,
+            status:"ok",
+          };
+          this.indexShiptor = index;
+          this.shiptor = ship;
+        } else {
+          this.indexShiptor = index;
+          this.shiptor = value;
+        }
       },
       backMethods(id){
         this.$store.dispatch('validation', {typeValid: 'validation', value: id})
