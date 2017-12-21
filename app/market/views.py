@@ -175,9 +175,6 @@ def shiptorg_post(order):
 
 
 def email_view(order):
-# #     order_id = kwargs.get('order_id')
-#     order_id = json.loads(request.body.decode("utf-8"))['order_id']
-#     order = get_object_or_404(Order, id=order_id)
     if order:
         subject = "Оформление посылки на доставку"
         to = [order.email]
