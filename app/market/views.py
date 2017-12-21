@@ -229,8 +229,9 @@ def get_payment_status(request):
         order.order_status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
 
         if order.order_status == 'confirmed' and order.send_to_shiptor == False:
-            shiptorg_post(order)
-            order.send_to_shiptor = True
+            if not order.order_delivery == 'without':
+                shiptorg_post(order)
+                order.send_to_shiptor = True
             email_view(order)
         order.save()
         return HttpResponse(status=200, content='OK')
@@ -257,7 +258,7 @@ def shiptorg(request):
 @csrf_exempt
 def feedback_view(request, *args, **kwargs):
     subject = "Сообщение от пользователя"
-    to = ['stalkerky@gmail.com',]
+    to = ['info@classicalbooks.ru',]
     from_email = 'info@classicalbooks.ru'
 
     data = request.POST.copy()
