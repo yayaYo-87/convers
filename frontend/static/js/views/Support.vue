@@ -9,7 +9,10 @@
                 <h1 class="about__title">Обратная связь</h1>
 
                 <p>Мы очень рады представить вам наш новый книжный интернет-магазин! Мы хотим создать для вас лучший опыт покупок, поэтому, если у вас есть предложения и пожелания, мы хотели бы их услышать! Мы постоянно улучшаем внешний вид и функциональность нашего магазина, и мы хотим, чтобы вы выросли вместе с нами! Если у вас есть какие-либо вопросы о чем-либо другом, кроме нового сайта, пожалуйста, обращайтесь в службу поддержки клиентов и они будут рады помочь вам. Счастливые покупки и благословит вас Бог!</p>
-                <div class="support">
+                <div class="order__shiptorg_methods-wr" v-if="loader">
+                    <img class="order__shiptorg_methods-img" src="/static/img/loader.gif" alt="loader">
+                </div>
+                <div class="support" v-if="!loader">
                     <div class="support_input ">
                         <label for="name">Имя</label>
                         <input type="text" id="name" v-model="name">
@@ -22,16 +25,17 @@
                         <label for="email">Ваше сообщение</label>
                         <textarea class="support_text-area" v-model="text"></textarea>
                     </div>
-                    <vue-recaptcha sitekey="6LeRaD0UAAAAAEtGaHqiIVXr5_G7Od0MFWtp4i5V"
-                                   ref="invisibleRecaptcha"
-                                   @verify="onVerify"
-                                   @expired="onExpired"
-                    ></vue-recaptcha>
-
-                    <input  type="submit"
-                            :disabled="!isValid"
+                    <!--<vue-recaptcha sitekey="6LeRaD0UAAAAAEtGaHqiIVXr5_G7Od0MFWtp4i5V"-->
+                    <!--ref="invisibleRecaptcha"-->
+                    <!--@verify="onVerify"-->
+                    <!--@expired="onExpired"-->
+                    <!--&gt;</vue-recaptcha>-->
+                    <button
                             @click.prevent="mailTo"
+                            :disabled="!isValid"
                             class="button">
+                        <span>Отправить</span>
+                    </button>
                 </div>
                 <h3>Рекомендуемые товары</h3>
                 <div class="cart__rew">
@@ -78,11 +82,12 @@
 <script>
   import axios from 'axios'
   import bar from '../components/Bar.vue'
-  import VueRecaptcha from 'vue-recaptcha';
+  //  import VueRecaptcha from 'vue-recaptcha';
   export default {
     data() {
       return {
         result: [],
+        loader: false,
         name: '',
         email: '',
         text: '',
@@ -91,7 +96,7 @@
     },
     components: {
       bar,
-      VueRecaptcha
+//      VueRecaptcha
     },
     computed: {
       validation: function () {
@@ -110,29 +115,31 @@
     },
     methods: {
       mailTo(){
+        this.loader = true;
         let self = this;
-
-        axios.post('https://www.google.com/recaptcha/api/siteverify', {
-          secret: '6LeRaD0UAAAAAH2K7Sot0aCK3-ZFqwhcxz_q2b2H',
-          response: 'g-recaptcha-response'
-        }).then(
+        axios.post('/feedback_view/', 'name=' + self.name + '&email=' + self.email + '&text=' +self.text + '').then(
           (response) => {
-            console.log(response)
-            axios.post('/feedback_view/', 'name=' + self.name + '&email=' + self.email + '&text=' +self.text + '').then(
-              (response) => {
-                console.log(response)
-              },
-              (error) => {
-
-              }
-            )
-
+            self.errorPopup('Письмо отправлено!')
+            self.loader = false;
+            self.name = '';
+            self.email = '';
+            self.text = '';
           },
           (error) => {
-            console.log(error)
+            self.errorPopup(error)
           }
-        );
+        )
+      },
+      errorPopup(now){
+        const newDiv = document.createElement('div')
+        newDiv.classList.add('popup')
+        newDiv.innerHTML = now
 
+        document.body.appendChild(newDiv)
+
+        setTimeout(function () {
+          document.body.removeChild(newDiv)
+        }, 3000)
       },
       onSubmit: function () {
         this.$refs.invisibleRecaptcha.execute()
