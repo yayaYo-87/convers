@@ -10,27 +10,28 @@
 
                 <p>Мы очень рады представить вам наш новый книжный интернет-магазин! Мы хотим создать для вас лучший опыт покупок, поэтому, если у вас есть предложения и пожелания, мы хотели бы их услышать! Мы постоянно улучшаем внешний вид и функциональность нашего магазина, и мы хотим, чтобы вы выросли вместе с нами! Если у вас есть какие-либо вопросы о чем-либо другом, кроме нового сайта, пожалуйста, обращайтесь в службу поддержки клиентов и они будут рады помочь вам. Счастливые покупки и благословит вас Бог!</p>
                 <div class="support">
-                    <!--<vue-recaptcha sitekey="6LeRaD0UAAAAAEtGaHqiIVXr5_G7Od0MFWtp4i5V">-->
-                    <form action="">
-                        <div class="support_input ">
-                            <label for="name">Имя</label>
-                            <input type="text" id="name" v-model="name">
-                        </div>
-                        <div class="support_input support_input-email">
-                            <label for="email">E-mail</label>
-                            <input type="email" id="email" v-model="email">
-                        </div>
-                        <div class="support_text">
-                            <label for="email">Ваше сообщение</label>
-                            <textarea class="support_text-area" v-model="text"></textarea>
-                        </div>
+                    <div class="support_input ">
+                        <label for="name">Имя</label>
+                        <input type="text" id="name" v-model="name">
+                    </div>
+                    <div class="support_input support_input-email">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" v-model="email">
+                    </div>
+                    <div class="support_text">
+                        <label for="email">Ваше сообщение</label>
+                        <textarea class="support_text-area" v-model="text"></textarea>
+                    </div>
+                    <vue-recaptcha sitekey="6LeRaD0UAAAAAEtGaHqiIVXr5_G7Od0MFWtp4i5V"
+                                   ref="invisibleRecaptcha"
+                                   @verify="onVerify"
+                                   @expired="onExpired"
+                    ></vue-recaptcha>
 
-                        <input  type="submit"
-                                :disabled="!isValid"
-                                @click.prevent="mailTo"
-                                class="button">
-                    </form>
-                    <!--</vue-recaptcha>-->
+                    <input  type="submit"
+                            :disabled="!isValid"
+                            @click.prevent="mailTo"
+                            class="button">
                 </div>
                 <h3>Рекомендуемые товары</h3>
                 <div class="cart__rew">
@@ -77,7 +78,7 @@
 <script>
   import axios from 'axios'
   import bar from '../components/Bar.vue'
-  //  import VueRecaptcha from 'vue-recaptcha';
+  import VueRecaptcha from 'vue-recaptcha';
   export default {
     data() {
       return {
@@ -90,11 +91,12 @@
     },
     components: {
       bar,
-//      VueRecaptcha
+      VueRecaptcha
     },
     computed: {
       validation: function () {
         return {
+          captcha: false,
           name: !!this.name.trim(),
           text: !!this.text.trim(),
           email: this.emailRE.test(this.email),
@@ -118,6 +120,19 @@
 
           }
         )
+      },
+      onSubmit: function () {
+        this.$refs.invisibleRecaptcha.execute()
+      },
+      onVerify: function (response) {
+        console.log('Verify: ' + response);
+        this.validation.captcha = true;
+      },
+      onExpired: function () {
+        console.log('Expired')
+      },
+      resetRecaptcha () {
+        this.$refs.recaptcha.reset() // Direct call reset method
       },
       getRecommend() {
         const self = this;
