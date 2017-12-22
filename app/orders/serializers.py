@@ -86,6 +86,7 @@ class OrderSerializer(serializers.ModelSerializer):
             'shipping_id',
             'kladr_id',
             'delivery_point',
+            'delivery_point_name',
             'administrative_area',
             'settlement',
             'apartment',

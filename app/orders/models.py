@@ -13,6 +13,7 @@ class Order(models.Model):
         ('cancel', 'Отменен'),
     )
     DELIVERIES = (
+        ('without', 'без доставки'),
         ('shiptor', 'shiptor'),
         ('boxberry', 'boxberry'),
         ('b2c', 'b2c'),
@@ -47,6 +48,7 @@ class Order(models.Model):
     administrative_area = models.CharField(verbose_name='Область', max_length=256, null=True)
     settlement = models.CharField(verbose_name='Населенный пункт', max_length=256, null=True)
     apartment = models.CharField(verbose_name='Квартира', max_length=256, null=True)
+    delivery_point_name = models.CharField(verbose_name='Пункт самовывоза', max_length=256, null=True)
     comment = models.TextField(verbose_name='Комментарий', null=True, blank=True)
 
     send_to_shiptor = models.BooleanField(verbose_name='Отправлен в шиптор', default=False)

@@ -200,6 +200,7 @@
             "total_delivery": Math.ceil(self.shiptorOrder.cost.total.sum),
             "shipping_id": self.shiptorOrder.method.id,
             "delivery_point": self.deliveryPoint.id,
+            "delivery_point_name": self.deliveryPoint.address ,
             "administrative_area": self.city.administrative_area,
             "email": self.email,
             "apartment": self.apartment,
