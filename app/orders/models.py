@@ -13,6 +13,7 @@ class Order(models.Model):
         ('cancel', 'Отменен'),
     )
     DELIVERIES = (
+        ('without', 'без доставки'),
         ('shiptor', 'shiptor'),
         ('boxberry', 'boxberry'),
         ('b2c', 'b2c'),
