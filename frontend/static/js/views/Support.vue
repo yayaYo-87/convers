@@ -96,7 +96,6 @@
     computed: {
       validation: function () {
         return {
-          captcha: false,
           name: !!this.name.trim(),
           text: !!this.text.trim(),
           email: this.emailRE.test(this.email),
@@ -112,21 +111,34 @@
     methods: {
       mailTo(){
         let self = this;
-        axios.post('/feedback_view/', 'name=' + self.name + '&email=' + self.email + '&text=' +self.text + '').then(
+
+        axios.post('https://www.google.com/recaptcha/api/siteverify', {
+          secret: '6LeRaD0UAAAAAH2K7Sot0aCK3-ZFqwhcxz_q2b2H',
+          response: 'g-recaptcha-response'
+        }).then(
           (response) => {
             console.log(response)
+            axios.post('/feedback_view/', 'name=' + self.name + '&email=' + self.email + '&text=' +self.text + '').then(
+              (response) => {
+                console.log(response)
+              },
+              (error) => {
+
+              }
+            )
+
           },
           (error) => {
-
+            console.log(error)
           }
-        )
+        );
+
       },
       onSubmit: function () {
         this.$refs.invisibleRecaptcha.execute()
       },
       onVerify: function (response) {
         console.log('Verify: ' + response);
-        this.validation.captcha = true;
       },
       onExpired: function () {
         console.log('Expired')
