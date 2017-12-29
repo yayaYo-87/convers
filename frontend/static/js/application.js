@@ -15,7 +15,7 @@ import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import VueResource from 'vue-resource'
 import * as VueGoogleMaps from 'vue2-google-maps'
 
-require('swiper/dist/css/swiper.css')
+require('swiper/dist/css/swiper.css');
 Vue.use(VueAwesomeSwiper);
 Vue.use(VueResource);
 
