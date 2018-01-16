@@ -27,7 +27,7 @@
                  :class="{ 'order__shiptorg_methods-item-active'  : indexShiptor === 600}"
                  @click="shiptorAdd('', 600)">
                 <div class="order__shiptorg_methods-item-loader"></div>
-                <div class="order__shiptorg_methods-item-title">Без доставки</div>
+                <div class="order__shiptorg_methods-item-title">Уже реализованная доставка</div>
                 <div class="order__shiptorg_methods-item-total">0<span class="rubl" > &#8399;</span>
                 </div>
             </div>
