@@ -1,6 +1,5 @@
 <template>
     <div class="order__info-one" v-show="next === 1">
-        Последний день отправки 29/12, потом каникулы до 8 января включительно. Первый рабочий день - 9 января! <br> <br>
         <div class="order__info_mail">
             <div class="order__info_mail-title">Информация для покупателей</div>
             <div class="order__info_input">
