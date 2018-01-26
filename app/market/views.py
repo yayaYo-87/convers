@@ -71,15 +71,16 @@ def init_pay(request):
             'Amount': int(order.total_delivery) * 100,
             'Tax': 'none'
         }
-        promocode = {
-            'Name': 'Скидка по промокоду',
-            'Price': -(int(order.total_discount) * 100),
-            'Quantity': 1,
-            'Amount': -int(order.total_discount) * 100,
-            'Tax': 'none'
-        }
+        if order.total_discount:
+            promocode = {
+                'Name': 'Скидка по промокоду',
+                'Price': -(int(order.total_discount) * 100),
+                'Quantity': 1,
+                'Amount': -int(order.total_discount) * 100,
+                'Tax': 'none'
+            }
+            json_data['Receipt']['Items'].append(promocode)
         json_data['Receipt']['Items'].append(delivery)
-        json_data['Receipt']['Items'].append(promocode)
         print(json_data)
 
     headers = {
@@ -188,7 +189,7 @@ def email_view(order):
         }
 
         message = get_template('email/email.html').render(ctx)
-        print(message)
+#         print(message)
         msg = EmailMessage(subject, message, to=to, from_email=from_email)
         msg.content_subtype = 'html'
         msg.send()
