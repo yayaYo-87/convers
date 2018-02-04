@@ -219,7 +219,7 @@ def get_payment_status(request):
     params = json.loads(request.body.decode("utf-8"))
     id = params.get('OrderId')
     status = params.get('Status')
-    # print('status = ', status)
+    print('tinkov_request = ', params)
     # convert python booleans to js string
     # e.g True to "true"
     params = {k: str(v).lower() if isinstance(v, bool) else v for k, v in params.items()}
