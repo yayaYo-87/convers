@@ -153,6 +153,7 @@
         axios.get('/api/goods/' + id + '/')
           .then(
             function (response) {
+                if (response.data.available === false) return self.$router.push('/')
               self.result = response.data
             },
             function (error) {
