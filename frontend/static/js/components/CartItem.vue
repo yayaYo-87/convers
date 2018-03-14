@@ -1,5 +1,5 @@
 <template>
-    <div class="cart__item">
+    <div class="cart__item" v-if="result.available !== false">
         <router-link
                 tag="div"
                 :to="{ name: 'cart', params: {  item: id } }"
@@ -29,31 +29,32 @@
 </template>
 
 <script>
-  import axios from 'axios'
+    import axios from 'axios'
 
-  export default {
-    props: ['id'],
-    data() {
-      return {
-        result: []
-      }
-    },
-    methods: {
-      get() {
-        const self = this;
-        axios.get('/api/goods/' + this.id + '/')
-          .then(
-            function (response) {
-              self.result = response.data
-            },
-            function (error) {
-
+    export default {
+        props: ['id'],
+        data() {
+            return {
+                result: []
             }
-          )
-      },
-    },
-    created() {
-      this.get()
+        },
+        methods: {
+            get() {
+                const self = this;
+                axios.get('/api/goods/' + this.id + '/')
+                    .then(
+                        function (response) {
+
+                            self.result = response.data
+                        },
+                        function (error) {
+
+                        }
+                    )
+            },
+        },
+        created() {
+            this.get()
+        }
     }
-  }
 </script>

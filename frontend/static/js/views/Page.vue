@@ -12,7 +12,7 @@
 
                 <h3>Рекомендуемые товары</h3>
                 <div class="cart__rew">
-                    <div class="cart__item cart__item-width" v-for="item in limitBy(result, 3)">
+                    <div class="cart__item cart__item-width" v-for="item in limitBy(result, 3)" v-if="item.available !== false">
                         <router-link
                                 tag="div"
                                 :to="{ name: 'cart', params: {  item: item.id } }"

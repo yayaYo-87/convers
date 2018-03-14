@@ -13,6 +13,7 @@
     >
       <div class="product_item"
            v-for="item in items.goods_categories"
+           v-if="item.available !== false"
       >
         <router-link
                 tag="div"

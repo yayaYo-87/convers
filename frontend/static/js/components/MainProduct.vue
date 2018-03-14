@@ -3,7 +3,7 @@
     <h3>Рекомендуемые товары</h3>
     <div class="main_product__items">
 
-      <div class="main_product_item" v-for="item in result">
+      <div class="main_product_item" v-for="item in result" v-if="item.available !== false">
         <div class="main_product_item-img">
           <router-link :to="{ name: 'cart', params: { item: item.id } }"
                        class="main_product_item-img_wrapper"
