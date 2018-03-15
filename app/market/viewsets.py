@@ -24,6 +24,9 @@ class GoodsViewSet(viewsets.ModelViewSet):
             return GoodsDetailSerializer
         return super(GoodsViewSet, self).get_serializer_class()
 
+    def get_queryset(self):
+        return Goods.objects.filter(available=True)
+
 
 class MainGoodsViewSet(viewsets.ModelViewSet):
     queryset = Goods.objects.all()
