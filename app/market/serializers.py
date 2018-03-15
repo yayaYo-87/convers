@@ -75,11 +75,17 @@ class GoodsDetailSerializer(serializers.ModelSerializer):
 
 
 class CategorySerializer(serializers.ModelSerializer):
-    goods_categories = GoodsSerializer(many=True, required=False)
+    goods_categories = serializers.SerializerMethodField('get_goods')
 
     class Meta:
         model = Category
         fields = ['id', 'name', 'goods_categories', 'description']
+
+    def get_goods(self, obj):
+        goods_queryset = Goods.objects.filter(available=True, category=obj).all()
+        serializer = GoodsSerializer(instance=goods_queryset, many=True, required=False, context=self.context)
+
+        return serializer.data
 
 
 class CatalogSerializer(serializers.ModelSerializer):

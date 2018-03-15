@@ -1,6 +1,6 @@
 django==1.11.6
 djangorestframework==3.5.4
-psycopg2==2.6.2
+psycopg2==2.7.4
 django-suit==0.2.25
 django-suit-daterange-filter==0.0.4
 django-nested-admin==3.0.19
