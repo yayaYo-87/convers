@@ -130,3 +130,94 @@ class Promocode(models.Model):
     class Meta:
         verbose_name = 'Промокод'
         verbose_name_plural = 'Промокоды'
+
+
+
+#Модели созданные для управления объектами сайта курсов
+class CoursesOrdersCoursescart(models.Model):
+    cookie = models.CharField(max_length=48, blank=True, null=True)
+    price = models.IntegerField()
+    total_count = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'courses_orders_coursescart'
+
+
+class CoursesOrdersCoursesorder(models.Model):
+    order_status = models.CharField(max_length=10)
+    first_name = models.CharField(max_length=255, blank=True, null=True)
+    last_name = models.CharField(max_length=255, blank=True, null=True)
+    email = models.CharField(max_length=255, blank=True, null=True)
+    phone = models.CharField(max_length=255, blank=True, null=True)
+    total = models.IntegerField(blank=True, null=True)
+    created_at = models.DateTimeField(blank=True, null=True)
+    total_count = models.IntegerField(blank=True, null=True)
+    extra_id = models.CharField(max_length=255, blank=True, null=True)
+
+    class Meta:
+        db_table = 'courses_orders_coursesorder'
+
+
+class CoursesOrdersOrdertickets(models.Model):
+    count = models.IntegerField()
+    price = models.IntegerField()
+    created_at = models.DateTimeField(blank=True, null=True)
+    active = models.BooleanField()
+    ids = models.TextField()  # This field type is a guess.
+    cart = models.ForeignKey(CoursesOrdersCoursescart, models.DO_NOTHING, blank=True, null=True)
+    order = models.ForeignKey(CoursesOrdersCoursesorder, models.DO_NOTHING, blank=True, null=True)
+    tickets = models.ForeignKey('PracticumTickets', models.DO_NOTHING, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'courses_orders_ordertickets'
+
+
+class PracticumArea(models.Model):
+    name = models.CharField(max_length=256)
+    address = models.CharField(max_length=256)
+    contacts = models.TextField()
+    coordinates = models.CharField(max_length=42)
+
+    class Meta:
+        managed = False
+        db_table = 'practicum_area'
+
+
+class PracticumCourses(models.Model):
+    name = models.CharField(max_length=256)
+    slug = models.CharField(max_length=50, blank=True, null=True)
+    description = models.TextField()
+    area = models.ForeignKey(PracticumArea, models.DO_NOTHING, blank=True, null=True)
+    date_end = models.DateTimeField(blank=True, null=True)
+    date_start = models.DateTimeField(blank=True, null=True)
+    email = models.CharField(max_length=200, blank=True, null=True)
+    link = models.CharField(max_length=200, blank=True, null=True)
+    organizer = models.CharField(max_length=200, blank=True, null=True)
+    phone = models.CharField(max_length=200, blank=True, null=True)
+    type = models.CharField(max_length=10, blank=True, null=True)
+    sort_index = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'practicum_courses'
+
+
+class PracticumTickets(models.Model):
+    quantity = models.IntegerField()
+    price = models.DecimalField(max_digits=7, decimal_places=2)
+    category = models.ForeignKey('PracticumTicketscategory', models.DO_NOTHING)
+    courses = models.ForeignKey(PracticumCourses, models.DO_NOTHING, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'practicum_tickets'
+
+
+class PracticumTicketscategory(models.Model):
+    name = models.CharField(max_length=256)
+
+    class Meta:
+        managed = False
+        db_table = 'practicum_ticketscategory'

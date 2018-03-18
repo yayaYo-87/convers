@@ -4,17 +4,14 @@ from _sha256 import sha256
 import requests
 from django.conf import settings
 from django.core.mail import EmailMessage
-from django.core.mail import send_mail
 from django.http import HttpResponse
-from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
-from django.template import Context
-from django.template.loader import render_to_string, get_template
+from django.template.loader import get_template
 from django.views import generic
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
-from app.orders.models import Cart, OrderGoods, Order
+from app.orders.models import Cart, OrderGoods, Order, CoursesOrdersCoursesorder
 
 
 class IndexView(generic.TemplateView):
@@ -226,15 +223,23 @@ def get_payment_status(request):
     token_valid = check_token(params)
 
     if token_valid:
-        order = get_object_or_404(Order, id=id)
-        order.order_status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
+        # Проверка откуда пришел заказ по его id
+        if str(id).find('courses_') < 0:
+            order = get_object_or_404(Order, id=id)
+            order.order_status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
 
-        if order.order_status == 'confirmed' and order.send_to_shiptor == False:
-            if not order.order_delivery == 'without':
-                shiptorg_post(order)
-                order.send_to_shiptor = True
-            email_view(order)
-        order.save()
+            if order.order_status == 'confirmed' and order.send_to_shiptor == False:
+                if not order.order_delivery == 'without':
+                    shiptorg_post(order)
+                    order.send_to_shiptor = True
+                email_view(order)
+            order.save()
+        else:
+            order = get_object_or_404(CoursesOrdersCoursesorder, id=id)
+            order.order_status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
+            if order.order_status == 'confirmed':
+                email_view(order)
+            order.save()
         return HttpResponse(status=200, content='OK')
     
     return HttpResponse(status=403, content='Incorrect token')
