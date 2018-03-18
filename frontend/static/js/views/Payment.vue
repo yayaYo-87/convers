@@ -16,23 +16,31 @@
 </template>
 
 <script>
-  import axios from 'axios'
+    import axios from 'axios'
 
-  export default {
-    data() {
-      return {
+    export default {
+        data() {
+            return {
 
-      }
-    },
-    computed:{
-      result(){
-        return this.$route.query
-      }
-    },
-    methods: {
-
-    },
-    mounted(){
+            }
+        },
+        computed:{
+            result(){
+                return this.$route.query
+            }
+        },
+        methods: {
+            redirect(){
+                if(this.$route.query.Success === 'true') {
+                    const urlSuccess = this.$route.query.OrderId.split('_')
+                    if(urlSuccess[0] === 'courses') {
+                        document.location.href = 'http://mdma.digital/#/payment'
+                    }
+                }
+            }
+        },
+        created(){
+            this.redirect()
+        }
     }
-  }
 </script>
