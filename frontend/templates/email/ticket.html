@@ -13,17 +13,237 @@
     <script type='text/javascript' src='https://timepad.ru/js/lib/jquery/1.8.3/jquery.min.js'></script>
 
     <style type="text/css">
-        @font-face {
+        @font-face {
             font-family: FreeSans;
             src: url("/usr/share/fonts/truetype/freefont/FreeSans.ttf");
         }
-
-
         body {
             font-family: FreeSans;
         }
+        table,
+        td,
+        tr,
+        tbody {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            border-collapse: collapse;
+            vertical-align: middle;
+        }
+        ul,
+        li {
+            margin: 0;
+        }
+        a {
+            color: #00aeef;
+        }
+        h1,
+        h2,
+        h3,
+        h4 {
+            line-height: 1;
+            margin: 0;
+        }
+        body {
+            margin: 0;
+            font-size: 14px;
+            font-family: Arial, sans-serif;
+            background-image: url(/img/ticket-page-bg.png);
+        }
+        .b-print-warp {
+            width: 720px;
+            margin: 40px auto;
+            padding: 40px;
+            background-color: #fff;
+            -webkit-box-shadow: 0 10px 30px rgba(50, 50, 50, 0.25);
+            -moz-box-shadow: 0 10px 30px rgba(50, 50, 50, 0.25);
+            box-shadow: 0 10px 30px rgba(50, 50, 50, 0.25);
+        }
+        .b-main {
+            width: 720px;
+        }
+        .b-left-column {
+            display: inline-block;
+            float: left;
+        }
+        .b-right-column {
+            display: inline-block;
+            float: right;
+        }
+        .b-event-name {
+            font-family: Tahoma, sans-serif;
+            font-size: 16px;
+            line-height: 22px;
+            width: 478px;
+            margin: 0 0 12px 0;
+            box-sizing: border-box;
+            position: relative;
+        }
+        .b-timepad {
+            font-family: Tahoma, sans-serif;
+            font-size: .6em;
+            padding-bottom: 1.5em;
+            text-align: right;
+            opacity: 0.7;
+        }
+        .b-timepad span {
+            color: #000;
+            margin-right: 0.95em;
+        }
+        .b-timepad img {
+            position: relative;
+            top: -3px;
+            vertical-align: middle;
+        }
+        .b-info__border {
+            height: 3px;
+        }
+        .b-org-agent {
+            font-size: 9px;
+            color: #5f5f5f;
+            width: 240px;
+            padding-right: 30px;
+            line-height: 1.3;
+        }
+        .b-org-agent p {
+            margin-top: 0;
+        }
+        .b-terms {
+            color: #5f5f5f;
+            font-family: Tahoma;
+            font-size: 9px;
+            line-height: 1.3;
+            width: 430px;
+            padding-bottom: 30px;
+            vertical-align: top;
+        }
+        .b-info__field-name {
+            font-family: Tahoma;
+            font-size: 11px;
+            text-align: right;
+            padding-right: 20px;
+            width: 100px;
+            line-height: 15px;
+            vertical-align: top;
+        }
+        .b-info__field {
+            font-size: 14px;
+            font-family: Tahoma;
+            vertical-align: top;
+            line-height: 1;
+            padding-bottom: 5px;
+        }
+        .b-info {
+            height: 218px;
+            line-height: 15px;
+            vertical-align: middle;
+        }
+        .b-info__req {
+            width: 470px;
+        }
+        .b-qr {
+            vertical-align: middle;
+            text-align: right;
+        }
+        .b-req {
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+        .b-req td {
+            padding-top: 10px;
+            vertical-align: top;
+        }
+        .b-map {
+            width: 720px;
+            max-height: 400px;
+            overflow: hidden;
+        }
+        .b-address__content {
+            font-family: Tahoma, sans-serif;
+            font-size: 11px;
+            padding: 7px;
+            width: 346px;
+            text-align: center;
+        }
+        .b-address__left {
+            width: 170px;
+            text-align: left;
+        }
+        .b-address__right {
+            width: 190px;
+            text-align: right;
+        }
+        .l-horisontal-wrap {
+            width: 1000px;
+            margin: auto;
+            position: relative;
+        }
 
-        table,td,tr,tbody{margin:0;padding:0;border:0;border-collapse:collapse;vertical-align:middle}ul,li{margin:0}a{color:#00aeef}h1,h2,h3,h4{line-height:1;margin:0}body{margin:0;font-size:14px;font-family:Arial,sans-serif;background-image:url(/img/ticket-page-bg.png)}.b-print-warp{width:720px;margin:40px auto;padding:40px;background-color:#fff;-webkit-box-shadow:0 10px 30px rgba(50,50,50,.25);-moz-box-shadow:0 10px 30px rgba(50,50,50,.25);box-shadow:0 10px 30px rgba(50,50,50,.25)}.b-main{width:720px}.b-left-column{display:inline-block;float:left}.b-right-column{display:inline-block;float:right}.b-partners{margin:24px 0 14px;white-space:nowrap;overflow:hidden}.b-partner-logo{max-height:42px;margin-right:20px}.b-partner-logo:last-child{padding-right:0}.b-logo{padding-bottom:16px}.b-event-name{font-family:Tahoma,sans-serif;font-size:16px;line-height:22px;width:478px;margin:0 0 12px 0;box-sizing:border-box;position:relative}.b-event-name_with-logo{padding-bottom:0}.b-timepad{font-family:Tahoma,sans-serif;font-size:.6em;padding-bottom:1.5em;text-align:right;opacity:.7}.b-timepad span{color:#000;margin-right:.95em}.b-timepad img{position:relative;top:-3px;vertical-align:middle}.b-info__border{height:3px}.b-barcode{width:50px;padding-right:30px}.b-org-agent{font-size:9px;color:#5f5f5f;width:240px;padding-right:30px;line-height:1.3}.b-org-agent p{margin-top:0}.b-terms{color:#5f5f5f;font-family:Tahoma;font-size:9px;line-height:1.3;width:430px;padding-bottom:30px;vertical-align:top}.b-terms__age-limit{width:32px;height:32px;margin-top:4px}.b-date{width:94px;text-align:center;line-height:1}.b-date__day{font-family:Georgia;font-size:50px;margin-bottom:15px}.b-date__month{font-family:Verdana;font-size:15px;margin-bottom:5px}.b-date__time{font-family:Georgia;font-size:18px;font-weight:700}.b-info__field-name{font-family:Tahoma;font-size:11px;text-align:right;padding-right:20px;width:100px;line-height:15px;vertical-align:top}.b-info__field{font-size:14px;font-family:Tahoma;vertical-align:top;line-height:1;padding-bottom:5px}.b-info{height:218px;line-height:15px;vertical-align:middle}.b-info_with-logo{min-height:0}.b-info__req{width:470px}.b-info__req_type_wide{width:400px!important}.b-qr{vertical-align:middle;text-align:right}.b-req{margin-bottom:20px;margin-top:20px}.b-req td{padding-top:10px;vertical-align:top}.b-map{width:720px;max-height:400px;overflow:hidden}.b-address__content{font-family:Tahoma,sans-serif;font-size:11px;padding:7px;width:346px;text-align:center}.b-address__left{width:170px;text-align:left}.b-address__right{width:190px;text-align:right}.l-horisontal-wrap{width:1000px;margin:auto;position:relative}.b-hbox{color:#3c3c3c;width:800px;margin:auto;line-height:1}.b-hbox__info{width:500px!important}.b-hbox__right{margin-left:0!important;width:300px!important;text-align:center}.b-hbox__header{font-size:1.71em;font-weight:400;margin-bottom:1em;padding-top:1.6em}.b-hbox__event-name{font-size:1.28em;margin-bottom:.7em;line-height:1.2}.b-hbox__alert{font-size:.85em;color:#e10000}.b-hbox__descr{font-size:.85em;line-height:1.2}.b-printer{width:296px;height:80px;padding-top:40px;display:inline-block;*display:inline;*zoom:1;text-align:center;background-image:url(/img/printer-ticket.png)}.b-print-button{font-size:1.28em;font-weight:400;font-family:Arial;color:#fff;border:0;border-bottom:2px solid #577f57;padding:13px 17px 13px 17px;margin:auto;line-height:1;text-shadow:1px 1px 0 #969696;text-decoration:none!important;background:#bcde00;background:-moz-linear-gradient(top,#bcde00 0%,#b0d400 22%,#80ad00 78%,#73a300 100%);background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#bcde00),color-stop(22%,#b0d400),color-stop(78%,#80ad00),color-stop(100%,#73a300));background:-webkit-linear-gradient(top,#bcde00 0%,#b0d400 22%,#80ad00 78%,#73a300 100%);background:-o-linear-gradient(top,#bcde00 0%,#b0d400 22%,#80ad00 78%,#73a300 100%);background:-ms-linear-gradient(top,#bcde00 0%,#b0d400 22%,#80ad00 78%,#73a300 100%);background:linear-gradient(to bottom,#bcde00 0%,#b0d400 22%,#80ad00 78%,#73a300 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#bcde00', endColorstr='#73a300', GradientType=0)}.b-print-button:hover,.b-print-button:focus{color:#fff;outline:0;background-position:0 0;-webkit-transition:none;background:#bcde00;background:-moz-linear-gradient(top,#bcde00 0%,#b0d400 22%,#80ad00 78%,#73a300 100%);background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#bcde00),color-stop(22%,#b0d400),color-stop(78%,#80ad00),color-stop(100%,#73a300));background:-webkit-linear-gradient(top,#bcde00 0%,#b0d400 22%,#80ad00 78%,#73a300 100%);background:-o-linear-gradient(top,#bcde00 0%,#b0d400 22%,#80ad00 78%,#73a300 100%);background:-ms-linear-gradient(top,#bcde00 0%,#b0d400 22%,#80ad00 78%,#73a300 100%);background:linear-gradient(to bottom,#bcde00 0%,#b0d400 22%,#80ad00 78%,#73a300 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#bcde00', endColorstr='#73a300', GradientType=0)}.timepad-footer{font-size:.78em;font-family:Arial;color:#949494;padding-bottom:3.5em}.timepad-footer a{color:#1783d7;text-decoration:none}.timepad-footer__org-button{margin-bottom:.7em}.b-copy img,.b-copy span,.b-copy a{vertical-align:middle}.timepad-footer a:hover{text-decoration:underline}.timepad-footer__menu{list-style:none;display:inline-block;*display:inline;*zoom:1;padding:0}.timepad-footer__menu li{float:left;margin-left:20px}.timepad-footer__org-button{color:#000!important}.b-copy__logo{width:79px;height:20px;display:inline-block;*display:inline;*zoom:1;background-image:url(/img/ticket-footer-logo.png);background-repeat:no-repeat}.l-no-display{display:none}.l-footer{width:800px;margin:auto;overflow:hidden}.l-footer__right{text-align:right}.b-info__field-name-text{padding-top:0}.b-ticket-extratext{padding-top:1em}.b-printinfo__wrapper{display:none}.b-printinfo{color:#fff;margin:24px 0 0 0;padding:16px 24px 24px 24px}.b-printinfo__type_aferprint{background:#89b82d}.b-printinfo__type_browseralert{background:#f3af1e}.b-printinfo h4{font-size:24px;line-height:24px;margin-bottom:.5em}.b-printinfo__descr{font-size:12px;line-height:18px;margin-bottom:0}@media print{body{padding:10px}.l-no-print{display:none}.b-print-warp{width:720px;margin:0 auto;background-color:#fff;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none}.l-horisontal-wrap{width:99%;top:10px}@page{padding:1mm;margin:1mm}.b-header__timepad{font-family:Tahoma,sans-serif;font-size:.6em;padding-bottom:1.5em;text-align:right;opacity:1!important}}@media print and (-webkit-min-device-pixel-ratio:0){@page{padding:1mm;margin:1mm}.b-print-warp{padding:10px;padding-right:25px}}
+        .timepad-footer a {
+            color: #1783d7;
+            text-decoration: none;
+        }
+        .b-copy img,
+        .b-copy span,
+        .b-copy a {
+            vertical-align: middle;
+        }
+        .timepad-footer a:hover {
+            text-decoration: underline;
+        }
+        .timepad-footer__menu li {
+            float: left;
+            margin-left: 20px;
+        }
+        .b-info__field-name-text {
+            padding-top: 0;
+        }
+        .b-printinfo h4 {
+            font-size: 24px;
+            line-height: 24px;
+            margin-bottom: 0.5em;
+        }
+        @media print {
+            body {
+                padding: 10px;
+            }
+            .l-no-print {
+                display: none;
+            }
+            .b-print-warp {
+                width: 720px;
+                margin: 0 auto;
+                background-color: #fff;
+                -webkit-box-shadow: none;
+                -moz-box-shadow: none;
+                box-shadow: none;
+            }
+            .l-horisontal-wrap {
+                width: 99%;
+                top: 10px;
+            }
+            @page  {
+                padding: 1mm;
+                margin: 1mm;
+            }
+            .b-header__timepad {
+                font-family: Tahoma, sans-serif;
+                font-size: .6em;
+                padding-bottom: 1.5em;
+                text-align: right;
+                opacity: 1 !important;
+            }
+        }
+        @media print and (-webkit-min-device-pixel-ratio: 0) {
+            @page  {
+                padding: 1mm;
+                margin: 1mm;
+            }
+            .b-print-warp {
+                padding: 10px;
+                padding-right: 25px;
+            }
+        }
     </style>
 
     <script type='text/javascript' src='https://timepad.ru/js/lib/bootstrap/bootstrap.min.js'></script>
