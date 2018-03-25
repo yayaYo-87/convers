@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'tinymce',
     'ckeditor',
     'ckeditor_uploader',
+    'easy_pdf',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -97,7 +98,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-       'NAME': 'convers',
+       'NAME': 'test_convers',
        'PASSWORD': '1111',
        'HOST': 'localhost',
        'USER': 'postgres',

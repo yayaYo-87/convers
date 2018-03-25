@@ -10,8 +10,9 @@ from django.template.loader import get_template
 from django.views import generic
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
+from easy_pdf.views import PDFTemplateView
 
-from app.orders.models import Cart, OrderGoods, Order, CoursesOrdersCoursesorder
+from app.orders.models import Cart, OrderGoods, Order, CoursesOrdersCoursesorder, CoursesOrdersOrdertickets
 
 
 class IndexView(generic.TemplateView):
@@ -279,3 +280,17 @@ def feedback_view(request, *args, **kwargs):
     msg.send()
 
     return HttpResponse({'response': 1})
+
+
+class TicketPDFView(PDFTemplateView):
+    template_name = 'email/ticket.html'
+
+    def get_context_data(self, **kwargs):
+        id = self.kwargs['id']
+        data = super(TicketPDFView, self).get_context_data(**kwargs)
+        order = CoursesOrdersOrdertickets.objects.filter(ids__contains=[id]).first()
+        if order:
+            order = order.order.id
+            data['order'] = order
+            data['id'] = id
+        return data

@@ -1,3 +1,4 @@
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.db.models import Sum
 
@@ -164,7 +165,7 @@ class CoursesOrdersOrdertickets(models.Model):
     price = models.IntegerField()
     created_at = models.DateTimeField(blank=True, null=True)
     active = models.BooleanField()
-    ids = models.TextField()  # This field type is a guess.
+    ids = ArrayField(models.CharField(max_length=200), blank=True)
     cart = models.ForeignKey(CoursesOrdersCoursescart, models.DO_NOTHING, blank=True, null=True)
     order = models.ForeignKey(CoursesOrdersCoursesorder, models.DO_NOTHING, blank=True, null=True)
     tickets = models.ForeignKey('PracticumTickets', models.DO_NOTHING, blank=True, null=True)

@@ -1,0 +1,286 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/vnd.microsoft.icon"/>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Билет / Родительский Практикум программы &quot;Классические беседы&quot; / События / TimePad.ru</title>
+    <script type='text/javascript' src='https://timepad.ru/js/lib/jquery/1.8.3/jquery.min.js'></script>
+
+    <link rel='stylesheet' type='text/css' href='https://timepad.ru/css/lib/bootstrap/2.3.2/bootstrap.min.css' />
+
+    <link rel='stylesheet' type='text/css' href='https://timepad.ru/css/common-7f4e8fbad7.css' />
+
+    <link rel='stylesheet' type='text/css' href='https://timepad.ru/css/newticket2-7a42441c61.css' />
+
+
+    <script type='text/javascript' src='https://timepad.ru/js/lib/bootstrap/bootstrap.min.js'></script>
+
+    <script type='text/javascript' src='https://timepad.ru/js/lib/bootbox/4.4.0/bootbox.min.js'></script>
+
+    <meta name="robots" content="noindex, nofollow"></head>
+<body>
+<div class="l-horisontal-wrap">
+    <div class="b-hbox l-no-print">
+        <div class="row-fluid">
+            <div class="span7 b-hbox__info">
+                <h1 class="b-hbox__header"><b>Электронный билет</b>&nbsp;на событие</h1>
+
+                <p class="b-hbox__event-name">
+                    Родительский Практикум программы &quot;Классические беседы&quot;
+                </p>
+
+                <p class="b-hbox__alert">
+                    Внимание!
+                </p>
+
+                <p class="b-hbox__descr">
+                    Ссылка на эту страницу позволяет открыть электронный билет с любого компьютера! Не допускайте того, чтобы она попала к посторонним людям
+                </p>
+            </div>
+            <div class="span5 b-hbox__right">
+                <div class="b-printer l-no-print">
+                    <a href="#" class="btn b-print-button" id="print-ticket">
+                        Распечатать билет
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row-fluid b-printinfo__wrapper" id="safari-alert" style="display: none">
+            <div class="b-printinfo span12 b-printinfo__type_browseralert">
+                <h4 style="display:none;" id="use_safari">Используете Safari?</h4>
+
+                <h4 style="display:none;" id="use_firefox">Используете Firefox?</h4>
+
+                <p class="b-printinfo__descr">
+                    В окне печати нажмите «Подробнее», затем отметьте флажок «Напечатать фон», чтобы карта корректно распечаталась. Если вместо билета печатается пустая страница, то попробуйте распечатать билет из меню браузера, открыв вкладку «Файл» и выбрав строчку «Печать».
+                </p>
+            </div>
+        </div>
+
+        <div class="row-fluid b-printinfo__wrapper" id="printinfo-alert">
+            <div class="b-printinfo span12 b-printinfo__type_aferprint">
+                <h4>После того, как вы распечатали билет...</h4>
+
+                <p class="b-printinfo__descr">
+                    Пожалуйста, обязательно проверьте, правильно ли напечатан ваш билет.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="b-print-warp">
+        <div class="b-main">
+            <div class="b-left-column">
+                <div class="b-event-name">Родительский Практикум программы &quot;Классические беседы&quot;</div>
+
+                <table class="b-info">
+                    <tr>
+                        <td class="b-info__border" colspan="99">
+                            <div><img src="https://timepad.ru/img/ticket/border-top.png"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table class="b-info__req">
+                                <tr>
+                                    <td class="b-info__field-name">дата</td>
+                                    <td class="b-info__field"><nobr>
+                                        c <b>15 июля 2017, 10:00</b> по <b>17 июля 2017, 17:00</b>
+                                    </nobr></td>
+                                </tr>
+                                <tr>
+                                    <td class="b-info__field-name"><div class="b-info__field-name-text">тип</div></td>
+                                    <td class="b-info__field">Взрослый: бесплатное посещение</td>
+                                </tr>
+                                <tr>
+                                    <td class="b-info__field-name"><div class="b-info__field-name-text">номер</div></td>
+                                    <td class="b-info__field">
+                                        <b>13134125:43717859</b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="b-info__field-name"><div class="b-info__field-name-text">владелец</div></td>
+                                    <td class="b-info__field">Katerina   Britvina</td>
+                                </tr>
+                                <tr>
+                                    <td class="b-info__field-name"><div class="b-info__field-name-text">организатор</div></td>
+                                    <td class="b-info__field">
+                                        Классические беседы
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="b-info__field-name"><div class="b-info__field-name-text">оплата</div></td>
+                                    <td class="b-info__field">
+                                        Бесплатно
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="b-info__field-name"><div class="b-info__field-name-text">адрес</div></td>
+                                    <td class="b-info__field"
+                                        id="location_address">Москва, ул. Красноармейская, 2А
+                                        Православный просветительский центр при храме Благовещения Пресвятой Богородицы</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="b-info__border" colspan="99">
+                            <div><img src="https://timepad.ru/img/ticket/border-bottom.png"></div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="b-right-column">
+                <div class="b-timepad">
+                    <span style="font-size: 11px;">продажа билетов через</span>
+                    <embed width="70px" height="20px" style="display: inline; position: relative; top: 4px;" src="https://timepad.ru/img/ticket/logo-timepad-2_clear_black.svg" type="image/svg+xml"/>
+                </div>
+                <div class="b-qr">
+
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+
+
+        <table class="b-req">
+            <tr>
+                <td>
+                    <div class="b-org-agent">
+                        <b>Организатор — Классические беседы</b>
+
+                        <p>
+                            ИП Комов Алексей Юрьевич; Адрес: 129323 Россия, Москва, Лазоревый пр. 2-68;ОГРН: 316774600321522; Контактная информация: tezoro@mail.ru, <nobr>+7 (916) 618-16-56;</nobr>                            </p>
+                    </div>
+                    <div class="b-org-agent">
+                        <b>Билетный агент — TimePad</b>
+
+                        <p>
+                            ООО "ТаймПэд Лтд"; ОГРН 1127746675275; ИНН 7726703662; КПП 770101001; Юридический адрес: 105064, г. Москва, ул. Старая Басманная, д.12, стр.5, офис 5; Контактная информация: support@timepad.ru, <nobr>+7 (499) 653-68-18;</nobr>
+                        </p>
+                    </div>
+                    <div class="b-org-agent">
+                        <p>
+                        </p>
+                    </div>
+                </td>
+                <td>
+                    <div class="b-terms">
+                        <p>
+                            — Этот электронный билет является подтверждением вашей оплаты участия в мероприятии. Обязательно
+                            возьмите его с собой на мероприятие (в электронном и/или бумажном виде).<br> — Не передавайте и не
+                            пересылайте свой электронный билет третьим лицам! Электронный билет действителен для прохода на
+                            мероприятие 1 раз. В случае использования электронного билета третьим лицом ответственность за это
+                            несет покупатель.<br> — Агент не несет ответственности за достоверность информации о мероприятии и
+                            соответствие мероприятия ожиданиям покупателя. Всю ответственность за анонсирование, организацию и
+                            проведение мероприятия, а также за возможный ущерб в случае изменения программы, переноса или отмены
+                            мероприятия, несет организатор мероприятия.<br> — Политика возврата электронных билетов определяется
+                            организатором мероприятия, с ней вы можете ознакомиться по ссылке https://roditelsky-practicum.timepad.ru/event/oferta/493881/<br> — Полная версия
+                            правил покупки электронного билета размещена в интернете по адресу http://timepad.ru/upload/docs/TimePad_useragreement.pdf<br>
+                        </p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table class="b-address">
+            <tbody>
+            <tr>
+                <td class="b-address__left">
+                    <img width="180" height="4" title="" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAAECAIAAACoZYIQAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYxIDY0LjE0MDk0OSwgMjAxMC8xMi8wNy0xMDo1NzowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNS4xIE1hY2ludG9zaCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo1RUNCQzI1QkJBNTMxMUUyOUFCM0Y5MDZGM0QxRDM3QiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo1RUNCQzI1Q0JBNTMxMUUyOUFCM0Y5MDZGM0QxRDM3QiI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjVFQ0JDMjU5QkE1MzExRTI5QUIzRjkwNkYzRDFEMzdCIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjVFQ0JDMjVBQkE1MzExRTI5QUIzRjkwNkYzRDFEMzdCIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8++pEjIQAAACRJREFUeNpijI+PZxgFowAbYBoNglEwmjhGwWjiGAXUAwABBgCRtQElkiMgIwAAAABJRU5ErkJggg==">
+                </td>
+                <td class="b-address__content">ул. Красноармейская, 2А
+                    Православный просветительский центр при храме Благовещения Пресвятой Богородицы</td>
+                <td class="b-address__right">
+                    <img width="180" height="4" title="" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAAECAIAAACoZYIQAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYxIDY0LjE0MDk0OSwgMjAxMC8xMi8wNy0xMDo1NzowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNS4xIE1hY2ludG9zaCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo1RUNCQzI1QkJBNTMxMUUyOUFCM0Y5MDZGM0QxRDM3QiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo1RUNCQzI1Q0JBNTMxMUUyOUFCM0Y5MDZGM0QxRDM3QiI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjVFQ0JDMjU5QkE1MzExRTI5QUIzRjkwNkYzRDFEMzdCIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjVFQ0JDMjVBQkE1MzExRTI5QUIzRjkwNkYzRDFEMzdCIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8++pEjIQAAACRJREFUeNpijI+PZxgFowAbYBoNglEwmjhGwWjiGAXUAwABBgCRtQElkiMgIwAAAABJRU5ErkJggg==">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="b-map">
+
+            <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+            <script type="application/javascript">
+                var __event_coordinates = {"longitude":"37.55284","latitude":"55.795686"},
+                    __event_metro   = {"longitude":"37.558212","latitude":"55.789704"};
+            </script>
+
+            <script type='text/javascript'>
+                ymaps&&ymaps.ready(function(){ymaps.option.presetStorage.add(
+                    "tp#twirlicon",
+                    {iconLayout:ymaps.templateLayoutFactory.createClass('<div style="width: 70px; height:52px; overflow: hidden; "><div style="position:absolute;width:70px;height:52px;overflow:hidden;top:-47px;left:-18px"><img src="https://roditelsky-practicum.timepad.ru/img/pin.png" style="width:70px;height:52px;position:absolute;"></div></div>')});var t=$("#map_canvas"),a=($("#mapAddrValue"),t.hasClass("static")),e=($("#map_block, #map_canvas"),.02),i=.15,s=16,o=[__event_coordinates.latitude,__event_coordinates.longitude],r=function(){var a=function(t){return t[0]+","+t[1]},e=(n.getBounds(),o.slice(0));maxSize=[650,450],targetSize=[t.width(),t.height()],staticParams={size:a([Math.min(maxSize[0],targetSize[0]),Math.min(maxSize[1],targetSize[1])]),z:n.getZoom(),l:"map",ll:a(n.getCenter().reverse()),pt:a(e.reverse())+",pm2orgl"},staticUrl="http://static-maps.yandex.ru/1.x/?"+$.param(staticParams),staticImg=$('<img id="map_static_image">').attr("src",staticUrl).css({margin:"0 auto",display:"block",width:"720px"}),$("#map_static_image").length?$("#map_static_image").attr("src",staticUrl):t.parent().append(staticImg),t.detach()},n=new ymaps.Map("map_canvas",{center:o,zoom:s,controls:["typeSelector","zoomControl"]}),m=new ymaps.Placemark(o,{},{preset:"tp#twirlicon"});n.geoObjects.add(m);var p=null;if(__event_metro){var c=[__event_metro.latitude,__event_metro.longitude],l=[Math.abs(c[0]-o[0]),Math.abs(c[1]-o[1])],g=l[0]+l[1],d=Math.sqrt(l[0]*l[0]+l[1]*l[1])*i;g<e&&(p=[[Math.min(c[0],o[0])-d,Math.min(c[1],o[1])-d],[Math.max(c[0],o[0])+d,Math.max(c[1],o[1])+d]],n.setBounds(p,{checkZoomRange:!0}).then(function(){n.getZoom()>16&&n.setZoom(16),a&&(/firefox/i.test(navigator.userAgent)||navigator.userAgent.match(/Version\/[\d\.]+.*Safari/))&&r(p)}))}else a&&(/firefox/i.test(navigator.userAgent)||navigator.userAgent.match(/Version\/[\d\.]+.*Safari/))&&r(p)});
+            </script>
+
+
+            <div id="map_block"></div>
+            <div id="map_canvas" class="static" style="width:720px; height:350px;"></div>
+        </div>
+    </div>
+    <div class="l-footer timepad-footer l-no-print row-fluid">
+        <div class="b-copy span6 l-footer__left">
+        </div>
+        <div class="span6 l-footer__right">
+            <ul class="timepad-footer__menu">
+                <li><a href="http://welcome.timepad.ru/documents">Правила</a></li>
+                <li><a href="http://help.timepad.ru/">Помощь</a></li>
+                <li>Служба поддержки — <a href="mailto:support@timepad.ru">support@timepad.ru</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var isFirefox = typeof InstallTrigger !== 'undefined';   // Firefox 1.0+
+    var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+
+    if (isFirefox) {
+        $('#use_firefox').show();
+        $('#safari-alert').show();
+    }
+
+    if (isSafari) {
+        $('#use_safari').show();
+        $('#safari-alert').show();
+    }
+
+    var $avatar = $('#orgAvatar');
+
+    if ($avatar.width() > $avatar.height()) {
+        $avatar.height('80px');
+    }
+
+    $(window).on('load', function () {
+        $('#print-ticket').click(function(){
+            window.print();
+
+            $('#printinfo-alert').show();
+        });
+
+        var partnersMaxWidth = $('.b-partners').width(),
+            sumWidth = 0,
+            filled = false;
+
+        $('img.b-partner-logo').each(function () {
+            var $img = $(this);
+
+            if (!filled && sumWidth + $img.width() <= partnersMaxWidth) {
+                sumWidth += $img.outerWidth(true);
+            } else {
+                filled = true;
+                $img.remove();
+            }
+
+            $img.show();
+        });
+    });
+</script>
+
+
+</body>
+</html>
