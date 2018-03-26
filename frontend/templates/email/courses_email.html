@@ -18,7 +18,8 @@
                                                                 <img class="m_-1802661626314348884m_-2670458810514885017header-site-logo-image CToWUd" src="https://ci3.googleusercontent.com/proxy/dauE_zUbFZixAbXvBDyGDWjeRkK80XCp4bcIw9J-6wUejitGu3d9kGla1eBYyTNxAm5OmxjhCXZsV1umDnpGHeQKawhe3pSoLqFF8vb75_yacLPu_k-do6Qpoa1p0hBBSvjwfoJTYK1yG4U_jPiOqsN86zxINdG0PYVm6MEZr0gSmew=s0-d-e1-ft#http://static.wixstatic.com/media/f3be4ff2da7642d887eb5094442c39f5.jpg/v1/fill/w_100,h_100,al_c,q_90/file.jpg" width="40" height="40">
                                                             </td>
                                                             <td width="20"></td>
-                                                            <td class="m_-1802661626314348884m_-2670458810514885017header-site-name" style="vertical-align:middle;font-size:28px;font-weight:bold;line-height:38px">Интернет-магазин "Классические беседы"</td>
+                                                            <td class="m_-1802661626314348884m_-2670458810514885017header-site-name" style="vertical-align:middle;font-size:28px;font-weight:bold;line-height:38px">Интернет-магазин
+                                                                <br/> "Родительский Практикум"</td>
 
                                                         </tr>
                                                         </tbody></table>
@@ -28,7 +29,7 @@
                                                 <td class="m_-1802661626314348884m_-2670458810514885017header-title" style="padding-bottom:15px;font-size:28px;line-height:38px">Мы получили ваш заказ, спасибо!</td>
                                             </tr>
                                             <tr>
-                                                <td style="padding-bottom:40px">Пожалуйста, ознакомьтесь с информацией об оплате и доставке. &nbsp;</td>
+                                                <td style="padding-bottom:40px">Пожалуйста, ознакомьтесь с информацией об оплате. &nbsp;</td>
                                             </tr>
                                             <tr>
                                                 <td style="padding-top:30px">
@@ -58,33 +59,20 @@
                                                                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                                                                 <tbody><tr>
                                                                                     <td style="padding-bottom:20px;font-weight:400;color:#343434">
-                                                                                        Доставка
+                                                                                        Покупатель
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td>
-                                                                                        Способ доставки: {{ order.order_delivery }}<br>
-                                                                                        Пункт самовывоза: {{ order.delivery_point_name }}
-                                                                                    </td>
+                                                                                    <td>Имя: {{ order.first_name }}</td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td>
-                                                                                        Город доставки: {{ order.city }}
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        Индекс доставки: {{ order.index }},<br>
-                                                                                        Адрес доставки: {{ order.address }}, <br>
-                                                                                        Дом: {{ order.home }}, <br>
-                                                                                        Квартира: {{ order.apartment }} <br>
-                                                                                    </td>
+                                                                                    <td>Фамилия: {{ order.last_name }}</td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td>Номер телефона: {{ order.phone }}</td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td><a href="mailto:{{ order.email }}" target="_blank">{{ order.email }}</a></td>
+                                                                                    <td>Email: <a href="mailto:{{ order.email }}" target="_blank">{{ order.email }}</a></td>
                                                                                 </tr>
                                                                                 </tbody></table>
                                                                         </td>
@@ -130,24 +118,21 @@
                                                                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                                                     <tbody>
 
-                                                                        <tr>
-                                                                            <td width="100" height="100" style="padding-right:20px">
-                                                                                <img src="https://classicalbooks.ru{{ goods.goods.cover.url }}" width="100" style="vertical-align:middle" class="CToWUd">
-                                                                            </td>
-                                                                            <td style="padding-right:20px">
-                                                                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                                                                                    <tbody><tr>
-                                                                                        <td style="font-weight:400;color:#343434">{{ goods.goods.name }}</td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td>{{ goods.goods.articul }}</td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td>Цена: {{ goods.goods.price }} руб.</td>
-                                                                                    </tr>
-                                                                                    </tbody></table>
-                                                                            </td>
-                                                                        </tr>
+                                                                    <tr>
+                                                                        <td style="padding-right:20px">
+                                                                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                                                                <tbody><tr>
+                                                                                    <td style="font-weight:400;color:#343434">{{ goods.goods.name }}</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>{{ goods.goods.articul }}</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>Цена: {{ goods.goods.price }} руб.</td>
+                                                                                </tr>
+                                                                                </tbody></table>
+                                                                        </td>
+                                                                    </tr>
 
 
                                                                     </tbody></table>
@@ -166,21 +151,7 @@
                                             <tr>
                                                 <td align="right" style="padding-top:30px;color:#343434">
                                                     <table border="0" cellpadding="0" cellspacing="0">
-                                                        <tbody><tr>
-                                                            <td style="padding-right:25px;font-weight:400">Сумма</td>
-                                                            <td align="right" style="padding-left:30px;font-weight:400">{{ order.total }} руб.</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="padding-right:25px;font-weight:400">Доставка</td>
-                                                            <td align="right" style="padding-left:30px;font-weight:400"> {{ order.total_delivery }} руб. </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="padding-right:25px;font-weight:400">Скидка</td>
-                                                            <td align="right" style="padding-left:30px;font-weight:400"> {{ order.total_discount }} руб. </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td colspan="2" style="padding-top:10px;border-bottom:1px solid #6f6f6f"></td>
-                                                        </tr>
+                                                        <tbody>
                                                         <tr>
                                                             <td style="padding-right:25px;font-weight:400;padding-top:10px">Итого</td>
                                                             <td align="right" style="padding-left:30px;font-weight:400;padding-top:10px">
