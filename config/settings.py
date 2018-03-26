@@ -98,7 +98,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-       'NAME': 'test_convers',
+       'NAME': 'convers',
        'PASSWORD': '1111',
        'HOST': 'localhost',
        'USER': 'postgres',
