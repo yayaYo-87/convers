@@ -62,13 +62,15 @@ def init_pay(request):
                 'Tax':'none'
             }
             json_data['Receipt']['Items'].append(item)
-        delivery = {
-            'Name': 'Доставка',
-            'Price': int(order.total_delivery) * 100,
-            'Quantity': 1,
-            'Amount': int(order.total_delivery) * 100,
-            'Tax': 'none'
-        }
+        if order.total_delivery:
+            delivery = {
+                'Name': 'Доставка',
+                'Price': int(order.total_delivery) * 100,
+                'Quantity': 1,
+                'Amount': int(order.total_delivery) * 100,
+                'Tax': 'none'
+            }
+            json_data['Receipt']['Items'].append(delivery)
         if order.total_discount:
             promocode = {
                 'Name': 'Скидка по промокоду',
@@ -78,7 +80,6 @@ def init_pay(request):
                 'Tax': 'none'
             }
             json_data['Receipt']['Items'].append(promocode)
-        json_data['Receipt']['Items'].append(delivery)
         print(json_data)
 
     headers = {
