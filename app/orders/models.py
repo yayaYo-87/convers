@@ -166,8 +166,8 @@ class CoursesOrdersOrdertickets(models.Model):
     created_at = models.DateTimeField(blank=True, null=True)
     active = models.BooleanField()
     ids = ArrayField(models.CharField(max_length=200), blank=True)
-    cart = models.ForeignKey(CoursesOrdersCoursescart, models.DO_NOTHING, blank=True, null=True)
-    order = models.ForeignKey(CoursesOrdersCoursesorder, models.DO_NOTHING, blank=True, null=True)
+    cart = models.ForeignKey(CoursesOrdersCoursescart, related_name='cart_goods', blank=True, null=True)
+    order = models.ForeignKey(CoursesOrdersCoursesorder, related_name='order_goods', blank=True, null=True)
     tickets = models.ForeignKey('PracticumTickets', models.DO_NOTHING, blank=True, null=True)
 
     class Meta:

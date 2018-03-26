@@ -10,7 +10,7 @@ from django.template.loader import get_template
 from django.views import generic
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
-from easy_pdf.views import PDFTemplateView
+# from easy_pdf.views import PDFTemplateView
 
 from app.orders.models import Cart, OrderGoods, Order, CoursesOrdersCoursesorder, CoursesOrdersOrdertickets
 
@@ -172,7 +172,6 @@ def shiptorg_post(order):
     return HttpResponse(f.content)
 
 
-
 def email_view(order):
     if order:
         subject = "Оформление посылки на доставку"
@@ -187,6 +186,33 @@ def email_view(order):
         }
 
         message = get_template('email/email.html').render(ctx)
+#         print(message)
+        msg = EmailMessage(subject, message, to=to, from_email=from_email)
+        msg.content_subtype = 'html'
+        msg.send()
+
+        return HttpResponse({'response': 1})
+
+
+def email_view_courses(order):
+    if order:
+        subject = "Оформление посылки на доставку"
+        to = [order.email]
+        from_email = 'info@classicalbooks.ru'
+
+        total = order.total
+        tickets = CoursesOrdersOrdertickets.objects.filter(order_id=order.id).all()
+        ids = []
+        for i in tickets:
+            ids.append(i.ids)
+
+        ctx = {
+            'order': order,
+            'total': total,
+            'ids': ids
+        }
+
+        message = get_template('email/courses_email.html').render(ctx)
 #         print(message)
         msg = EmailMessage(subject, message, to=to, from_email=from_email)
         msg.content_subtype = 'html'
@@ -236,10 +262,10 @@ def get_payment_status(request):
                 email_view(order)
             order.save()
         else:
-            order = get_object_or_404(CoursesOrdersCoursesorder, id=id)
+            order = get_object_or_404(CoursesOrdersCoursesorder, extra_id=id)
             order.order_status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
             if order.order_status == 'confirmed':
-                email_view(order)
+                email_view_courses(order)
             order.save()
         return HttpResponse(status=200, content='OK')
     
@@ -280,17 +306,3 @@ def feedback_view(request, *args, **kwargs):
     msg.send()
 
     return HttpResponse({'response': 1})
-
-
-class TicketPDFView(PDFTemplateView):
-    template_name = 'email/ticket.html'
-
-    def get_context_data(self, **kwargs):
-        id = self.kwargs['id']
-        data = super(TicketPDFView, self).get_context_data(**kwargs)
-        order = CoursesOrdersOrdertickets.objects.filter(ids__contains=[id]).first()
-        if order:
-            order = order.order.id
-            data['order'] = order
-            data['id'] = id
-        return data
