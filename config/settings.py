@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'tinymce',
     'ckeditor',
     'ckeditor_uploader',
+    # 'easy_pdf',
 
     'django.contrib.admin',
     'django.contrib.auth',
