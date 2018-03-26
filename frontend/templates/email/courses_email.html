@@ -112,7 +112,7 @@
                                                         <tbody><tr>
                                                             <td colspan="3" style="padding-top:30px"></td>
                                                         </tr>
-                                                        {% for goods in order.order_goods.all %}
+                                                        {% for goods in tickets %}
                                                         <tr>
                                                             <td valign="top">
                                                                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
@@ -124,13 +124,15 @@
                                                                                 <tbody>
 
                                                                                 <tr>
-                                                                                    <td> Название курса: {{ goods.goods.articul }}</td>
+                                                                                    <td> Название курса: {{ goods.tickets.courses.name }}</td>
                                                                                 </tr>
+                                                                                {% for i in goods.ids %}
+                                                                                    <tr>
+                                                                                        <td> Ссылка на билет: <a href="https://classicalbooks.ru/courses/ticket/{{ i }}">{{ i }}</a> </td>
+                                                                                    </tr>
+                                                                                {% endfor %}
                                                                                 <tr>
-                                                                                    <td> Ссылка на билет: <a href="{{ goods.goods.articul }}">{{ goods.goods.articul }}</a> </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>Цена: {{ goods.goods.price }} руб.</td>
+                                                                                    <td>Цена: {{ goods.tickets.price }} руб.</td>
                                                                                 </tr>
                                                                                 </tbody></table>
                                                                         </td>

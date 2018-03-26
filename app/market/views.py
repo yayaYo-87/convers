@@ -209,7 +209,7 @@ def email_view_courses(order):
         ctx = {
             'order': order,
             'total': total,
-            'ids': ids
+            'tickets': tickets
         }
 
         message = get_template('email/courses_email.html').render(ctx)
