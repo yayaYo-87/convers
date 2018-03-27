@@ -268,6 +268,7 @@ def get_payment_status(request):
         else:
             print('courses_id: ', id)
             order = get_object_or_404(CoursesOrdersCoursesorder, extra_id=id)
+            print('order: ', order.id, order)
             order.order_status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
             print('order.order_status: ', order.order_status)
             if order.order_status == 'confirmed':
