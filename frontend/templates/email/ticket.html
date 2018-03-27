@@ -205,21 +205,25 @@
         </table>
         <div class="b-map">
 
-            <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
-            <script type="application/javascript">
-                var __event_coordinates = {"longitude":"37.55284","latitude":"55.795686"},
-                    __event_metro   = {"longitude":"37.558212","latitude":"55.789704"};
+
+            <div id="map" style="height: 300px"></div>
+
+            <script>
+                function initMap() {
+                    var uluru = {lat: {{ ticket.tickets.courses.area.coordinates.longitude }}, lng: {{ ticket.tickets.courses.area.coordinates.latitude }}};
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                        zoom: 14,
+                        center: uluru
+                    });
+                    var marker = new google.maps.Marker({
+                        position: uluru,
+                        map: map
+                    });
+                }
             </script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvWE_sIwKbWkiuJQOf8gSk9qzpO96fhfY&callback=initMap"
+                    async defer></script>
 
-            <script type='text/javascript'>
-                ymaps&&ymaps.ready(function(){ymaps.option.presetStorage.add(
-                    "tp#twirlicon",
-                    {iconLayout:ymaps.templateLayoutFactory.createClass('<div style="width: 70px; height:52px; overflow: hidden; "><div style="position:absolute;width:70px;height:52px;overflow:hidden;top:-47px;left:-18px"><img src="https://roditelsky-practicum.timepad.ru/img/pin.png" style="width:70px;height:52px;position:absolute;"></div></div>')});var t=$("#map_canvas"),a=($("#mapAddrValue"),t.hasClass("static")),e=($("#map_block, #map_canvas"),.02),i=.15,s=16,o=[__event_coordinates.latitude,__event_coordinates.longitude],r=function(){var a=function(t){return t[0]+","+t[1]},e=(n.getBounds(),o.slice(0));maxSize=[650,450],targetSize=[t.width(),t.height()],staticParams={size:a([Math.min(maxSize[0],targetSize[0]),Math.min(maxSize[1],targetSize[1])]),z:n.getZoom(),l:"map",ll:a(n.getCenter().reverse()),pt:a(e.reverse())+",pm2orgl"},staticUrl="http://static-maps.yandex.ru/1.x/?"+$.param(staticParams),staticImg=$('<img id="map_static_image">').attr("src",staticUrl).css({margin:"0 auto",display:"block",width:"720px"}),$("#map_static_image").length?$("#map_static_image").attr("src",staticUrl):t.parent().append(staticImg),t.detach()},n=new ymaps.Map("map_canvas",{center:o,zoom:s,controls:["typeSelector","zoomControl"]}),m=new ymaps.Placemark(o,{},{preset:"tp#twirlicon"});n.geoObjects.add(m);var p=null;if(__event_metro){var c=[__event_metro.latitude,__event_metro.longitude],l=[Math.abs(c[0]-o[0]),Math.abs(c[1]-o[1])],g=l[0]+l[1],d=Math.sqrt(l[0]*l[0]+l[1]*l[1])*i;g<e&&(p=[[Math.min(c[0],o[0])-d,Math.min(c[1],o[1])-d],[Math.max(c[0],o[0])+d,Math.max(c[1],o[1])+d]],n.setBounds(p,{checkZoomRange:!0}).then(function(){n.getZoom()>16&&n.setZoom(16),a&&(/firefox/i.test(navigator.userAgent)||navigator.userAgent.match(/Version\/[\d\.]+.*Safari/))&&r(p)}))}else a&&(/firefox/i.test(navigator.userAgent)||navigator.userAgent.match(/Version\/[\d\.]+.*Safari/))&&r(p)});
-            </script>
-
-
-            <div id="map_block"></div>
-            <div id="map_canvas" class="static" style="width:720px; height:350px;"></div>
         </div>
     </div>
     <div class="l-footer timepad-footer l-no-print row-fluid">
