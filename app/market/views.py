@@ -269,9 +269,11 @@ def get_payment_status(request):
             print('courses_id: ', id)
             order = get_object_or_404(CoursesOrdersCoursesorder, extra_id=id)
             order.order_status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
+            print('order.order_status: ', order.order_status)
             if order.order_status == 'confirmed':
                 email_view_courses(order)
             order.save()
+            print('order.order_status: AFTER ************: ', order.order_status)
         return HttpResponse(status=200, content='OK')
     
     return HttpResponse(status=403, content='Incorrect token')
