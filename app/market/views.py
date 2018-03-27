@@ -227,6 +227,7 @@ def check_token(params):
     https://oplata.tinkoff.ru/landing/develop/plug/tokens
     """
     received_token = params.pop('Token')
+    print('received_token: ', received_token)
     params['Password'] = settings.TINKOFF_PASSWORD
     items_list = sorted(params.items(), key=lambda x: x[0])
 
@@ -235,6 +236,7 @@ def check_token(params):
         pure_value = '%s%s' % (pure_value, item[1])
 
     generated_token = sha256(pure_value.encode('ascii')).hexdigest()
+    print('generated_token', generated_token)
     return generated_token == received_token
 
 
@@ -253,6 +255,7 @@ def get_payment_status(request):
     if token_valid:
         # Проверка откуда пришел заказ по его id
         if str(id).find('courses_') < 0:
+            print('convers_id: ', id)
             order = get_object_or_404(Order, id=id)
             order.order_status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
 
@@ -263,6 +266,7 @@ def get_payment_status(request):
                 email_view(order)
             order.save()
         else:
+            print('courses_id: ', id)
             order = get_object_or_404(CoursesOrdersCoursesorder, extra_id=id)
             order.order_status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
             if order.order_status == 'confirmed':
