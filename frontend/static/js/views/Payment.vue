@@ -34,7 +34,7 @@
                 if(this.$route.query.Success === 'true') {
                     const urlSuccess = this.$route.query.OrderId.split('_')
                     if(urlSuccess[0] === 'courses') {
-                        document.location.href = 'http://mdma.digital/#/payment?Success=' + this.$route.query.Success + '&OrderId=' + this.$route.query.OrderId + '&EmailReq=' + this.$route.query.EmailReq
+                        document.location.href = 'https://classicalbooks.ru/courses/#/payment?Success=' + this.$route.query.Success + '&OrderId=' + this.$route.query.OrderId + '&EmailReq=' + this.$route.query.EmailReq
                     }
                 }
             }
