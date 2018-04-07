@@ -210,6 +210,7 @@ class PracticumTickets(models.Model):
     price = models.DecimalField(max_digits=7, decimal_places=2)
     category = models.ForeignKey('PracticumTicketscategory', models.DO_NOTHING)
     courses = models.ForeignKey(PracticumCourses, models.DO_NOTHING, blank=True, null=True)
+    is_children = models.BooleanField()
 
     class Meta:
         managed = False
@@ -222,3 +223,17 @@ class PracticumTicketscategory(models.Model):
     class Meta:
         managed = False
         db_table = 'practicum_ticketscategory'
+
+
+class CoursesOrdersChildrentickets(models.Model):
+    name = models.CharField(max_length=256)
+    surname = models.CharField(max_length=256)
+    gender = models.CharField(max_length=10, blank=True, null=True)
+    birthday = models.DateField(blank=True, null=True)
+    camp = models.CharField(max_length=256)
+    description = models.TextField()
+    order = models.ForeignKey('CoursesOrdersCoursesorder', models.DO_NOTHING, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'courses_orders_childrentickets'
