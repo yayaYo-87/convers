@@ -237,3 +237,35 @@ class CoursesOrdersChildrentickets(models.Model):
     class Meta:
         managed = False
         db_table = 'courses_orders_childrentickets'
+
+
+class DirectorAdmitCurator(models.Model):
+    name = models.CharField(max_length=512)
+
+    class Meta:
+        managed = False
+        db_table = 'director_admit_curator'
+
+
+class DirectorAdmitDirectoradmit(models.Model):
+    order_status = models.CharField(max_length=10)
+    extra_id = models.CharField(max_length=255, blank=True, null=True)
+    first_name = models.CharField(max_length=255, blank=True, null=True)
+    patronymic = models.CharField(max_length=255, blank=True, null=True)
+    last_name = models.CharField(max_length=255, blank=True, null=True)
+    email = models.CharField(max_length=255, blank=True, null=True)
+    passport_series = models.CharField(max_length=255, blank=True, null=True)
+    passport_number = models.CharField(max_length=255, blank=True, null=True)
+    inn = models.CharField(max_length=255, blank=True, null=True)
+    phone = models.CharField(max_length=255, blank=True, null=True)
+    county = models.CharField(max_length=255, blank=True, null=True)
+    city = models.CharField(max_length=255, blank=True, null=True)
+    street = models.CharField(max_length=255, blank=True, null=True)
+    house = models.CharField(max_length=255, blank=True, null=True)
+    apartment = models.CharField(max_length=255, blank=True, null=True)
+    created_at = models.DateTimeField(blank=True, null=True)
+    curator = models.ForeignKey(DirectorAdmitCurator, models.DO_NOTHING, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'director_admit_directoradmit'

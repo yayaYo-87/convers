@@ -12,7 +12,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 # from easy_pdf.views import PDFTemplateView
 
-from app.orders.models import Cart, OrderGoods, Order, CoursesOrdersCoursesorder, CoursesOrdersOrdertickets
+from app.orders.models import Cart, OrderGoods, Order, CoursesOrdersCoursesorder, CoursesOrdersOrdertickets, \
+    DirectorAdmitDirectoradmit
 
 
 class IndexView(generic.TemplateView):
@@ -222,6 +223,34 @@ def email_view_courses(order):
         return HttpResponse({'response': 1})
 
 
+def email_view_admit(order):
+    print('Подтверждение отправка письма')
+#     if order:
+#         subject = "Оформление посылки на доставку"
+#         to = [order.email]
+#         from_email = 'info@classicalbooks.ru'
+#
+#         total = order.total
+#         tickets = CoursesOrdersOrdertickets.objects.filter(order_id=order.id).all()
+#         ids = []
+#         for i in tickets:
+#             ids.append(i.ids)
+#
+#         ctx = {
+#             'order': order,
+#             'total': total,
+#             'tickets': tickets
+#         }
+#
+#         message = get_template('email/courses_email.html').render(ctx)
+# #         print(message)
+#         msg = EmailMessage(subject, message, to=to, from_email=from_email)
+#         msg.content_subtype = 'html'
+#         msg.send()
+
+    return HttpResponse({'response': 1})
+
+
 def check_token(params):
     """
     https://oplata.tinkoff.ru/landing/develop/plug/tokens
@@ -263,6 +292,13 @@ def get_payment_status(request):
                     order.send_to_shiptor = True
                 email_view(order)
             order.save()
+        elif str(id).find('admit') < 0:
+            admit = DirectorAdmitDirectoradmit.objects.filter(extra_id=str(id)).first()
+            admit.order_status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
+            if admit.order_status == 'confirmed':
+                email_view_admit(admit)
+                admit.save()
+            print('admit.order_status: ', admit.order_status)
         else:
             order = CoursesOrdersCoursesorder.objects.filter(extra_id=str(id)).first()
             order.order_status = 'confirmed' if status == 'CONFIRMED' else 'cancel'

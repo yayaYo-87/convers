@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.AddField(
-            model_name='tickets',
+            model_name='PracticumTickets',
             name='is_children',
             field=models.BooleanField(default=True, verbose_name='Билет для ребенка'),
         ),
