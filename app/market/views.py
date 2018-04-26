@@ -281,7 +281,21 @@ def get_payment_status(request):
 
     if token_valid:
         # Проверка откуда пришел заказ по его id
-        if str(id).find('courses_') < 0:
+        if str(id).find('courses_') == 0:
+            order = CoursesOrdersCoursesorder.objects.filter(extra_id=str(id)).first()
+            order.order_status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
+            if order.order_status == 'confirmed':
+                email_view_courses(order)
+            order.save()
+            print('order.order_status: ', order.order_status)
+        elif str(id).find('admit_') == 0:
+            admit = DirectorAdmitDirectoradmit.objects.filter(extra_id=str(id)).first()
+            admit.order_status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
+            if admit.order_status == 'confirmed':
+                email_view_admit(admit)
+                admit.save()
+            print('admit.order_status: ', admit.order_status)
+        else:
             print('convers_id: ', id)
             order = get_object_or_404(Order, id=id)
             order.order_status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
@@ -292,20 +306,6 @@ def get_payment_status(request):
                     order.send_to_shiptor = True
                 email_view(order)
             order.save()
-        elif str(id).find('admit') < 0:
-            admit = DirectorAdmitDirectoradmit.objects.filter(extra_id=str(id)).first()
-            admit.order_status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
-            if admit.order_status == 'confirmed':
-                email_view_admit(admit)
-                admit.save()
-            print('admit.order_status: ', admit.order_status)
-        else:
-            order = CoursesOrdersCoursesorder.objects.filter(extra_id=str(id)).first()
-            order.order_status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
-            if order.order_status == 'confirmed':
-                email_view_courses(order)
-            order.save()
-            print('order.order_status: ', order.order_status)
         return HttpResponse(status=200, content='OK')
     
     return HttpResponse(status=403, content='Incorrect token')
