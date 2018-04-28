@@ -36,6 +36,9 @@
                     if(urlSuccess[0] === 'courses') {
                         document.location.href = 'https://classicalbooks.ru/courses/#/payment?Success=' + this.$route.query.Success + '&OrderId=' + this.$route.query.OrderId + '&EmailReq=' + this.$route.query.EmailReq
                     }
+                    if(urlSuccess[0] === 'admit') {
+                        document.location.href = 'https://classicalbooks.ru/courses/#/payment?Success=' + this.$route.query.Success + '&OrderId=' + this.$route.query.OrderId + '&EmailReq=' + this.$route.query.EmailReq
+                    }
                 }
             }
         },
