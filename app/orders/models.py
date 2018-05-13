@@ -241,6 +241,8 @@ class CoursesOrdersChildrentickets(models.Model):
 
 class DirectorAdmitCurator(models.Model):
     name = models.CharField(max_length=512)
+    email = models.CharField(max_length=255, blank=True, null=True)
+
 
     class Meta:
         managed = False
@@ -265,7 +267,36 @@ class DirectorAdmitDirectoradmit(models.Model):
     apartment = models.CharField(max_length=255, blank=True, null=True)
     created_at = models.DateTimeField(blank=True, null=True)
     curator = models.ForeignKey(DirectorAdmitCurator, models.DO_NOTHING, blank=True, null=True)
+    passport_scan = models.CharField(max_length=100, blank=True, null=True)
+    reference = models.CharField(max_length=100, blank=True, null=True)
+    statement = models.CharField(max_length=100, blank=True, null=True)
+
 
     class Meta:
         managed = False
         db_table = 'director_admit_directoradmit'
+
+
+class DirectorAdmitDirectorschild(models.Model):
+    first_name = models.CharField(max_length=255, blank=True, null=True)
+    patronymic = models.CharField(max_length=255, blank=True, null=True)
+    last_name = models.CharField(max_length=255, blank=True, null=True)
+    gender = models.CharField(max_length=10, blank=True, null=True)
+    birthday = models.DateField(blank=True, null=True)
+    director = models.ForeignKey(DirectorAdmitDirectoradmit,
+                                 verbose_name='Подтвержденный директор',
+                                 related_name='children_director')
+
+    class Meta:
+        managed = False
+        db_table = 'director_admit_directorschild'
+
+
+class DirectorAdmitProgram(models.Model):
+    name = models.CharField(max_length=512)
+
+    class Meta:
+        managed = False
+        db_table = 'director_admit_program'
+
+
