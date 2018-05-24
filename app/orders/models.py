@@ -253,24 +253,16 @@ class DirectorAdmitDirectoradmit(models.Model):
     order_status = models.CharField(max_length=10)
     extra_id = models.CharField(max_length=255, blank=True, null=True)
     first_name = models.CharField(max_length=255, blank=True, null=True)
-    patronymic = models.CharField(max_length=255, blank=True, null=True)
     last_name = models.CharField(max_length=255, blank=True, null=True)
     email = models.CharField(max_length=255, blank=True, null=True)
-    passport_series = models.CharField(max_length=255, blank=True, null=True)
-    passport_number = models.CharField(max_length=255, blank=True, null=True)
     inn = models.CharField(max_length=255, blank=True, null=True)
     phone = models.CharField(max_length=255, blank=True, null=True)
-    county = models.CharField(max_length=255, blank=True, null=True)
-    city = models.CharField(max_length=255, blank=True, null=True)
-    street = models.CharField(max_length=255, blank=True, null=True)
-    house = models.CharField(max_length=255, blank=True, null=True)
-    apartment = models.CharField(max_length=255, blank=True, null=True)
     created_at = models.DateTimeField(blank=True, null=True)
     curator = models.ForeignKey(DirectorAdmitCurator, models.DO_NOTHING, blank=True, null=True)
     passport_scan = models.CharField(max_length=100, blank=True, null=True)
     reference = models.CharField(max_length=100, blank=True, null=True)
     statement = models.CharField(max_length=100, blank=True, null=True)
-
+    passport_data = models.TextField(blank=True, null=True)
 
     class Meta:
         managed = False
@@ -278,14 +270,9 @@ class DirectorAdmitDirectoradmit(models.Model):
 
 
 class DirectorAdmitDirectorschild(models.Model):
-    first_name = models.CharField(max_length=255, blank=True, null=True)
-    patronymic = models.CharField(max_length=255, blank=True, null=True)
-    last_name = models.CharField(max_length=255, blank=True, null=True)
+    name = models.CharField(max_length=255, blank=True, null=True)
     gender = models.CharField(max_length=10, blank=True, null=True)
     birthday = models.DateField(blank=True, null=True)
-    director = models.ForeignKey(DirectorAdmitDirectoradmit,
-                                 verbose_name='Подтвержденный директор',
-                                 related_name='children_director')
 
     class Meta:
         managed = False
