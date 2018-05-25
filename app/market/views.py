@@ -224,29 +224,47 @@ def email_view_courses(order):
 
 
 def email_view_admit(order):
-    print('Подтверждение отправка письма')
-#     if order:
-#         subject = "Оформление посылки на доставку"
-#         to = [order.email]
-#         from_email = 'info@classicalbooks.ru'
-#
-#         total = order.total
-#         tickets = CoursesOrdersOrdertickets.objects.filter(order_id=order.id).all()
-#         ids = []
-#         for i in tickets:
-#             ids.append(i.ids)
-#
-#         ctx = {
-#             'order': order,
-#             'total': total,
-#             'tickets': tickets
-#         }
-#
-#         message = get_template('email/courses_email.html').render(ctx)
-# #         print(message)
-#         msg = EmailMessage(subject, message, to=to, from_email=from_email)
-#         msg.content_subtype = 'html'
-#         msg.send()
+    print('Подтверждение, отправка письма')
+    if order:
+        director_subject = "Вы успешно зарегистрировались"
+        # curator_subject = "Директор подписал договор"
+        # admin_subject = "Директор подписал договор"
+        director_to = [order.email]
+        # curator_to = [order.curator.email]
+        # admin_to = ['director@classicalbooks.ru']
+        from_email = 'info@classicalbooks.ru'
+
+        ctx = {
+            'order': order,
+        }
+
+        director_message = get_template('email/courses_director_email.html').render(ctx)
+        # curator_message = get_template('email/courses_curator_email.html').render(ctx)
+        # admin_message = get_template('email/courses_admin_email.html').render(ctx)
+        director_msg = EmailMessage(
+            director_subject,
+            director_message,
+            to=director_to,
+            from_email=from_email
+        )
+        director_msg.content_subtype = 'html'
+        director_msg.send()
+        # curator_msg = EmailMessage(
+        #     curator_subject,
+        #     curator_message,
+        #     to=curator_to,
+        #     from_email=from_email
+        # )
+        # curator_msg.content_subtype = 'html'
+        # curator_msg.send()
+        # admin_msg = EmailMessage(
+        #     admin_subject,
+        #     admin_message,
+        #     to=admin_to,
+        #     from_email=from_email
+        # )
+        # admin_msg.content_subtype = 'html'
+        # admin_msg.send()
 
     return HttpResponse({'response': 1})
 
@@ -330,7 +348,7 @@ def shiptorg(request):
 @csrf_exempt
 def feedback_view(request, *args, **kwargs):
     subject = "Сообщение от пользователя"
-    to = ['info@classicalbooks.ru',]
+    to = ['info@classicalbooks.ru', ]
     from_email = 'info@classicalbooks.ru'
 
     data = request.POST.copy()
