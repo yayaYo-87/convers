@@ -13,7 +13,7 @@ from django.views.decorators.http import require_http_methods
 # from easy_pdf.views import PDFTemplateView
 
 from app.orders.models import Cart, OrderGoods, Order, CoursesOrdersCoursesorder, CoursesOrdersOrdertickets, \
-    DirectorAdmitDirectoradmit
+    DirectorAdmitDirectoradmit, DirectorAdmitParentsadmit
 
 
 class IndexView(generic.TemplateView):
@@ -308,6 +308,13 @@ def get_payment_status(request):
             print('order.order_status: ', order.order_status)
         elif str(id).find('admit_') == 0:
             admit = DirectorAdmitDirectoradmit.objects.filter(extra_id=str(id)).first()
+            admit.order_status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
+            if admit.order_status == 'confirmed':
+                email_view_admit(admit)
+                admit.save()
+            print('admit.order_status: ', admit.order_status)
+        elif str(id).find('parent_') == 0:
+            admit = DirectorAdmitParentsadmit.objects.filter(extra_id=str(id)).first()
             admit.order_status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
             if admit.order_status == 'confirmed':
                 email_view_admit(admit)

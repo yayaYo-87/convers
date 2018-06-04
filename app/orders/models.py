@@ -249,6 +249,30 @@ class DirectorAdmitCurator(models.Model):
         db_table = 'director_admit_curator'
 
 
+class DirectorAdmitBriefing(models.Model):
+    name = models.CharField(max_length=512)
+
+    class Meta:
+        managed = False
+        db_table = 'director_admit_briefing'
+
+
+class DirectorAdmitCommunity(models.Model):
+    name = models.CharField(max_length=512)
+
+    class Meta:
+        managed = False
+        db_table = 'director_admit_community'
+
+
+class DirectorAdmitYear(models.Model):
+    name = models.CharField(max_length=512)
+
+    class Meta:
+        managed = False
+        db_table = 'director_admit_year'
+
+
 class DirectorAdmitDirectoradmit(models.Model):
     order_status = models.CharField(max_length=10)
     extra_id = models.CharField(max_length=255, blank=True, null=True)
@@ -258,11 +282,26 @@ class DirectorAdmitDirectoradmit(models.Model):
     inn = models.CharField(max_length=255, blank=True, null=True)
     phone = models.CharField(max_length=255, blank=True, null=True)
     created_at = models.DateTimeField(blank=True, null=True)
-    curator = models.ForeignKey(DirectorAdmitCurator, models.DO_NOTHING, blank=True, null=True)
+    curator = models.ForeignKey(DirectorAdmitCurator, models.DO_NOTHING, blank=True, null=True,
+                                related_name='admit_curator')
     passport_scan = models.CharField(max_length=100, blank=True, null=True)
     reference = models.CharField(max_length=100, blank=True, null=True)
     statement = models.CharField(max_length=100, blank=True, null=True)
     passport_data = models.TextField(blank=True, null=True)
+    registration_scan = models.CharField(max_length=100, blank=True, null=True)
+    position = models.CharField(max_length=10)
+    address = models.CharField(max_length=255, blank=True, null=True)
+    city = models.CharField(max_length=255, blank=True, null=True)
+    post_index = models.CharField(max_length=255, blank=True, null=True)
+    director = models.ForeignKey(DirectorAdmitCurator, models.DO_NOTHING, blank=True, null=True,
+                                 related_name='admit_director')
+    federal = models.CharField(max_length=255, blank=True, null=True)
+    marriage_scan = models.CharField(max_length=100, blank=True, null=True)
+    patronymic = models.CharField(max_length=255, blank=True, null=True)
+    state = models.CharField(max_length=255, blank=True, null=True)
+    briefing = models.ForeignKey(DirectorAdmitBriefing, models.DO_NOTHING, blank=True, null=True)
+    community = models.ForeignKey(DirectorAdmitCommunity, models.DO_NOTHING, blank=True, null=True)
+    years = models.ForeignKey('DirectorAdmitYear', models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -273,10 +312,42 @@ class DirectorAdmitDirectorschild(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True)
     gender = models.CharField(max_length=10, blank=True, null=True)
     birthday = models.DateField(blank=True, null=True)
+    program = models.ForeignKey('DirectorAdmitProgram', models.DO_NOTHING, blank=True, null=True)
+    is_first = models.BooleanField()
 
     class Meta:
         managed = False
         db_table = 'director_admit_directorschild'
+
+
+class DirectorAdmitParentsadmit(models.Model):
+    order_status = models.CharField(max_length=10)
+    extra_id = models.CharField(max_length=255, blank=True, null=True)
+    last_name = models.CharField(max_length=255, blank=True, null=True)
+    first_name = models.CharField(max_length=255, blank=True, null=True)
+    patronymic = models.CharField(max_length=255, blank=True, null=True)
+    passport_data = models.TextField(blank=True, null=True)
+    federal = models.CharField(max_length=255, blank=True, null=True)
+    state = models.CharField(max_length=255, blank=True, null=True)
+    city = models.CharField(max_length=255, blank=True, null=True)
+    address = models.CharField(max_length=255, blank=True, null=True)
+    post_index = models.CharField(max_length=255, blank=True, null=True)
+    inn = models.CharField(max_length=255, blank=True, null=True)
+    phone = models.CharField(max_length=255, blank=True, null=True)
+    email = models.CharField(max_length=255, blank=True, null=True)
+    passport_scan = models.CharField(max_length=100, blank=True, null=True)
+    registration_scan = models.CharField(max_length=100, blank=True, null=True)
+    created_at = models.DateTimeField(blank=True, null=True)
+    text_1 = models.TextField(blank=True, null=True)
+    text_2 = models.TextField(blank=True, null=True)
+    text_3 = models.TextField(blank=True, null=True)
+    community = models.ForeignKey(DirectorAdmitCommunity, models.DO_NOTHING, blank=True, null=True)
+    years = models.ForeignKey('DirectorAdmitYear', models.DO_NOTHING, blank=True, null=True)
+    total = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'director_admit_parentsadmit'
 
 
 class DirectorAdmitProgram(models.Model):
