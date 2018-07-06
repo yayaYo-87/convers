@@ -13,7 +13,7 @@ from django.views.decorators.http import require_http_methods
 # from easy_pdf.views import PDFTemplateView
 
 from app.orders.models import Cart, OrderGoods, Order, CoursesOrdersCoursesorder, CoursesOrdersOrdertickets, \
-    DirectorAdmitDirectoradmit, DirectorAdmitParentsadmit
+    DirectorAdmitDirectoradmit, DirectorAdmitParentsadmit, DirectorAdmitParentletter
 
 
 class IndexView(generic.TemplateView):
@@ -198,7 +198,7 @@ def email_view(order):
 
 def email_view_courses(order):
     if order:
-        subject = "Оформление посылки на доставку"
+        subject = "Оформление cсылок на билеты"
         to = [order.email]
         from_email = 'info@classicalbooks.ru'
 
@@ -227,11 +227,7 @@ def email_view_admit(order):
     print('Подтверждение, отправка письма')
     if order:
         director_subject = "Вы успешно зарегистрировались"
-        # curator_subject = "Директор подписал договор"
-        # admin_subject = "Директор подписал договор"
         director_to = [order.email]
-        # curator_to = [order.curator.email]
-        # admin_to = ['director@classicalbooks.ru']
         from_email = 'info@classicalbooks.ru'
 
         ctx = {
@@ -239,8 +235,6 @@ def email_view_admit(order):
         }
 
         director_message = get_template('email/courses_director_email.html').render(ctx)
-        # curator_message = get_template('email/courses_curator_email.html').render(ctx)
-        # admin_message = get_template('email/courses_admin_email.html').render(ctx)
         director_msg = EmailMessage(
             director_subject,
             director_message,
@@ -249,22 +243,32 @@ def email_view_admit(order):
         )
         director_msg.content_subtype = 'html'
         director_msg.send()
-        # curator_msg = EmailMessage(
-        #     curator_subject,
-        #     curator_message,
-        #     to=curator_to,
-        #     from_email=from_email
-        # )
-        # curator_msg.content_subtype = 'html'
-        # curator_msg.send()
-        # admin_msg = EmailMessage(
-        #     admin_subject,
-        #     admin_message,
-        #     to=admin_to,
-        #     from_email=from_email
-        # )
-        # admin_msg.content_subtype = 'html'
-        # admin_msg.send()
+
+    return HttpResponse({'response': 1})
+
+
+def email_view_parent_admit(order):
+    print('Подтверждение, отправка письма родителям')
+    letter = DirectorAdmitParentletter.objects.filter(active=True).first()
+    if order:
+        director_subject = "Вы успешно зарегистрировались"
+        director_to = [order.email]
+        from_email = 'info@classicalbooks.ru'
+
+        ctx = {
+            'order': order,
+            'letter': letter,
+        }
+
+        director_message = get_template('email/courses_parent_email.html').render(ctx)
+        director_msg = EmailMessage(
+            director_subject,
+            director_message,
+            to=director_to,
+            from_email=from_email
+        )
+        director_msg.content_subtype = 'html'
+        director_msg.send()
 
     return HttpResponse({'response': 1})
 
@@ -317,7 +321,7 @@ def get_payment_status(request):
             admit = DirectorAdmitParentsadmit.objects.filter(extra_id=str(id)).first()
             admit.order_status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
             if admit.order_status == 'confirmed':
-                email_view_admit(admit)
+                email_view_parent_admit(admit)
                 admit.save()
             print('admit.order_status: ', admit.order_status)
         else:
