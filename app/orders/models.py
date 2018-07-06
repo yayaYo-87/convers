@@ -358,3 +358,15 @@ class DirectorAdmitProgram(models.Model):
         db_table = 'director_admit_program'
 
 
+class DirectorAdmitParentletter(models.Model):
+    name = models.CharField(max_length=256, blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    active = models.BooleanField()
+    link = models.CharField(max_length=200, blank=True, null=True)
+    link_text = models.CharField(max_length=512, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'director_admit_parentletter'
+
+
