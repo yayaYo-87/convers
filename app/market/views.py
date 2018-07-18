@@ -259,9 +259,9 @@ def email_view_parent_admit(order):
             'order': order,
             'letter': letter,
         }
-        print(letter.title)
+        print(letter.name)
         print(letter.description)
-        print(letter.text.link)
+        print(letter.link_text)
         print(letter.link)
 
         director_message = get_template('email/courses_parent_email.html').render(ctx)
