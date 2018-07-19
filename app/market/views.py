@@ -259,7 +259,7 @@ def email_view_parent_admit(order):
         children = []
         child = DirectorAdmitParentsadmitChildrenDirector.objects.filter(parentsadmit=order.id).all()
         for i in child:
-            children.append(DirectorAdmitDirectorschild.objects.filter(id=i.directorschild).first())
+            children.append(DirectorAdmitDirectorschild.objects.filter(id=i.directorschild.id).first())
 
         ctx = {
             'order': order,
