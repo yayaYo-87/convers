@@ -370,3 +370,14 @@ class DirectorAdmitParentletter(models.Model):
         db_table = 'director_admit_parentletter'
 
 
+class DirectorAdmitParentsadmitChildrenDirector(models.Model):
+    parentsadmit = models.ForeignKey(DirectorAdmitParentsadmit, models.DO_NOTHING)
+    directorschild = models.ForeignKey(DirectorAdmitDirectorschild, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'director_admit_parentsadmit_children_director'
+        unique_together = (('parentsadmit', 'directorschild'),)
+
+
+
