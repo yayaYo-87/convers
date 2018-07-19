@@ -13,7 +13,8 @@ from django.views.decorators.http import require_http_methods
 # from easy_pdf.views import PDFTemplateView
 
 from app.orders.models import Cart, OrderGoods, Order, CoursesOrdersCoursesorder, CoursesOrdersOrdertickets, \
-    DirectorAdmitDirectoradmit, DirectorAdmitParentsadmit, DirectorAdmitParentletter
+    DirectorAdmitDirectoradmit, DirectorAdmitParentsadmit, DirectorAdmitParentletter, \
+    DirectorAdmitParentsadmitChildrenDirector, DirectorAdmitDirectorschild
 
 
 class IndexView(generic.TemplateView):
@@ -255,9 +256,15 @@ def email_view_parent_admit(order):
         director_to = [order.email]
         from_email = 'info@classicalbooks.ru'
 
+        children = []
+        child = DirectorAdmitParentsadmitChildrenDirector.objects.filter(parentsadmit=order.id).all()
+        for i in child:
+            children.append(DirectorAdmitDirectorschild.objects.filter(id=i.id).first())
+
         ctx = {
             'order': order,
             'letter': letter,
+            'children': children,
         }
         print(letter.name)
         print(letter.description)
