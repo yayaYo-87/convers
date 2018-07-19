@@ -259,17 +259,13 @@ def email_view_parent_admit(order):
         children = []
         child = DirectorAdmitParentsadmitChildrenDirector.objects.filter(parentsadmit=order.id).all()
         for i in child:
-            children.append(DirectorAdmitDirectorschild.objects.filter(id=i.id).first())
+            children.append(DirectorAdmitDirectorschild.objects.filter(id=i.directorschild).first())
 
         ctx = {
             'order': order,
             'letter': letter,
             'children': children,
         }
-        print(letter.name)
-        print(letter.description)
-        print(letter.link_text)
-        print(letter.link)
 
         director_message = get_template('email/courses_parent_email.html').render(ctx)
         director_msg = EmailMessage(
