@@ -352,6 +352,8 @@ class DirectorAdmitParentsadmit(models.Model):
 
 class DirectorAdmitProgram(models.Model):
     name = models.CharField(max_length=512)
+    discount_price = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
+    price = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
 
     class Meta:
         managed = False
