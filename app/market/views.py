@@ -253,7 +253,7 @@ def email_view_parent_admit(order):
     letter = DirectorAdmitParentletter.objects.filter(active=True).first()
     if order:
         director_subject = "Вы успешно зарегистрировались"
-        director_to = [order.email]
+        parent_to = [order.email]
         from_email = 'info@classicalbooks.ru'
 
         children = []
@@ -267,11 +267,21 @@ def email_view_parent_admit(order):
             'children': children,
         }
 
+        parent_message = get_template('email/courses_parent_email.html').render(ctx)
+        parent_msg = EmailMessage(
+            director_subject,
+            parent_message,
+            to=parent_to,
+            from_email=from_email
+        )
+        parent_msg.content_subtype = 'html'
+        parent_msg.send()
+
         director_message = get_template('email/courses_parent_email.html').render(ctx)
         director_msg = EmailMessage(
             director_subject,
             director_message,
-            to=director_to,
+            to=order.community.email,
             from_email=from_email
         )
         director_msg.content_subtype = 'html'

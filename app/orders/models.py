@@ -259,10 +259,12 @@ class DirectorAdmitBriefing(models.Model):
 
 class DirectorAdmitCommunity(models.Model):
     name = models.CharField(max_length=512)
+    email = models.CharField(max_length=255)
 
     class Meta:
         managed = False
         db_table = 'director_admit_community'
+
 
 
 class DirectorAdmitYear(models.Model):
