@@ -326,21 +326,21 @@ def get_payment_status(request):
             if order.order_status == 'confirmed':
                 email_view_courses(order)
             order.save()
-            print('order.order_status: ', order.order_status)
+            print('order.id: ', order.id, ', order_status: ', order.order_status)
         elif str(id).find('admit_') == 0:
             admit = DirectorAdmitDirectoradmit.objects.filter(extra_id=str(id)).first()
             admit.order_status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
             if admit.order_status == 'confirmed':
                 email_view_admit(admit)
             admit.save()
-            print('admit.order_status: ', admit.order_status)
+            print('admit.id: ', admit.id, ', order_status: ', admit.order_status)
         elif str(id).find('parent_') == 0:
             admit = DirectorAdmitParentsadmit.objects.filter(extra_id=str(id)).first()
             admit.order_status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
             if admit.order_status == 'confirmed':
                 email_view_parent_admit(admit)
             admit.save()
-            print('admit.order_status: ', admit.order_status)
+            print('admit.id: ', admit.id, ', order_status: ', admit.order_status)
         else:
             print('convers_id: ', id)
             order = get_object_or_404(Order, id=id)
