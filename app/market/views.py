@@ -254,7 +254,7 @@ def email_view_parent_admit(order):
     if order:
         director_subject = "Вы успешно зарегистрировались"
         parent_to = [order.email]
-        from_email = ['info@classicalbooks.ru', ]
+        from_email = 'info@classicalbooks.ru'
 
         children = []
         child = DirectorAdmitParentsadmitChildrenDirector.objects.filter(parentsadmit=order.id).all()
