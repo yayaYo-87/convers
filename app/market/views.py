@@ -332,14 +332,14 @@ def get_payment_status(request):
             admit.order_status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
             if admit.order_status == 'confirmed':
                 email_view_admit(admit)
-                admit.save()
+            admit.save()
             print('admit.order_status: ', admit.order_status)
         elif str(id).find('parent_') == 0:
             admit = DirectorAdmitParentsadmit.objects.filter(extra_id=str(id)).first()
             admit.order_status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
             if admit.order_status == 'confirmed':
                 email_view_parent_admit(admit)
-                admit.save()
+            admit.save()
             print('admit.order_status: ', admit.order_status)
         else:
             print('convers_id: ', id)
