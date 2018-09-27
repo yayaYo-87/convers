@@ -323,23 +323,23 @@ def get_payment_status(request):
         if str(id).find('courses_') == 0:
             order = CoursesOrdersCoursesorder.objects.filter(extra_id=str(id)).first()
             order.order_status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
+            order.save()
             if order.order_status == 'confirmed':
                 email_view_courses(order)
-            order.save()
             print('order.id: ', order.id, ', order_status: ', order.order_status)
         elif str(id).find('admit_') == 0:
             admit = DirectorAdmitDirectoradmit.objects.filter(extra_id=str(id)).first()
             admit.order_status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
+            admit.save()
             if admit.order_status == 'confirmed':
                 email_view_admit(admit)
-            admit.save()
             print('admit.id: ', admit.id, ', order_status: ', admit.order_status)
         elif str(id).find('parent_') == 0:
             admit = DirectorAdmitParentsadmit.objects.filter(extra_id=str(id)).first()
             admit.order_status = 'confirmed' if status == 'CONFIRMED' else 'cancel'
+            admit.save()
             if admit.order_status == 'confirmed':
                 email_view_parent_admit(admit)
-            admit.save()
             print('admit.id: ', admit.id, ', order_status: ', admit.order_status)
         else:
             print('convers_id: ', id)
@@ -350,8 +350,10 @@ def get_payment_status(request):
                 if not order.order_delivery == 'without':
                     shiptorg_post(order)
                     order.send_to_shiptor = True
+                order.save()
                 email_view(order)
-            order.save()
+            else:
+                order.save()
         return HttpResponse(status=200, content='OK')
     
     return HttpResponse(status=403, content='Incorrect token')
