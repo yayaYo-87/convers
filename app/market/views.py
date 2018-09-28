@@ -166,7 +166,7 @@ def shiptorg_post(order):
     json_data['params']['products'] = products
     headers = {
         'content-type': 'application/json',
-        'x-authorization-token': '4b8015c64d6c260d377374edecda8b54027c78ca',
+        'x-authorization-token': '88343074e2d4797d9247a8dafae42cbf8ab2f605',
     }
     path = 'https://api.shiptor.ru/shipping/v1'
     f = requests.post(path, headers=headers, json=json_data)
