@@ -170,7 +170,8 @@ def shiptorg_post(order):
     }
     path = 'https://api.shiptor.ru/shipping/v1'
     f = requests.post(path, headers=headers, json=json_data)
-    print(json_data)
+    print('json_data: ', json_data)
+    print('Shiptor responce: ', f)
 
     return HttpResponse(f.content)
 
