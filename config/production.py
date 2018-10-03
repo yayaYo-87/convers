@@ -6,6 +6,8 @@ ALLOWED_HOSTS = ['classicalbooks.ru', 'www.classicalbooks.ru', 'classical-books.
 'www.classicalconversationsbooks.com', '144.76.163.52']
 
 DATABASE_PASSWORD=os.environ.get('DATABASE_PASSWORD')
+HOST_PASSWORD=os.environ.get('HOST_PASSWORD')
+TINKOFF_PASSWORD=os.environ.get('TINKOFF_PASSWORD')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -29,7 +31,7 @@ EMAIL_HOST_USER = 'info@classicalbooks.ru'
 EMAIL_HOST_PASSWORD = HOST_PASSWORD
 
 SERVER_EMAIL = EMAIL_HOST_USER
-TINKOFF_PASSWORD=os.environ.get('TINKOFF_PASSWORD')
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
