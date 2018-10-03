@@ -43,7 +43,7 @@ def init_pay(request):
     order = Order.objects.filter(id=id).first()
     json_data = {}
     if order:
-        json_data['TerminalKey'] = '1511862369151'
+        json_data['TerminalKey'] = settings.TINKOFF_TERMINAL_KEY
         json_data['Amount'] = int(order.total_delivery) * 100 + int(order.total) * 100 - int(order.total_discount) * 100
         json_data['OrderId'] = order.id
         json_data['Description'] = 'Классические беседы'
@@ -166,7 +166,7 @@ def shiptorg_post(order):
     json_data['params']['products'] = products
     headers = {
         'content-type': 'application/json',
-        'x-authorization-token': '88343074e2d4797d9247a8dafae42cbf8ab2f605',
+        'x-authorization-token': settings.SHIPTOR_TOKEN,
     }
     path = 'https://api.shiptor.ru/shipping/v1'
     f = requests.post(path, headers=headers, json=json_data)
@@ -366,7 +366,7 @@ def shiptorg(request):
     json_data = json.loads(request.body.decode("utf-8"))['json']
     headers = {
         'content-type': 'application/json',
-        'x-authorization-token': '88343074e2d4797d9247a8dafae42cbf8ab2f605',
+        'x-authorization-token': settings.SHIPTOR_TOKEN,
     }
     path = 'https://api.shiptor.ru/shipping/v1'
     f = requests.post(path, headers=headers, json=json_data)
