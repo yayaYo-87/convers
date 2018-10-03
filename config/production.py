@@ -5,11 +5,12 @@ ALLOWED_HOSTS = ['classicalbooks.ru', 'www.classicalbooks.ru', 'classical-books.
 'classicalConversationsbooks.com','www.classical-books.ru', 'www.классическиекниги.рф', 'www.классические-книги.рф',
 'www.classicalconversationsbooks.com', '144.76.163.52']
 
+DATABASE_PASSWORD=os.environ.get('DATABASE_PASSWORD')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'convers',
-        'PASSWORD': '1111',
+        'PASSWORD': DATABASE_PASSWORD,
         'HOST': 'localhost',
         'USER': 'postgres',
     }
