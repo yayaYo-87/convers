@@ -10,7 +10,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'convers',
-        'PASSWORD': 1111,
+        'PASSWORD': DATABASE_PASSWORD,
         'HOST': 'localhost',
         'USER': 'postgres',
     }
