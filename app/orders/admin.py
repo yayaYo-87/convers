@@ -1,5 +1,7 @@
 import nested_admin
 from django.contrib import admin
+from import_export import resources
+from import_export.admin import ExportMixin
 
 from app.orders.models import OrderGoods, Order, Promocode
 
@@ -18,7 +20,35 @@ class OrderGoodsInline(BaseProductInline):
     fields = ['goods', 'count', 'price', 'created_at', 'size']
 
 
-class OrderModelAdmin(admin.ModelAdmin):
+class OrderResource(resources.ModelResource):
+    class Meta:
+        model = Order
+        fields = [
+            'id',
+            'total',
+            'total_discount',
+            'total_delivery',
+            'total_count',
+            'created_at',
+            'order_status',
+            'order_delivery',
+            'city',
+            'address',
+            'home',
+            'index',
+            'first_name',
+            'last_name',
+            'email',
+            'phone',
+            'delivery_point_name',
+            'administrative_area',
+            'settlement',
+            'apartment',
+            'comment',
+        ]
+
+
+class OrderModelAdmin(ExportMixin, admin.ModelAdmin):
     save_as_continue = False
     save_as = False
     list_display = [
@@ -35,7 +65,7 @@ class OrderModelAdmin(admin.ModelAdmin):
         'total_delivery',
         'total_discount',
     ]
-    list_filter = ['order_status']
+    list_filter = ['order_status', 'created_at', 'city', ]
     fields = [
         'total',
         'total_discount',
@@ -82,6 +112,7 @@ class OrderModelAdmin(admin.ModelAdmin):
     ]
     inlines = [OrderGoodsInline, ]
     actions = None
+    resource_class = OrderResource
 
 
 @admin.register(Promocode)
