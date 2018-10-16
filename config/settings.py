@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     # 'easy_pdf',
+    'import_export',
 
     'django.contrib.admin',
     'django.contrib.auth',
