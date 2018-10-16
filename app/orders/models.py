@@ -316,6 +316,7 @@ class DirectorAdmitDirectorschild(models.Model):
     birthday = models.DateField(blank=True, null=True)
     program = models.ForeignKey('DirectorAdmitProgram', models.DO_NOTHING, blank=True, null=True)
     is_first = models.BooleanField()
+    total_price = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True, default=0)
 
     class Meta:
         managed = False
